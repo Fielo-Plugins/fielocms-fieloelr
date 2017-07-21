@@ -1,0 +1,22 @@
+<apex:component layout="none" controller="CourseAPI">
+	<!-- COURSE/MODULE ACTION (JOIN, VIEW, CONTINUE) -->
+	<apex:attribute name="record" type="SObject" description="" />
+    <apex:attribute name="field" type="FieloCMS.Field" description="" />
+	<a class="fielo-button cms-elr-record-action" type="button" data-record-id="{!record.Id}">Loading...</a>
+	<script>
+	/* For IE Compatibility */
+	if (window.Element && !Element.prototype.closest) {
+	  Element.prototype.closest =
+	  function(s) {
+	    var matches = (this.document || this.ownerDocument).querySelectorAll(s),
+	      i,
+	      el = this;
+	    do {
+	      i = matches.length;
+	      while (--i >= 0 && matches.item(i) !== el) {};
+	    } while ((i < 0) && (el = el.parentElement)); 
+	    return el;
+	  };
+	}
+	</script>
+</apex:component>
