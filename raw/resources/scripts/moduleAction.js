@@ -108,9 +108,6 @@
     console.log(result);
     if (result) {
       this.storeCookie(result.moduleResponse.Id, result);
-      var button =
-        this.element_
-          .querySelector('[data-record-id="' + result.module.Id + '"]');
       window.location.href =
         this.records[result.module.Id]
           .FieloRecord.link_ + '#' +

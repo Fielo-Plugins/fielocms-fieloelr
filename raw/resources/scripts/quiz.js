@@ -47,10 +47,19 @@
     MULTIPLECHOICE_ITEM: 'cms-elr-multiplechoice-answer__item',
     SINGLECHOICE: 'cms-elr-singlechoice-answer',
     SINGLECHOICE_ITEM: 'cms-elr-singlechoice-answer__item',
+    SINGLECHOICE_FORM: 'cms-elr-singlechoice-answer__form',
+    SINGLECHOICE_INPUT: 'cms-elr-answer-input',
     SHORTANSWER: 'cms-elr-shortanswer-answer',
     SHORTANSWER_ITEM: 'cms-elr-shortanswer-answer__item',
+    MATCHING: 'cms-elr-matching-answer',
+    MATCHING_ITEM: 'cms-elr-matching-answer__item',
+    MATCHING_OPTION: 'cms-elr-matching-answer__option',
+    MATCHING_MATCHES: 'cms-elr-matching-answer__matches',
+    MATCHING_SELECT: 'cms-elr-matching-answer__match-selector',
+    MATCHING_SELECT_OPTION: 'cms-elr-matching-answer__match-option',
     SUBMIT: 'fielo-button__submit',
-    INPUT: 'cms-elr-answer-input'
+    INPUT: 'cms-elr-answer-input',
+    OUTPUT: 'fielo-output'
   };
 
   FieloQuiz.prototype.getCookie = function(name) {
@@ -58,6 +67,7 @@
       new RegExp(name + '=([^;]+)'));
     var resultObject = JSON.parse(result[1]);
     this.dataStructure = resultObject;
+    this.deleteCookie(name);
   };
 
   FieloQuiz.prototype.deleteCookie = function(name) {
@@ -72,6 +82,23 @@
     if (hash) {
       this.moduleResponseId = hash.replace('#', '');
     }
+  };
+
+  FieloQuiz.prototype.shuffle = function(array) {
+    var currentIndex = array.length;
+    var temporaryValue;
+    var randomIndex;
+    // While there remain elements to shuffle...
+    while (currentIndex !== 0) {
+      // Pick a remaining element...
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1;
+      // And swap it with the current element.
+      temporaryValue = array[currentIndex];
+      array[currentIndex] = array[randomIndex];
+      array[randomIndex] = temporaryValue;
+    }
+    return array;
   };
 
   FieloQuiz.prototype.loadQuestion = function(questionNumber) {
@@ -89,7 +116,10 @@
       this.initSingleChoice();
     } else if (this.currentQuestion.FieloELR__Type__c === 'Short Answer') {
       this.initShortAnswer();
+    } else if (this.currentQuestion.FieloELR__Type__c === 'Matching Options') {
+      this.initMatchingOption();
     }
+    fieloUtils.spinner.FieloSpinner.hide(); // eslint-disable-line no-undef
   };
 
   FieloQuiz.prototype.initMultipleChoice = function() {
@@ -114,7 +144,7 @@
     [].forEach.call(answers,
     function(answer) {
       answerOptions[answers.indexOf(answer)]
-        .querySelector('.fielo-output')
+        .querySelector('.' + this.CssClasses_.OUTPUT)
           .innerHTML = answer.FieloELR__AnswerOptionText__c;
       answerOptions[answers.indexOf(answer)]
         .setAttribute('data-record-id',
@@ -137,7 +167,9 @@
     while (answerOptions.length <
         this.currentQuestion.FieloELR__AnswerOptions__r.length) {
       answerOptionsContainer
-        .appendChild(answerOptions[0].cloneNode(true));
+        .querySelector(
+          '.' + this.CssClasses_.SINGLECHOICE_FORM)
+            .appendChild(answerOptions[0].cloneNode(true));
       answerOptions =
         answerOptionsContainer
           .querySelectorAll(
@@ -153,6 +185,9 @@
       answerOptions[answers.indexOf(answer)]
         .setAttribute('data-record-id',
           answer.Id);
+      answerOptions[answers.indexOf(answer)]
+        .querySelector('.' + this.CssClasses_.INPUT)
+          .value = answer.Id;
     }, this);
     this.element_
       .querySelector('.' + this.CssClasses_.ANSWER_CONTAINER)
@@ -170,6 +205,73 @@
     this.addSubmitButton();
   };
 
+  FieloQuiz.prototype.initMatchingOption = function() {
+    var answerOptionsContainer =
+      this.element_.querySelector(
+        '.' + this.CssClasses_.MATCHING).cloneNode(true);
+    var answers =
+      this.currentQuestion.FieloELR__AnswerOptions__r;
+    var matchingText = [];
+    [].forEach.call(answers, function(answer) {
+      matchingText.push(answer.FieloELR__MatchingText__c);
+    }, this);
+    matchingText = this.shuffle(matchingText);
+    var answerOptions =
+      answerOptionsContainer
+        .querySelectorAll(
+          '.' + this.CssClasses_.MATCHING_ITEM);
+    var answerOptionSelectContainer =
+      answerOptions[0]
+        .querySelector(
+          '.' + this.CssClasses_.MATCHING_SELECT);
+    var answerOptionSelect =
+      answerOptions[0]
+        .querySelectorAll(
+          '.' + this.CssClasses_.MATCHING_SELECT_OPTION);
+    while (answerOptionSelect.length <=
+        matchingText.length) {
+      answerOptionSelectContainer
+        .appendChild(answerOptionSelect[0].cloneNode());
+      answerOptionSelect =
+        answerOptions[0]
+          .querySelectorAll(
+            '.' + this.CssClasses_.MATCHING_SELECT_OPTION);
+    }
+    answerOptionSelect[0]
+      .innerHTML = FrontEndJSSettings.LABELS.SelectAnOption; // eslint-disable-line no-undef
+    answerOptionSelect[0]
+      .setAttribute('value', FrontEndJSSettings.LABELS.SelectAnOption); // eslint-disable-line no-undef
+    [].forEach.call(matchingText, function(text) {
+      answerOptionSelect[matchingText.indexOf(text) + 1]
+        .innerHTML = text;
+      answerOptionSelect[matchingText.indexOf(text) + 1]
+        .setAttribute('value', text);
+    }, this);
+    while (answerOptions.length <
+        this.currentQuestion.FieloELR__AnswerOptions__r.length) {
+      answerOptionsContainer
+        .appendChild(answerOptions[0].cloneNode(true));
+      answerOptions =
+        answerOptionsContainer
+          .querySelectorAll(
+            '.' + this.CssClasses_.MATCHING_ITEM);
+    }
+
+    [].forEach.call(answers,
+    function(answer) {
+      answerOptions[answers.indexOf(answer)]
+        .querySelector('.fielo-output')
+          .innerHTML = answer.FieloELR__AnswerOptionText__c + '&nbsp;';
+      answerOptions[answers.indexOf(answer)]
+        .setAttribute('data-record-id',
+          answer.Id);
+    }, this);
+    this.element_
+      .querySelector('.' + this.CssClasses_.ANSWER_CONTAINER)
+        .appendChild(answerOptionsContainer);
+    this.addSubmitButton();
+  };
+
   FieloQuiz.prototype.clearQuestion = function() {
     this.questionText.innerHTML = '';
     var answersContainer = this.element_
@@ -181,19 +283,20 @@
 
   FieloQuiz.prototype.addSubmitButton = function() {
     if (!this.hasEventListener) {
-      var submitButton =
+      this.submitButton =
         this.element_.querySelector(
           '.' + this.CssClasses_.SUBMIT).cloneNode(true);
       this.element_
         .querySelector('.' + this.CssClasses_.BUTTON_CONTAINER)
-          .appendChild(submitButton);
-      submitButton.addEventListener('click',
+          .appendChild(this.submitButton);
+      this.submitButton.addEventListener('click',
         this.submitQuestion.bind(this));
       this.hasEventListener = true;
     }
   };
 
   FieloQuiz.prototype.submitQuestion = function() {
+    fieloUtils.spinner.FieloSpinner.show(); // eslint-disable-line no-undef
     this.getQuestionResponseWrapper();
     Visualforce.remoting.Manager.invokeAction( // eslint-disable-line no-undef
       this.Constant_.SUBMIT_METHOD,
@@ -205,23 +308,51 @@
     );
   };
 
+  FieloQuiz.prototype.showMessage = function(message, redirect, time) {
+    fieloUtils.message.FieloMessage.clear(); // eslint-disable-line no-undef
+    fieloUtils.message.FieloMessage.addMessages( // eslint-disable-line no-undef
+    fieloUtils.site.FieloSite.getLabel( // eslint-disable-line no-undef
+      message)
+    );
+    fieloUtils.message.FieloMessage.setRedirect(redirect, time); // eslint-disable-line no-undef
+    fieloUtils.message.FieloMessage.show(); // eslint-disable-line no-undef
+  };
+
   FieloQuiz.prototype.submitCallback = function(result) {
     console.log(result);
-    if (result) {
-      if (result.questionResponse) {
-        if (result.questionResponse.FieloELR__IsCorrect__c === true) {
-          this.currentQuestionNumber++;
-          if (this.currentQuestionNumber < this.dataStructure.questions.length) {
-            this.loadQuestion(this.currentQuestionNumber);
+    try {
+      if (result) {
+        if (result.questionResponse) {
+          if (result.questionResponse.FieloELR__IsCorrect__c === true) {
+            this.currentQuestionNumber++;
+            if (this.currentQuestionNumber <
+                this.dataStructure.questions.length) {
+              this.loadQuestion(this.currentQuestionNumber);
+            } else {
+              this.submitModule();
+            }
+          } else if (this.currentQuestionNumber <
+              this.dataStructure.questions.length) {
+            if (result.canRepeatQuestion) {
+              this.showMessage(FrontEndJSSettings.LABELS.WrongAnswer, '#', 3); // eslint-disable-line no-undef
+              this.loadQuestion(this.currentQuestionNumber);
+            } else {
+              this.showMessage(FrontEndJSSettings.LABELS.MaximumAttempts, '#'); // eslint-disable-line no-undef
+              this.currentQuestionNumber++;
+              this.loadQuestion(this.currentQuestionNumber);
+            }
           } else {
             this.submitModule();
           }
         }
       }
+    } catch (e) {
+      console.log(e);
     }
   };
 
   FieloQuiz.prototype.submitModule = function() {
+    fieloUtils.spinner.FieloSpinner.show(); // eslint-disable-line no-undef
     this.clearQuestion();
     this.moduleResponse = {};
     this.moduleResponse.Id = this.moduleResponseId;
@@ -240,7 +371,15 @@
     console.log(result);
     this.clearQuestion();
     this.questionText.innerHTML =
-      'Module Finished.';// JSON.stringify(result);
+      '';
+    this.submitButton.style.visibility = 'hidden';
+    this.element_.querySelector(
+      '.' + this.CssClasses_.TITLE)
+        .style.visibility = 'hidden';
+    fieloUtils.spinner.FieloSpinner.hide(); // eslint-disable-line no-undef
+    this.showMessage(
+      FrontEndJSSettings.LABELS.ModuleFinished, // eslint-disable-line no-undef
+        this.redirectURL, 3);
   };
 
   FieloQuiz.prototype.getQuestionResponseWrapper = function() {
@@ -260,6 +399,9 @@
       this.questionResponse.FieloELR__TextValue__c = // eslint-disable-line camelcase
         this.getShortAnswer();
       this.answers = [];
+    } else if (this.currentQuestion.FieloELR__Type__c === 'Matching Options') {
+      this.answers =
+        this.getMatchingOptionsAnswers();
     }
 
     this.question = Object.assign({}, this.currentQuestion);
@@ -272,6 +414,38 @@
       this.answers;
     this.questionResponseWrapper.question =
       this.question;
+  };
+
+  FieloQuiz.prototype.getMatchingOptionsAnswers = function() {
+    var answersContainer =
+      this.element_
+        .querySelector(
+          '.' + this.CssClasses_.ANSWER_CONTAINER);
+    var answerOptions =
+      answersContainer
+        .querySelectorAll(
+          '.' + this.CssClasses_.MATCHING_ITEM);
+    var answers = [];
+    var answer;
+    var textValue;
+    [].forEach.call(answerOptions, function(answerOption) {
+      answer = {};
+      answer.FieloELR__AnswerOption__c = // eslint-disable-line camelcase
+        answerOption.getAttribute('data-record-id');
+      textValue =
+        answerOption
+          .querySelector(
+            '.' + this.CssClasses_.MATCHING_MATCHES)
+            .querySelector(
+              '.' + this.CssClasses_.MATCHING_SELECT)
+              .value;
+      answer.FieloELR__TextValue__c = // eslint-disable-line camelcase
+        textValue === FrontEndJSSettings.LABELS.SelectAnOption ? // eslint-disable-line no-undef
+          '' :
+          textValue;
+      answers.push(answer);
+    }, this);
+    return answers;
   };
 
   FieloQuiz.prototype.getFlagAnswers = function() {
@@ -316,6 +490,10 @@
     this.questionText =
       this.element_.querySelector(
         '#' + this.Constant_.QUESTION_TEXT);
+    this.redirectURL =
+      'FieloCMS__Page?pageId=' +
+        this.element_.getAttribute('data-redirect-page') +
+          '&id=' + this.moduleResponseId;
   };
 
   /**
