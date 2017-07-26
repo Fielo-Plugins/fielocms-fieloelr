@@ -290,11 +290,21 @@ global class CourseAPI implements FieloCMS.DataInterface, FieloCMS.ViewSubCompon
                     }
                 } else {
                     for (FieloELR.CourseService.ModuleWrapper moduleWrapper: courseMap.modules){
+                        system.debug('moduleWrapper');
+                        system.debug(moduleWrapper);
                         if (moduleWrapper.moduleResponses != null) {
                             if (moduleWrapper.moduleResponses == null) {
-                                moduleActions.put(moduleWrapper.module.Id,'Take');
+                                if (moduleWrapper.allowedForDependency) {
+                                    moduleActions.put(moduleWrapper.module.Id,'Take');
+                                } else {
+                                    moduleActions.put(moduleWrapper.module.Id,'Take,Hide');
+                                }
                             } else if(moduleWrapper.moduleResponses.isEmpty()){
-                                moduleActions.put(moduleWrapper.module.Id,'Take');
+                                if (moduleWrapper.allowedForDependency) {
+                                    moduleActions.put(moduleWrapper.module.Id,'Take');
+                                } else {
+                                    moduleActions.put(moduleWrapper.module.Id,'Take,Hide');
+                                }
                             } else if(!moduleWrapper.isApproved && moduleWrapper.numberOfAttempts <= moduleWrapper.module.FieloELR__AttemptsAllowed__c) {
                                 moduleActions.put(moduleWrapper.module.Id,'Retake');
                             } else if(moduleWrapper.isApproved && moduleWrapper.numberOfAttempts <= moduleWrapper.module.FieloELR__AttemptsAllowed__c) {
@@ -303,7 +313,11 @@ global class CourseAPI implements FieloCMS.DataInterface, FieloCMS.ViewSubCompon
                                 moduleActions.put(moduleWrapper.module.Id,'View');
                             }
                         } else {
-                            moduleActions.put(moduleWrapper.module.Id,'Take');
+                            if (moduleWrapper.allowedForDependency) {
+                                moduleActions.put(moduleWrapper.module.Id,'Take');
+                            } else {
+                                moduleActions.put(moduleWrapper.module.Id,'Take,Hide');
+                            }
                         }
                     }
                 }

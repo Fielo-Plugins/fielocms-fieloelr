@@ -2,7 +2,8 @@
 	<!-- COURSE/MODULE ACTION (JOIN, VIEW, CONTINUE) -->
 	<apex:attribute name="record" type="SObject" description="" />
     <apex:attribute name="field" type="FieloCMS.Field" description="" />
-	<a class="fielo-button cms-elr-record-action" type="button" data-record-id="{!record.Id}">Loading...</a>
+    <apex:attribute name="config" type="SObject" description="" />
+	<a class="fielo-button cms-elr-record-action" type="button" data-record-id="{!record.Id}" data-redirect-page="{!config['RedirectPage__c']}">Loading...</a>
 	<script>
 	/* For IE Compatibility */
 	if (window.Element && !Element.prototype.closest) {
