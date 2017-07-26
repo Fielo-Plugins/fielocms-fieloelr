@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata">
+    <labels>
+        <fullName>MaximumAttempts</fullName>
+        <categories>quiz.js</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>MaximumAttempts</shortDescription>
+        <value>Maximum attempts reached.</value>
+    </labels>
+    <labels>
+        <fullName>ModuleFinished</fullName>
+        <categories>quiz.js</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>ModuleFinished</shortDescription>
+        <value>Module finished.</value>
+    </labels>
+    <labels>
+        <fullName>WrongAnswer</fullName>
+        <categories>quiz.js</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>WrongAnswer</shortDescription>
+        <value>Incorrect Answer.</value>
+    </labels>
+</CustomLabels>
