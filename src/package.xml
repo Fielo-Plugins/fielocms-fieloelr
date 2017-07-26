@@ -15,5 +15,14 @@
 		<members>Widget3</members>
 		<name>ApexComponent</name>
 	</types>
+	<types>
+		<members>*</members>
+		<name>CustomLabels</name>
+	</types>
+	<types>
+		<members>FieloCms_Prp_Components</members>
+		<members>FieloPlugin_PrpPlugin</members>
+		<name>StaticResource</name>
+	</types>
 	<version>36.0</version>
 </Package>
