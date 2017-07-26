@@ -1,0 +1,43 @@
+<apex:component layout="none" controller="QuizAPI">
+	<apex:attribute name="config" type="SObject" description="" />
+    <apex:attribute name="record" type="SObject" description="" />
+    <div class="{!config['FieloCMS__ComponentLibrary__r']['FieloCMS__CSSClasses__c']} {!config['FieloCMS__CSSClasses__c']} fielo-js-component" data-remoteobject="{!config['FieloCMS__ComponentLibrary__r']['FieloCMS__sobject__c']}" data-componentid="{! config['Id'] }">
+		<h3 class="fielo-title">Question&nbsp;<span id="cms-elr-question-number" class="fielo-output fielo-output__text" data-type="string"/></h3>
+	    <span id="cms-elr-question-text" class="fielo-output fielo-output__text" data-type="string"/>
+
+	    <div class="cms-elr-answers-container" />
+
+	    <div class="cms-elr-buttons-container" />
+
+		<div style="visibility:collapse;">
+		    <ul class="cms-elr-multiplechoice-answer">
+				<li class="cms-elr-multiplechoice-answer__item"><input type="checkbox" class="cms-elr-answer-input"/>&nbsp;<span class="fielo-output fielo-output__text" data-type="string">Checkbox</span></li>
+			</ul>
+			<ul class="cms-elr-singlechoice-answer">
+				<li class="cms-elr-singlechoice-answer__item"><input type="radio" class="cms-elr-answer-input" value="Answer"/>&nbsp;<span class="fielo-output fielo-output__text" data-type="string">Answer</span></li>
+			</ul>
+			<ul class="cms-elr-shortanswer-answer">
+				<li class="cms-elr-shortanswer-answer__item"><span class="fielo-output fielo-output__text" data-type="string">Answer:</span>&nbsp;<input type="text" class="cms-elr-answer-input"/></li>
+			</ul>
+
+			<button class="fielo-button fielo-button__submit" type="button">Submit</button>
+			<button class="fielo-button fielo-button__next" type="button">Next</button>
+		</div>
+	</div>
+	<script>
+	/* For IE Compatibility */
+	if (window.Element && !Element.prototype.closest) {
+	  Element.prototype.closest =
+	  function(s) {
+	    var matches = (this.document || this.ownerDocument).querySelectorAll(s),
+	      i,
+	      el = this;
+	    do {
+	      i = matches.length;
+	      while (--i >= 0 && matches.item(i) !== el) {};
+	    } while ((i < 0) && (el = el.parentElement)); 
+	    return el;
+	  };
+	}
+	</script>
+</apex:component>
