@@ -27,8 +27,8 @@
    * @private
    */
   FieloCourseAction.prototype.Constant_ = {
-    GET_ACTIONS: 'CourseAPI.getCourseActions',
-    JOIN_COURSE: 'CourseAPI.joinCourse'
+    GET_ACTIONS: 'ActionsAPI.getCourseActions',
+    JOIN_COURSE: 'ActionsAPI.joinCourse'
   };
 
   /**

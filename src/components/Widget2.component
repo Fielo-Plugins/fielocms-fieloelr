@@ -1,4 +1,4 @@
-<apex:component layout="none" controller="CourseAPI">
+<apex:component layout="none" controller="ActionsAPI">
 	<!-- COURSE/MODULE ACTION (JOIN, VIEW, CONTINUE) -->
 	<apex:attribute name="record" type="SObject" description="" />
     <apex:attribute name="field" type="FieloCMS.Field" description="" />

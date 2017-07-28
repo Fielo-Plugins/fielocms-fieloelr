@@ -6,6 +6,8 @@
 		<members>ELRSubcomponents</members>
 		<members>ProgressBar</members>
 		<members>QuizAPI</members>
+		<members>ActionsAPI</members>
+		<members>QuestionResponseAPI</members>
 		<name>ApexClass</name>
 	</types>
 	<types>

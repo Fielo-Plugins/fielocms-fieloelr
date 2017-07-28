@@ -27,8 +27,8 @@
    * @private
    */
   FieloModuleAction.prototype.Constant_ = {
-    GET_ACTIONS: 'CourseAPI.getModuleActions',
-    TAKE_MODULE: 'CourseAPI.takeModule'
+    GET_ACTIONS: 'ActionsAPI.getModuleActions',
+    TAKE_MODULE: 'ActionsAPI.takeModule'
   };
 
   /**
@@ -63,7 +63,7 @@
     var actions;
     if (results) {
       [].forEach.call(Object.keys(results), function(moduleId) {
-        actions = results[moduleId].split(',');
+        actions = results[moduleId].Actions;
         var buttons = this.records[moduleId]
           .querySelectorAll('.' + this.CssClasses_.ACTION);
         while (actions.length > buttons.length) {
@@ -76,17 +76,33 @@
           .querySelectorAll('.' + this.CssClasses_.ACTION);
         }
         [].forEach.call(actions, function(action) {
-          buttons[actions.indexOf(action)].innerHTML = action;
           if (action === 'Take' || action === 'Retake') {
             buttons[actions.indexOf(action)].innerHTML = action;
             buttons[actions.indexOf(action)].href = '#';
             buttons[actions.indexOf(action)]
                 .addEventListener('click', this.takeModule.bind(this));
+          } else if (action === 'Hide') {
+            [].forEach.call(buttons, function(button) {
+              button.style.visibility = 'hidden';
+            }, this);
           } else {
             buttons[actions.indexOf(action)]
               .innerHTML = action;
             buttons[actions.indexOf(action)]
               .href = this.records[moduleId].FieloRecord.link_;
+          }
+          if (action === 'View') {
+            if (results[moduleId].ModuleResponseId) {
+              buttons[actions.indexOf(action)]
+                .setAttribute('data-module-response-id',
+                  results[moduleId].ModuleResponseId);
+              if (results[moduleId].PageId) {
+                buttons[actions.indexOf(action)]
+                  .href = 'FieloCMS__Page?pageId=' +
+                    results[moduleId].PageId +
+                      '&id=' + results[moduleId].ModuleResponseId;
+              }
+            }
           }
         }, this);
       }, this);
@@ -106,8 +122,9 @@
 
   FieloModuleAction.prototype.takeCallback = function(result) {
     console.log(result);
+    console.log(String(result));
     if (result) {
-      this.storeCookie(result.moduleResponse.Id, result);
+      this.storeData(result.moduleResponse.Id, result);
       window.location.href =
         this.records[result.module.Id]
           .FieloRecord.link_ + '#' +
@@ -115,19 +132,14 @@
     }
   };
 
-  FieloModuleAction.prototype.storeCookie = function(name, value) {
-    var cookie = [name, '=',
-      JSON.stringify(value),
-      '; domain=.',
-      window.location.host.toString(),
-      '; path=/;']
-      .join('');
-    document.cookie = cookie;
+  FieloModuleAction.prototype.storeData = function(name, value) {
+    localStorage.setItem(name, JSON.stringify(value));
   };
 
   FieloModuleAction.prototype.getActions = function() {
     Visualforce.remoting.Manager.invokeAction( // eslint-disable-line no-undef
       this.Constant_.GET_ACTIONS,
+      this.element_.getAttribute('data-componentid'),
       this.recordIds,
       this.updateAction.bind(this),
       {
