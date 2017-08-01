@@ -1,4 +1,4 @@
-global class QuestionResponseAPI implements FieloCMS.DataInterface {
+global class QuestionResponseAPI implements FieloCMS.DataInterface, FieloCMS.ViewInterface {
 	global Map<Id, Object> getBulkData(List<FieloCMS__Component__c> components){
         Map<Id,Object> newMapData = new Map<Id,Object>();
         Id memberId = MemberService.getCurrentMemberId();
@@ -6,6 +6,16 @@ global class QuestionResponseAPI implements FieloCMS.DataInterface {
         for(FieloCMS__Component__c c : components){
             if(c.FieloCMS__Limit__c == null)
                 c.FieloCMS__Limit__c = 5;
+
+            List<Map<String,String>> fieldSet = (List<Map<String,String>>) JSON.deserialize(c.FieloCMS__FieldSet__c, List<Map<String,String>>.class );
+            
+            Set<String> fields = new Set<String>();
+
+            for(Map<String,String> field: fieldSet) {
+            	if (field.containsKey('apiName')) {
+            		fields.add(field.get('apiName'));
+            	}
+            }
 
             String whereCondition;
             Id moduleResponseId;
@@ -17,8 +27,9 @@ global class QuestionResponseAPI implements FieloCMS.DataInterface {
             }
             whereCondition += ' LIMIT ' + String.valueOf(c.FieloCMS__Limit__c);
             whereCondition += ' OFFSET 0';
-            newMapData.put(c.Id, Database.query('SELECT ' + String.join(new List<String>(OrganizationUtil.getFieldSet(c.FieloCMS__FieldSet__c)), ',') + ' FROM FieloELR__QuestionResponse__c WHERE ' + whereCondition));
+            newMapData.put(c.Id, Database.query('SELECT ' + String.join(new List<String>(fields), ',') + ' FROM FieloELR__QuestionResponse__c WHERE ' + whereCondition));
         }
+        system.debug(newMapData);
         return newMapData;
     }
 
@@ -59,5 +70,68 @@ global class QuestionResponseAPI implements FieloCMS.DataInterface {
         system.debug('***query');
         system.debug(query);
         return Database.query(query);
+    }
+
+    global ApexPages.Component getComponent(FieloCMS__Component__c c){
+        Component.Widget4 quiz = new Component.Widget4(config = c);
+        return quiz;        
+    }
+
+    public sObject[] records { get {
+    	sObject[] rows = new List<sObject>();
+    	Id memberId = MemberService.getCurrentMemberId();
+        FieloPLT__Member__c member = [SELECT Id, FieloPLT__Program__c FROM FieloPLT__Member__c WHERE Id =: memberId];
+        Id moduleResponseId = ApexPages.CurrentPage().getParameters().get('id');
+        FieloELR.ModuleService.ModuleResponseResult moduleResponseResult = FieloELR.ModuleService.getModuleResponse(
+        	moduleResponseId,
+        	new Set<String> {'Name'},
+        	new Set<String> {'Name'},
+        	new Set<String> {'FieloELR__AnswerOptionText__c'}
+        );
+
+        sObject row = (sObject) new FieloELR__QuestionResponse__c();
+        for(FieloELR.QuestionService.QuestionResponseResult qrr: moduleResponseResult.questions) {
+        	row = (sObject) new FieloELR__QuestionResponse__c();
+        	row.put('FieloELR__Question__c', qrr.question.Id);
+        	row.put('FieloELR__IsCorrect__c', qrr.questionResponse.FieloELR__IsCorrect__c);
+        	row.put('FieloELR__NumberOfAttempt__c', qrr.numberOfAttempts);
+        	row.put('FieloELR__PartialGradeValue__c', qrr.questionResponse.FieloELR__PartialGradeValue__c);
+        	rows.add(row);
+        }
+
+        return rows;
+    }
+    	set;
+    }
+
+    public List<sObject> answers { get {
+    	List<sObject> rows = new List<sObject>();
+    	Id memberId = MemberService.getCurrentMemberId();
+        FieloPLT__Member__c member = [SELECT Id, FieloPLT__Program__c FROM FieloPLT__Member__c WHERE Id =: memberId];
+        Id moduleResponseId = ApexPages.CurrentPage().getParameters().get('id');
+        FieloELR.ModuleService.ModuleResponseResult moduleResponseResult = FieloELR.ModuleService.getModuleResponse(
+        	moduleResponseId,
+        	new Set<String> {'Name'},
+        	new Set<String> {'Name'},
+        	new Set<String> {'FieloELR__Question__c','FieloELR__AnswerOptionText__c','Status__c'}
+        );
+
+        sObject row;
+        for(FieloELR.QuestionService.QuestionResponseResult qrr: moduleResponseResult.questions) {
+        	if (qrr.answerWrappers != null) {
+        		for(FieloELR.QuestionService.AnswerWrapper aw: qrr.answerWrappers) {
+	        		row = (sObject) new FieloELR__AnswerOption__c();
+	        		row.put('FieloELR__Question__c', aw.answerOption.FieloELR__Question__c);
+	        		row.put('FieloELR__AnswerOptionText__c', aw.answerOption.FieloELR__AnswerOptionText__c);
+	        		row.put('FieloELR__IsCorrect__c', aw.answerOption.FieloELR__IsCorrect__c);
+	        		row.put('Status__c', aw.answerStatus);
+	        		rows.add(row);
+	        	}
+        	}
+        }
+
+        return rows;
+    }
+    	set;
     }
 }
