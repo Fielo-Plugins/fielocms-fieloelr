@@ -128,9 +128,6 @@ global class QuestionResponseAPI implements FieloCMS.DataInterface, FieloCMS.Vie
 	        		row.put('FieloELR__AnswerOptionText__c', aw.answerOption.FieloELR__AnswerOptionText__c);
 	        		row.put('FieloELR__IsCorrect__c', aw.answerOption.FieloELR__IsCorrect__c);
 	        		row.put('Status__c', aw.answerStatus);
-                    if (qrr.question.FieloELR__Type__c == 'Matching Options') {
-                        row.put('FieloELR__MatchingText__c', aw.answerOption.FieloELR__MatchingText__c);
-                    }
 	        		rows.add(row);
 	        	}
         	}

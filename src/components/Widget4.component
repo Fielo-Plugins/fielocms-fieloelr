@@ -57,20 +57,15 @@
 			    <table class="fielo-table mdl-data-table" data-question-id="{!record['FieloELR__Question__c']}">
 					<thead class="fielo-table__head">
 						<tr class="fielo-record"  data-order-by-type="list">
-							<apex:panelGroup rendered="{! record['QuestionType__c'] != 'Short Answer' }" layout="none" >
+							<apex:panelGroup rendered="{! record['QuestionType__c'] != 'Short Answer' && record['QuestionType__c'] != 'Matching Options'}" layout="none" >
 			                    <th class="fielo-field fielo-field--is-FieloELR__AnswerOptionText__c mdl-data-table__cell--non-numeric">
 									<span class="{!IF(config['FieloCMS__orderBy__c'] == '' , '', 'fielo-order-by__item')} {!IF(config['FieloCMS__orderBy__c']=='DESC', 'fielo-order-by__item--is-desc active','')} {!IF(config['FieloCMS__orderBy__c']=='ASC', 'fielo-order-by__item--is-asc active','')}" data-order-value="FieloELR__AnswerOptionText__c">{!$ObjectType['FieloELR__AnswerOption__c'].fields['FieloELR__AnswerOptionText__c'].label}</span>
 			                    </th>
-			                    <apex:panelGroup rendered="{! record['QuestionType__c'] == 'Matching Options' }" layout="none" >
-				                    <th class="fielo-field fielo-field--is-FieloELR__MatchingText__c mdl-data-table__cell--non-numeric">
-										<span class="{!IF(config['FieloCMS__orderBy__c'] == '' , '', 'fielo-order-by__item')} {!IF(config['FieloCMS__orderBy__c']=='DESC', 'fielo-order-by__item--is-desc active','')} {!IF(config['FieloCMS__orderBy__c']=='ASC', 'fielo-order-by__item--is-asc active','')}" data-order-value="FieloELR__MatchingText__c">{!$ObjectType['FieloELR__AnswerOption__c'].fields['FieloELR__MatchingText__c'].label}</span>
-				                    </th>
-				                </apex:panelGroup>
 			                    <th class="fielo-field fielo-field--is-Status__c mdl-data-table__cell--non-numeric">
 									<span class="{!IF(config['FieloCMS__orderBy__c'] == '' , '', 'fielo-order-by__item')} {!IF(config['FieloCMS__orderBy__c']=='DESC', 'fielo-order-by__item--is-desc active','')} {!IF(config['FieloCMS__orderBy__c']=='ASC', 'fielo-order-by__item--is-asc active','')}" data-order-value="Status__c">{!$ObjectType['FieloELR__AnswerOption__c'].fields['Status__c'].label}</span>
 			                    </th>
 			                </apex:panelGroup>
-			                <apex:panelGroup rendered="{! record['QuestionType__c'] == 'Short Answer' }" layout="none" >
+			                <apex:panelGroup rendered="{! record['QuestionType__c'] == 'Short Answer' || record['QuestionType__c'] == 'Matching Options'}" layout="none" >
 			                	<th class="fielo-field fielo-field--is-CorrectAnswers__c mdl-data-table__cell--non-numeric">
 									<span class="{!IF(config['FieloCMS__orderBy__c'] == '' , '', 'fielo-order-by__item')} {!IF(config['FieloCMS__orderBy__c']=='DESC', 'fielo-order-by__item--is-desc active','')} {!IF(config['FieloCMS__orderBy__c']=='ASC', 'fielo-order-by__item--is-asc active','')}" data-order-value="CorrectAnswers__c">{!$ObjectType['FieloELR__QuestionResponse__c'].fields['CorrectAnswers__c'].label}</span>
 			                    </th>
@@ -78,7 +73,7 @@
 			            </tr>
 			        </thead>
 			        <tbody class="fielo-record-set__data">
-			        	<apex:panelGroup rendered="{!record['QuestionType__c'] != 'Short Answer'}" layout="none" >
+			        	<apex:panelGroup rendered="{!record['QuestionType__c'] != 'Short Answer' && record['QuestionType__c'] != 'Matching Options'}" layout="none" >
 				        	<apex:repeat value="{!answers}" var="answer">
 				        		<apex:panelGroup rendered="{! answer['FieloELR__Question__c'] == record['FieloELR__Question__c'] && record['QuestionType__c'] != 'Short Answer' }" layout="none" >
 					                <tr class="fielo-record fielo-record-set__template">
@@ -87,13 +82,6 @@
 								      			<c:OutputField sObject="FieloELR__AnswerOption__c" field="FieloELR__AnswerOptionText__c" record="{!answer}"/>
 								      		</span>
 								    	</td>
-								    	<apex:panelGroup rendered="{! record['QuestionType__c'] == 'Matching Options' }" layout="none" >
-									    	<td class="fielo-field fielo-field--is-FieloELR__MatchingText__c mdl-data-table__cell--non-numeric" data-th="Question">
-									      		<span class="fielo-field__value">
-									      			<c:OutputField sObject="FieloELR__AnswerOption__c" field="FieloELR__MatchingText__c" record="{!answer}"/>
-									      		</span>
-									    	</td>
-								    	</apex:panelGroup>
 								    	<td class="fielo-field fielo-field--is-Status__c mdl-data-table__cell--non-numeric" data-th="Question">
 								      		<span class="fielo-field__value">
 								      			<c:OutputField sObject="FieloELR__AnswerOption__c" field="Status__c" record="{!answer}"/>
@@ -103,7 +91,7 @@
 					            </apex:panelGroup>
 				            </apex:repeat>
 				        </apex:panelGroup>
-				        <apex:panelGroup rendered="{! record['QuestionType__c'] == 'Short Answer' }" layout="none" >
+				        <apex:panelGroup rendered="{! record['QuestionType__c'] == 'Short Answer' || record['QuestionType__c'] == 'Matching Options'}" layout="none" >
 			                <tr class="fielo-record fielo-record-set__template">
 						    	<td class="fielo-field fielo-field--is-CorrectAnswers__c mdl-data-table__cell--non-numeric" data-th="Question">
 						      		<span class="fielo-field__value">

@@ -124,6 +124,7 @@
     console.log(result);
     console.log(String(result));
     if (result) {
+      localStorage.clear();
       this.storeData(result.moduleResponse.Id, result);
       window.location.href =
         this.records[result.module.Id]
