@@ -85,8 +85,8 @@ global class QuestionResponseAPI implements FieloCMS.DataInterface, FieloCMS.Vie
         FieloELR.ModuleService.ModuleResponseResult moduleResponseResult = FieloELR.ModuleService.getModuleResponse(
         	moduleResponseId,
         	new Set<String> {'Name'},
-        	new Set<String> {'Name'},
-        	new Set<String> {'FieloELR__AnswerOptionText__c'}
+        	new Set<String> {'Name','FieloELR__Type__c'},
+        	new Set<String> {'FieloELR__AnswerOptionText__c','FieloELR__MatchingText__c'}
         );
 
         sObject row = (sObject) new FieloELR__QuestionResponse__c();
@@ -95,7 +95,10 @@ global class QuestionResponseAPI implements FieloCMS.DataInterface, FieloCMS.Vie
         	row.put('FieloELR__Question__c', qrr.question.Id);
         	row.put('FieloELR__IsCorrect__c', qrr.questionResponse.FieloELR__IsCorrect__c);
         	row.put('FieloELR__NumberOfAttempt__c', qrr.numberOfAttempts);
-        	row.put('FieloELR__PartialGradeValue__c', qrr.questionResponse.FieloELR__PartialGradeValue__c);
+            row.put('FieloELR__PartialGradeValue__c', qrr.questionResponse.FieloELR__PartialGradeValue__c);
+            // Proxy Fields
+            row.put('QuestionType__c', qrr.question.FieloELR__Type__c);
+        	row.put('CorrectAnswers__c', qrr.correctedAnswers);
         	rows.add(row);
         }
 
@@ -112,8 +115,8 @@ global class QuestionResponseAPI implements FieloCMS.DataInterface, FieloCMS.Vie
         FieloELR.ModuleService.ModuleResponseResult moduleResponseResult = FieloELR.ModuleService.getModuleResponse(
         	moduleResponseId,
         	new Set<String> {'Name'},
-        	new Set<String> {'Name'},
-        	new Set<String> {'FieloELR__Question__c','FieloELR__AnswerOptionText__c','Status__c'}
+        	new Set<String> {'Name','FieloELR__Type__c'},
+        	new Set<String> {'FieloELR__Question__c','FieloELR__AnswerOptionText__c','Status__c','FieloELR__MatchingText__c'}
         );
 
         sObject row;
@@ -125,6 +128,9 @@ global class QuestionResponseAPI implements FieloCMS.DataInterface, FieloCMS.Vie
 	        		row.put('FieloELR__AnswerOptionText__c', aw.answerOption.FieloELR__AnswerOptionText__c);
 	        		row.put('FieloELR__IsCorrect__c', aw.answerOption.FieloELR__IsCorrect__c);
 	        		row.put('Status__c', aw.answerStatus);
+                    if (qrr.question.FieloELR__Type__c == 'Matching Options') {
+                        row.put('FieloELR__MatchingText__c', aw.answerOption.FieloELR__MatchingText__c);
+                    }
 	        		rows.add(row);
 	        	}
         	}
