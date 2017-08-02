@@ -1,30 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
 	<types>
-		<members>CourseAPI</members>
+		<members>CourseStatusAPI</members>
 		<members>ModuleAPI</members>
-		<members>ELRSubcomponents</members>
-		<members>ProgressBar</members>
-		<members>QuizAPI</members>
-		<members>ActionsAPI</members>
-		<members>QuestionResponseAPI</members>
 		<name>ApexClass</name>
-	</types>
-	<types>
-		<members>ProgressBar</members>
-		<members>Widget1</members>
-		<members>Widget2</members>
-		<members>Widget3</members>
-		<name>ApexComponent</name>
-	</types>
-	<types>
-		<members>*</members>
-		<name>CustomLabels</name>
-	</types>
-	<types>
-		<members>FieloCms_Elr_Components</members>
-		<members>FieloPlugin_ElrPlugin</members>
-		<name>StaticResource</name>
 	</types>
 	<version>36.0</version>
 </Package>
