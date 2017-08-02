@@ -8,6 +8,8 @@
 		<members>QuizAPI</members>
 		<members>ActionsAPI</members>
 		<members>QuestionResponseAPI</members>
+		<members>ModuleActionAPI</members>
+		<members>CourseActionAPI</members>
 		<name>ApexClass</name>
 	</types>
 	<types>
@@ -15,6 +17,7 @@
 		<members>Widget1</members>
 		<members>Widget2</members>
 		<members>Widget3</members>
+		<members>Widget5</members>
 		<name>ApexComponent</name>
 	</types>
 	<types>

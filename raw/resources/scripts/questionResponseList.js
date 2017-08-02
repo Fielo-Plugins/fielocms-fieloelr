@@ -53,32 +53,54 @@
         .querySelectorAll('.' + this.CssClasses_.TABLE);
 
     [].forEach.call(tables, function(table) {
-      this.tables[table.getAttribute('data-question-id')] =
-        table.cloneNode(true);
+      this.tables[table.getAttribute('data-question-id')] = [];
+      var rows = table.querySelectorAll('tr');
+      [].forEach.call(rows, function(row) {
+        this.tables[table.getAttribute('data-question-id')].push(
+          row.cloneNode(true)
+          );
+      }, this);
     }, this);
   };
 
   FieloQuestionResponseList.prototype.toggleAnswers = function(event) {
     event.preventDefault();
-    if (this.activeAnswers) {
+    var row = event.srcElement.closest('tr');
+    var questionId = event.srcElement
+      .closest('.' + this.CssClasses_.FIELO_OUTPUT)
+        .getAttribute('data-value');
+    var toggle = true;
+
+    if (!this.activeQuestionId) {
+      this.activeQuestionId = '';
+    }
+
+    if (this.activeQuestionId === questionId) {
       if (this.activeAnswers.length > 0) {
-        [].forEach.call(this.activeAnswers, function(answerTable) {
-          answerTable.parentNode.removeChild(answerTable);
+        [].forEach.call(this.activeAnswers, function(answerRow) {
+          answerRow.parentNode.removeChild(answerRow);
+        }, this);
+        this.activeAnswers = [];
+        toggle = false;
+      }
+    } else if (this.activeAnswers) {
+      if (this.activeAnswers.length > 0) {
+        [].forEach.call(this.activeAnswers, function(answerRow) {
+          answerRow.parentNode.removeChild(answerRow);
         }, this);
         this.activeAnswers = [];
       }
     } else {
       this.activeAnswers = [];
     }
-    if (event.srcElement) {
-      var row = event.srcElement.closest('tr');
-      var questionId = event.srcElement
-        .closest('.' + this.CssClasses_.FIELO_OUTPUT)
-          .getAttribute('data-value');
-      var newTable =
-        this.tables[questionId].cloneNode(true);
-      row.parentNode.insertBefore(newTable, row.nextSibling);
-      this.activeAnswers.push(newTable);
+    if (toggle) {
+      var nextRow = row.nextSibling;
+      [].forEach.call(this.tables[questionId], function(tableRow) {
+        var newRow = tableRow.cloneNode(true);
+        row.parentNode.insertBefore(newRow, nextRow);
+        this.activeAnswers.push(newRow);
+      }, this);
+      this.activeQuestionId = questionId;
     }
   };
 

@@ -27,8 +27,8 @@
    * @private
    */
   FieloModuleAction.prototype.Constant_ = {
-    GET_ACTIONS: 'ActionsAPI.getModuleActions',
-    TAKE_MODULE: 'ActionsAPI.takeModule'
+    GET_ACTIONS: 'ModuleActionAPI.getModuleActions',
+    TAKE_MODULE: 'ModuleActionAPI.takeModule'
   };
 
   /**

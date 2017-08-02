@@ -1,5 +1,5 @@
 global class CourseAPI implements FieloCMS.DataInterface, FieloCMS.ViewSubComponentInterface{
-	global Map<Id, Object> getBulkData(List<FieloCMS__Component__c> components){
+    global Map<Id, Object> getBulkData(List<FieloCMS__Component__c> components){
         Map<Id,Object> newMapData = new Map<Id,Object>();
         Id memberId = MemberService.getCurrentMemberId();
         //Prepare all the queries
@@ -8,8 +8,6 @@ global class CourseAPI implements FieloCMS.DataInterface, FieloCMS.ViewSubCompon
                 c.FieloCMS__Limit__c = 5;
 
             if(c.FieloCMS__ComponentLibrary__r.Name == 'Courses'){
-                system.debug('Fieldset');
-                system.debug(OrganizationUtil.getFieldSet(c.FieloCMS__FieldSet__c));
                 FieloPLT__Member__c member = [SELECT Id, FieloPLT__Program__c FROM FieloPLT__Member__c WHERE Id =: memberId];
                 List<FieloELR__Course__c> courses = FieloELR.CourseService.getCourses(
                     OrganizationUtil.getFieldSet(c.FieloCMS__FieldSet__c),
@@ -48,33 +46,7 @@ global class CourseAPI implements FieloCMS.DataInterface, FieloCMS.ViewSubCompon
                     'LastModifiedDate',
                     ''
                 );
-                system.debug('courses');
-                system.debug(courses);
                 newMapData.put(c.Id, courses[0]);
-            }
-
-            if(c.FieloCMS__ComponentLibrary__r.Name == 'Modules'){
-                String recordId = ApexPages.CurrentPage().getParameters().get( c.FieloCMS__DetailParameter__c );
-                FieloPLT__Member__c member = [SELECT Id, FieloPLT__Program__c FROM FieloPLT__Member__c WHERE Id =: memberId];
-                
-                List<FieloELR__Course__c> courses = FieloELR.CourseService.getCourses(
-                    new Set<String>{'Id','Name'},
-                    null,
-                    OrganizationUtil.getFieldSet(c.FieloCMS__FieldSet__c),
-                    new Set<Id>{recordId},
-                    member.FieloPLT__Program__c,
-                    member.Id,
-                    true,
-                    true,
-                    false,
-                    Integer.valueof(c.FieloCMS__Limit__c),
-                    0,
-                    'LastModifiedDate',
-                    ''
-                );
-                system.debug('courses');
-                system.debug(courses);
-                newMapData.put(c.Id, (List<Object>) courses[0].FieloELR__Modules__r);
             }
         }
         return newMapData;
@@ -119,42 +91,7 @@ global class CourseAPI implements FieloCMS.DataInterface, FieloCMS.ViewSubCompon
             );
             return (List<sObject>) courses;
         }
-        if(component.FieloCMS__ComponentLibrary__r.Name == 'Course Detail'){
-            List<FieloELR__Course__c> courses = FieloELR.CourseService.getCourses(
-                OrganizationUtil.getFieldSet(component.FieloCMS__FieldSet__c),
-                null,
-                null,
-                new Set<Id>{recordId},
-                member.FieloPLT__Program__c,
-                member.Id,
-                true,
-                true,
-                false,
-                Integer.valueof(component.FieloCMS__Limit__c),
-                0,
-                'LastModifiedDate',
-                ''
-            );
-            return (List<sObject>) courses;
-        }
-        if(component.FieloCMS__ComponentLibrary__r.Name == 'Modules'){
-            List<FieloELR__Course__c> courses = FieloELR.CourseService.getCourses(
-                new Set<String>{'Id','Name'},
-                null,
-                OrganizationUtil.getFieldSet(component.FieloCMS__FieldSet__c),
-                new Set<Id>{recordId},
-                member.FieloPLT__Program__c,
-                member.Id,
-                true,
-                true,
-                false,
-                Integer.valueof(component.FieloCMS__Limit__c),
-                0,
-                'LastModifiedDate',
-                ''
-            );
-            return (List<sObject>) courses[0].FieloELR__Modules__r;
-        }
+        
         return null;
     }
 
