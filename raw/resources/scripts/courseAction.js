@@ -104,6 +104,7 @@
   FieloCourseAction.prototype.getActions = function() {
     Visualforce.remoting.Manager.invokeAction( // eslint-disable-line no-undef
       this.Constant_.GET_ACTIONS,
+      this.element_.getAttribute('data-componentid'),
       this.recordIds,
       this.updateAction.bind(this),
       {

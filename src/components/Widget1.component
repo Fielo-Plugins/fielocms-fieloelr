@@ -1,6 +1,6 @@
 <apex:component layout="none" controller="CourseAPI">
 	<!-- PROGRESS BAR COMPONENT -->
-	<apex:attribute name="record" type="SObject" description="" />
-    <apex:attribute name="field" type="FieloCMS.Field" description="" />
-	<progress class="fielo-progress-bar" value="1" max="100" data-record-id="{!record.Id}"></progress><span class="fielo-output fielo-output__text" data-type="string"></span>
+	<apex:attribute name="record" type="SObject" description="" assignTo="{!cRecord}"/>
+    <apex:attribute name="field" type="FieloCMS.Field" description="" assignTo="{!cField}"/>
+	<progress class="fielo-progress-bar" value="{!progress}" max="100" data-record-id="{!record.Id}"></progress><span class="fielo-output fielo-output__text" data-type="string"><apex:outputText value="{!progressLabel}" escape="false"></apex:outputText></span>
 </apex:component>

@@ -1,4 +1,4 @@
-global class CourseStatusAPI implements FieloCMS.DataInterface{
+global class CourseStatusAPI implements FieloCMS.DataInterface,FieloCMS.ViewSubComponentInterface{
 	global Map<Id, Object> getBulkData(List<FieloCMS__Component__c> components){
         Map<Id,Object> newMapData = new Map<Id,Object>();
         Id memberId = MemberService.getCurrentMemberId();
@@ -58,5 +58,18 @@ global class CourseStatusAPI implements FieloCMS.DataInterface{
         }
 
         return null;
+    }
+
+    global ApexPages.Component getSubComponent(FieloCMS.Field field, SObject record){
+        Component.Widget2 action = new Component.Widget2();
+        if(record != null){
+            action.record = record;
+        }else{
+            action.expressions.record = '{!record}';
+        }
+        action.field = field;
+        action.useFieldAsSource = true;
+        action.fixedAction = 'Continue';
+        return action;
     }
 }

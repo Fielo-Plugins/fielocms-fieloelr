@@ -1,8 +1,17 @@
 <apex:component layout="none" controller="CourseActionAPI">
-	<apex:attribute name="record" type="SObject" description="" />
-    <apex:attribute name="field" type="FieloCMS.Field" description="" />
-    <apex:attribute name="config" type="SObject" description="" />
-	<a class="fielo-button cms-elr-record-action" type="button" data-record-id="{!record.Id}" data-redirect-page="{!config['RedirectPage__c']}">Loading...</a>
+	<apex:attribute name="record" type="SObject" description="" assignTo="{!cRecord}" />
+    <apex:attribute name="field" type="FieloCMS.Field" description="" assignTo="{!cField}"/>
+    <apex:attribute name="config" type="SObject" description=""/>
+    <apex:attribute name="useFieldAsSource" type="Boolean" description="" default="false"/>
+    <apex:attribute name="fixedAction" type="String" description="" default=""/>
+
+	<a class="{!config['FieloCMS__ComponentLibrary__r']['FieloCMS__CSSClasses__c']} {!config['FieloCMS__CSSClasses__c']} fielo-button cms-elr-record-action" 
+	data-remoteobject="{!config['FieloCMS__ComponentLibrary__r']['FieloCMS__sobject__c']}"
+	data-componentid="{! config['Id'] }"
+	data-redirect-page="{!config['RedirectPage__c']}"
+	type="button" 
+	data-record-id="{!record.Id}"
+	href="{!IF(useFieldAsSource, href, '')}">{!IF(fixedAction=='', 'Loading...', fixedAction)}</a>
 	<script>
 	/* For IE Compatibility */
 	if (window.Element && !Element.prototype.closest) {

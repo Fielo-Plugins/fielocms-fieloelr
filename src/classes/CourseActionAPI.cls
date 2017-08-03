@@ -11,7 +11,9 @@ global class CourseActionAPI implements FieloCMS.ViewSubComponentInterface{
     }
 
     @RemoteAction
-    public static Map<String,String> getCourseActions(List<String> courseIds) {
+    public static Map<String,String> getCourseActions(Id componentId, List<String> courseIds) {
+        FieloCMS__Component__c component = [Select Id, FieloCMS__ComponentLibrary__r.FieloCMS__sObject__c From FieloCMS__Component__c Where Id= :componentId];
+        
         Id memberId = MemberService.getCurrentMemberId();
         FieloPLT__Member__c member = [SELECT Id, FieloPLT__Program__c FROM FieloPLT__Member__c WHERE Id =: memberId];
         List<FieloELR__Course__c> courses = FieloELR.CourseService.getCourses(
@@ -76,5 +78,17 @@ global class CourseActionAPI implements FieloCMS.ViewSubComponentInterface{
         FieloELR__CourseStatus__c cs = new FieloELR__CourseStatus__c(FieloELR__Course__c = courseId,FieloELR__Member__c = memberId);
         insert cs; 
         return (sObject) cs;
+    }
+
+    public sObject cRecord{set;get;}
+    public FieloCMS.Field cField{set;get;}
+
+    public String href{get{
+        return '/FieloCMS__Page?pageId=' +
+            (String)cField.attributes.get('PageId') +
+            '&id=' +
+            (String)cRecord.get((String)cField.attributes.get('fieldName'));
+    }
+        set;
     }
 }
