@@ -98,7 +98,7 @@ global class QuestionResponseAPI implements FieloCMS.DataInterface, FieloCMS.Vie
             row.put('FieloELR__PartialGradeValue__c', qrr.questionResponse.FieloELR__PartialGradeValue__c);
             // Proxy Fields
             row.put('QuestionType__c', qrr.question.FieloELR__Type__c);
-        	row.put('CorrectAnswers__c', qrr.correctedAnswers);
+        	row.put('CorrectAnswers__c', qrr.correctedAnswers != null ? qrr.correctedAnswers.replace(', ', '<br/>'): '');
         	rows.add(row);
         }
 

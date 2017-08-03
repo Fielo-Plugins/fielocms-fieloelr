@@ -95,7 +95,7 @@
 			                <tr class="fielo-record fielo-record-set__template">
 						    	<td class="fielo-field fielo-field--is-CorrectAnswers__c mdl-data-table__cell--non-numeric" data-th="Question">
 						      		<span class="fielo-field__value">
-						      			<c:OutputField sObject="FieloELR__QuestionResponse__c" field="CorrectAnswers__c" record="{!record}"/>
+						      			<apex:outputText value="{!record['CorrectAnswers__c']}" escape="false"></apex:outputText>
 						      		</span>
 						    	</td>
 			                </tr>
