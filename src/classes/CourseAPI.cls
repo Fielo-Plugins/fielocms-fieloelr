@@ -21,7 +21,7 @@ global class CourseAPI implements FieloCMS.DataInterface, FieloCMS.ViewSubCompon
                     false,
                     Integer.valueof(c.FieloCMS__Limit__c),
                     0,
-                    'LastModifiedDate',
+                    'FieloELR__Order__c',
                     ''
                 );
 

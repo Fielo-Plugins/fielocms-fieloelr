@@ -6,6 +6,7 @@ global class CourseActionAPI implements FieloCMS.ViewSubComponentInterface{
         }else{
             action.expressions.record = '{!record}';
         }
+        action.expressions.config = '{!config}';
         action.field = field;
         return action;
     }
@@ -81,9 +82,27 @@ global class CourseActionAPI implements FieloCMS.ViewSubComponentInterface{
     }
 
     public sObject cRecord{set;get;}
+    public sObject cConfig{set;get;}
     public FieloCMS.Field cField{set;get;}
 
+    public String action {get{
+        Decimal progress = (Decimal) cRecord.get('FieloELR__Progress__c');
+        if ( progress != null ) {
+            if (progress >= 0 && progress < 100 ) {
+                return 'Continue';
+            } else {
+                return 'View';
+            }
+        } else {
+            return 'View';
+        }
+    }
+        set;
+    }
+
     public String href{get{
+        system.debug('cConfig');
+        system.debug(cConfig);
         return '/FieloCMS__Page?pageId=' +
             (String)cField.attributes.get('PageId') +
             '&id=' +

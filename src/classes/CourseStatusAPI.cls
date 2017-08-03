@@ -67,9 +67,10 @@ global class CourseStatusAPI implements FieloCMS.DataInterface,FieloCMS.ViewSubC
         }else{
             action.expressions.record = '{!record}';
         }
+        action.expressions.config = '{!config123}';
         action.field = field;
         action.useFieldAsSource = true;
-        action.fixedAction = 'Continue';
+        action.calculateAction = true;
         return action;
     }
 }
