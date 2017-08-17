@@ -12,10 +12,10 @@
 		<name>ApexClass</name>
 	</types>
 	<types>
-		<members>ProgressBar</members>
 		<members>Widget1</members>
 		<members>Widget2</members>
 		<members>Widget3</members>
+		<members>Widget4</members>		
 		<members>Widget5</members>
 		<name>ApexComponent</name>
 	</types>
