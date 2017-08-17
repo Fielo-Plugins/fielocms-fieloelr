@@ -85,26 +85,37 @@ global class QuestionResponseAPI implements FieloCMS.DataInterface, FieloCMS.Vie
         FieloELR.ModuleService.ModuleResponseResult moduleResponseResult = FieloELR.ModuleService.getModuleResponse(
         	moduleResponseId,
         	new Set<String> {'Name'},
-        	new Set<String> {'Name','FieloELR__Type__c'},
+        	new Set<String> {'Name','FieloELR__Type__c','FieloELR__Module__r.FieloELR__Course__c'},
         	new Set<String> {'FieloELR__AnswerOptionText__c','FieloELR__MatchingText__c'}
         );
 
         sObject row = (sObject) new FieloELR__QuestionResponse__c();
         for(FieloELR.QuestionService.QuestionResponseResult qrr: moduleResponseResult.questions) {
         	row = (sObject) new FieloELR__QuestionResponse__c();
-        	row.put('FieloELR__Question__c', qrr.question.Id);
-        	row.put('FieloELR__IsCorrect__c', qrr.questionResponse.FieloELR__IsCorrect__c);
-        	row.put('FieloELR__NumberOfAttempt__c', qrr.numberOfAttempts);
+            row.put('FieloELR__Question__c', qrr.question.Id);
+            row.put('FieloELR__IsCorrect__c', qrr.questionResponse.FieloELR__IsCorrect__c);
+            row.put('FieloELR__NumberOfAttempt__c', qrr.numberOfAttempts);
             row.put('FieloELR__PartialGradeValue__c', qrr.questionResponse.FieloELR__PartialGradeValue__c);
             // Proxy Fields
             row.put('QuestionType__c', qrr.question.FieloELR__Type__c);
-        	row.put('CorrectAnswers__c', qrr.correctedAnswers != null ? qrr.correctedAnswers.replace(', ', '<br/>'): '');
+            row.put('CorrectAnswers__c', qrr.correctedAnswers != null ? qrr.correctedAnswers.replace(', ', '<br/>'): '');
+        	row.put('Course__c', qrr.question.FieloELR__Module__r.FieloELR__Course__c);
         	rows.add(row);
         }
 
         return rows;
     }
     	set;
+    }
+
+    public String courseId {get{
+        if (!records.isEmpty()) {
+            return (String) records[0].get('Course__c');
+        } else {
+            return '';
+        }
+    }
+        set;
     }
 
     public List<sObject> answers { get {

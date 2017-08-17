@@ -23,25 +23,23 @@ global class ModuleActionAPI implements FieloCMS.ViewSubComponentInterface{
         }
 
         List<FieloELR.CourseService.CourseWrapper> coursesMap;
-        try {
-            coursesMap = FieloELR.CourseService.getCoursesMap(
-                new Set<String>{'Id','FieloELR__SubscriptionMode__c'},
-                null,
-                new Set<String>{'Id', 'FieloELR__AttemptsAllowed__c'},
-                null,
-                courseIds,
-                member.FieloPLT__Program__c,
-                member.Id,
-                false,
-                true,
-                100,
-                0,
-                'LastModifiedDate',
-                ''
-            );
-        } catch(Exception e) {
-            System.debug('error: ' + e);
-        }
+        
+        coursesMap = FieloELR.CourseService.getCoursesMap(
+            new Set<String>{'Id','FieloELR__SubscriptionMode__c'},
+            null,
+            new Set<String>{'Id', 'FieloELR__AttemptsAllowed__c'},
+            null,
+            courseIds,
+            member.FieloPLT__Program__c,
+            member.Id,
+            false,
+            true,
+            100,
+            0,
+            'LastModifiedDate',
+            ''
+        );
+    
 
         Map<String,Object> moduleActions = new Map<String,Object>();
 
