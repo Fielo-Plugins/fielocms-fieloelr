@@ -13,6 +13,11 @@
 		<name>CustomLabels</name>
 	</types>
 	<types>
+		<members>FieloCMS__Component__c</members>
+    <members>FieloELR__CourseStatus__c</members>
+		<name>CustomObject</name>
+	</types>
+	<types>
 		<members>FieloCms_Elr_Components</members>
 		<members>FieloPlugin_ElrPlugin</members>
 		<name>StaticResource</name>

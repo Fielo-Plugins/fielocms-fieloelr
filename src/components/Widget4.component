@@ -51,6 +51,8 @@
 	            </apex:repeat>
 	        </tbody>
 	    </table>
+		<a class="fielo-button" 
+			href="{! '/FieloCMS__Page?pageId=' + config['RedirectPage__c'] + '&id=' + courseId }">Back to Course</a>
 
 	    <div class="cms-elr-hidden-table" style="display: none">
 	    	<apex:repeat value="{!records}" var="record">

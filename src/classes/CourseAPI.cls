@@ -1,4 +1,31 @@
 global class CourseAPI implements FieloCMS.DataInterface, FieloCMS.ViewSubComponentInterface{
+    
+    private class FilterWrapper{
+        public String field;
+        public String operator;
+        public String value;
+        public String andOrOperator;
+        public SubQueryFilter subQueryFilter;
+
+        public FilterWrapper(String field, String operator, String value){
+            this.field = field;
+            this.operator = operator;
+            this.value = value;
+        }
+    }
+
+    private class SubQueryFilter{
+        public String field;
+        public String objectName;
+        public List<FilterWrapper> filters;
+
+        public SubQueryFilter(String field, String objectName, List<FilterWrapper> filters){
+            this.field = field;
+            this.objectName = objectName;
+            this.filters = filters;
+        }
+    }
+
     global Map<Id, Object> getBulkData(List<FieloCMS__Component__c> components){
         Map<Id,Object> newMapData = new Map<Id,Object>();
         Id memberId = MemberService.getCurrentMemberId();
@@ -9,6 +36,20 @@ global class CourseAPI implements FieloCMS.DataInterface, FieloCMS.ViewSubCompon
 
             if(c.FieloCMS__ComponentLibrary__r.Name == 'Courses'){
                 FieloPLT__Member__c member = [SELECT Id, FieloPLT__Program__c FROM FieloPLT__Member__c WHERE Id =: memberId];
+                
+                List<FilterWrapper> dynamicFilters = new List<FilterWrapper>();
+                if(c.FieloCMS__Category__c != null){
+                    dynamicFilters.add(new FilterWrapper('Category__c', 'eq', c.FieloCMS__Category__c));
+                }
+                if(c.FieloCMS__Tag__c != null){
+                    FilterWrapper filter = new FilterWrapper('Id', 'in', null);
+                    if(c.FieloCMS__Category__c != null){
+                        filter.andOrOperator = 'and';
+                    }
+                    filter.subQueryFilter = new SubQueryFilter('Course__c', 'FieloCMS__TagItem__c', new List<FilterWrapper>{new FilterWrapper('FieloCMS__Tag__c','eq',c.FieloCMS__Tag__c)});
+                    dynamicFilters.add(filter);
+                }
+
                 List<FieloELR__Course__c> courses = FieloELR.CourseService.getCourses(
                     OrganizationUtil.getFieldSet(c.FieloCMS__FieldSet__c),
                     null,
@@ -22,8 +63,9 @@ global class CourseAPI implements FieloCMS.DataInterface, FieloCMS.ViewSubCompon
                     Integer.valueof(c.FieloCMS__Limit__c),
                     0,
                     'FieloELR__Order__c',
-                    ''
+                    dynamicFilters.isEmpty() ? null : JSON.serialize(dynamicFilters)
                 );
+                //JSON.serialize(dynamicFilters)
 
                 newMapData.put(c.Id, (List<Object>)courses);
             }
