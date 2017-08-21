@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ApexClass xmlns="http://soap.sforce.com/2006/04/metadata">
-    <apiVersion>36.0</apiVersion>
+<ApexComponent xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>40.0</apiVersion>
+    <label>OutputField</label>
     <packageVersions>
         <majorNumber>1</majorNumber>
         <minorNumber>70</minorNumber>
@@ -8,13 +9,12 @@
     </packageVersions>
     <packageVersions>
         <majorNumber>1</majorNumber>
-        <minorNumber>17</minorNumber>
+        <minorNumber>9</minorNumber>
         <namespace>FieloELR</namespace>
     </packageVersions>
     <packageVersions>
         <majorNumber>2</majorNumber>
-        <minorNumber>26</minorNumber>
+        <minorNumber>25</minorNumber>
         <namespace>FieloPLT</namespace>
     </packageVersions>
-    <status>Active</status>
-</ApexClass>
+</ApexComponent>

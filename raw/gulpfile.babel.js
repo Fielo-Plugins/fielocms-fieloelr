@@ -70,6 +70,7 @@ var cmsThemeJs = [
       'resources/scripts/courseProgress.js',
       'resources/scripts/paginatorFilter.js',
       'resources/scripts/moduleAction.js',
+      'resources/scripts/questionResponseList.js',
       'resources/scripts/quiz.js',
       'resources/scripts/courseAction.js'
       ],
@@ -82,6 +83,7 @@ var cmsThemeJs = [
       'resources/scripts/courseProgress.js',
       'resources/scripts/paginatorFilter.js',
       'resources/scripts/moduleAction.js',
+      'resources/scripts/questionResponseList.js',
       'resources/scripts/quiz.js',
       'resources/scripts/courseAction.js'
     ],
@@ -94,6 +96,7 @@ var cmsThemeJs = [
       'resources/scripts/courseProgress.js',
       'resources/scripts/paginatorFilter.js',
       'resources/scripts/moduleAction.js',
+      'resources/scripts/questionResponseList.js',
       'resources/scripts/quiz.js',
       'resources/scripts/courseAction.js'
     ],

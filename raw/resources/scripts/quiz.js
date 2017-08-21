@@ -62,19 +62,15 @@
     OUTPUT: 'fielo-output'
   };
 
-  FieloQuiz.prototype.getCookie = function(name) {
-    var result = document.cookie.match(
-      new RegExp(name + '=([^;]+)'));
-    var resultObject = JSON.parse(result[1]);
+  FieloQuiz.prototype.getData = function(name) {
+    var result = localStorage.getItem(name);
+    var resultObject = JSON.parse(result);
     this.dataStructure = resultObject;
-    this.deleteCookie(name);
+    this.deleteData(name);
   };
 
-  FieloQuiz.prototype.deleteCookie = function(name) {
-    document.cookie = [name,
-      '=; expires=Thu, 01-Jan-1970 00:00:01 GMT; path=/; domain=.',
-      window.location.host.toString()
-    ].join('');
+  FieloQuiz.prototype.deleteData = function(name) {
+    localStorage.removeItem(name);
   };
 
   FieloQuiz.prototype.getModuleResponseId = function() {
@@ -213,7 +209,13 @@
       this.currentQuestion.FieloELR__AnswerOptions__r;
     var matchingText = [];
     [].forEach.call(answers, function(answer) {
-      matchingText.push(answer.FieloELR__MatchingText__c);
+      if (answer.FieloELR__MatchingText__c !== undefined ||
+        answer.FieloELR__MatchingText__c !== null ||
+        answer.FieloELR__MatchingText__c !== '') {
+        if (matchingText.indexOf(answer.FieloELR__MatchingText__c) === -1) {
+          matchingText.push(answer.FieloELR__MatchingText__c);
+        }
+      }
     }, this);
     matchingText = this.shuffle(matchingText);
     var answerOptions =
@@ -259,12 +261,22 @@
 
     [].forEach.call(answers,
     function(answer) {
-      answerOptions[answers.indexOf(answer)]
-        .querySelector('.fielo-output')
-          .innerHTML = answer.FieloELR__AnswerOptionText__c + '&nbsp;';
-      answerOptions[answers.indexOf(answer)]
-        .setAttribute('data-record-id',
-          answer.Id);
+      var answerText = answer.FieloELR__AnswerOptionText__c ?
+            answer.FieloELR__AnswerOptionText__c :
+            '';
+      if (answerText === '') {
+        answerOptions[answers.indexOf(answer)]
+          .parentNode
+            .removeChild(
+              answerOptions[answers.indexOf(answer)]);
+      } else {
+        answerOptions[answers.indexOf(answer)]
+          .querySelector('.fielo-output')
+            .innerHTML = answerText + '&nbsp;';
+        answerOptions[answers.indexOf(answer)]
+          .setAttribute('data-record-id',
+            answer.Id);
+      }
     }, this);
     this.element_
       .querySelector('.' + this.CssClasses_.ANSWER_CONTAINER)
@@ -339,7 +351,12 @@
             } else {
               this.showMessage(FrontEndJSSettings.LABELS.MaximumAttempts, '#'); // eslint-disable-line no-undef
               this.currentQuestionNumber++;
-              this.loadQuestion(this.currentQuestionNumber);
+              if (this.currentQuestionNumber <
+              this.dataStructure.questions.length) {
+                this.loadQuestion(this.currentQuestionNumber);
+              } else {
+                this.submitModule();
+              }
             }
           } else {
             this.submitModule();
@@ -504,7 +521,7 @@
       this.getModuleResponseId();
       this.getElements();
       if (this.moduleResponseId !== '') {
-        this.getCookie(this.moduleResponseId);
+        this.getData(this.moduleResponseId);
         this.currentQuestionNumber = 0;
         this.loadQuestion(this.currentQuestionNumber);
       }
