@@ -16,6 +16,7 @@
 		<members>FieloCMS__Component__c</members>
     		<members>FieloELR__CourseStatus__c</members>
 		<members>FieloELR__QuestionResponse__c</members>
+		<members>FieloELR__AnswerOption__c</members>
 		<name>CustomObject</name>
 	</types>
 	<types>
