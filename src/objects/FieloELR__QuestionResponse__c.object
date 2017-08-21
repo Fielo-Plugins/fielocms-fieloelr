@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <deprecated>false</deprecated>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <enableSearch>false</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>CorrectAnswers__c</fullName>
+        <description>Proxy Field</description>
+        <externalId>false</externalId>
+        <label>Correct Answers</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Course__c</fullName>
+        <description>Proxy Field</description>
+        <externalId>false</externalId>
+        <label>Course</label>
+        <length>20</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>FieloELR__IsCorrect__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Is Correct</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>FieloELR__IsSubmitted__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Is Submitted</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>FieloELR__Key__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Key</label>
+        <length>30</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>FieloELR__ModuleResponse__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Module Response</label>
+        <referenceTo>FieloELR__ModuleResponse__c</referenceTo>
+        <relationshipLabel>Questions Reponses</relationshipLabel>
+        <relationshipName>QuestionResponses</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>FieloELR__NumberOfAttempt__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Number of Attempt</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>FieloELR__PartialGradeValue__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Partial Grade Value</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>FieloELR__Question__c</fullName>
+        <deleteConstraint>Restrict</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Question</label>
+        <referenceTo>FieloELR__Question__c</referenceTo>
+        <relationshipLabel>Questions Responses</relationshipLabel>
+        <relationshipName>QuestionsResponses</relationshipName>
+        <required>true</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>FieloELR__TextValue__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Text Value</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>QuestionType__c</fullName>
+        <description>Proxy Field</description>
+        <externalId>false</externalId>
+        <label>Question Type</label>
+        <length>50</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <gender>Feminine</gender>
+    <label>Question Response</label>
+    <nameField>
+        <displayFormat>QR-{00000000}</displayFormat>
+        <label>Question Response Name</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Questions Reponses</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+    <validationRules>
+        <fullName>FieloELR__CannotChangeModuleResponse</fullName>
+        <active>true</active>
+        <errorConditionFormula>ISCHANGED( FieloELR__ModuleResponse__c )</errorConditionFormula>
+        <errorDisplayField>FieloELR__ModuleResponse__c</errorDisplayField>
+        <errorMessage>Cannot change the related Module Response.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>FieloELR__ValidateAttemptNumber</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND(NOT(ISBLANK(FieloELR__NumberOfAttempt__c)),FieloELR__NumberOfAttempt__c &gt; FieloELR__ModuleResponse__r.FieloELR__Module__r.FieloELR__AttemptsAllowedPerQuestion__c)</errorConditionFormula>
+        <errorMessage>You have reached the limit of attempts for this question.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>FieloELR__ValidateSameModule</fullName>
+        <active>true</active>
+        <errorConditionFormula>FieloELR__Question__r.FieloELR__Module__c !=  FieloELR__ModuleResponse__r.FieloELR__Module__c</errorConditionFormula>
+        <errorMessage>The related question doesn&apos;t belong to this module.</errorMessage>
+    </validationRules>
+</CustomObject>
