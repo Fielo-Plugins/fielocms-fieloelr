@@ -72,7 +72,8 @@ var cmsThemeJs = [
       'resources/scripts/moduleAction.js',
       'resources/scripts/questionResponseList.js',
       'resources/scripts/quiz.js',
-      'resources/scripts/courseAction.js'
+      'resources/scripts/courseAction.js',
+      'resources/scripts/courseFormAction.js'
       ],
     name: 'mobile.min.js',
     dest: 'resource-bundles/FieloPlugin_ElrPlugin.resource/scripts'
@@ -85,7 +86,8 @@ var cmsThemeJs = [
       'resources/scripts/moduleAction.js',
       'resources/scripts/questionResponseList.js',
       'resources/scripts/quiz.js',
-      'resources/scripts/courseAction.js'
+      'resources/scripts/courseAction.js',
+      'resources/scripts/courseFormAction.js'
     ],
     name: 'tablet.min.js',
     dest: 'resource-bundles/FieloPlugin_ElrPlugin.resource/scripts'
@@ -98,7 +100,8 @@ var cmsThemeJs = [
       'resources/scripts/moduleAction.js',
       'resources/scripts/questionResponseList.js',
       'resources/scripts/quiz.js',
-      'resources/scripts/courseAction.js'
+      'resources/scripts/courseAction.js',
+      'resources/scripts/courseFormAction.js'
     ],
     name: 'desktop.min.js',
     dest: 'resource-bundles/FieloPlugin_ElrPlugin.resource/scripts'
@@ -152,6 +155,12 @@ gulp.task('cmsBuildZip', ['cmsCopyResourcesFiles'], () => {
   return gulp.src('resource-bundles/FieloPlugin_ElrPlugin.resource/**')
     .pipe(zip('FieloPlugin_ElrPlugin.zip'))
     .pipe(gulp.dest('resource-bundles'));
+});
+
+// Watch
+gulp.task('watch', () => {
+  gulp.watch(cmsThemeCssSources, ['cmsBuildSiteTheme']);
+  gulp.watch(cmsThemeJsSources, ['jsBuildSiteTheme']);
 });
 
 // Local server

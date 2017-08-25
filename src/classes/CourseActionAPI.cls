@@ -12,7 +12,7 @@ global class CourseActionAPI implements FieloCMS.ViewSubComponentInterface{
     }
 
     @RemoteAction
-    public static Map<String,String> getCourseActions(Id componentId, List<String> courseIds) {
+    global static Map<String,String> getCourseActions(Id componentId, List<String> courseIds) {
         FieloCMS__Component__c component = [Select Id, FieloCMS__ComponentLibrary__r.FieloCMS__sObject__c From FieloCMS__Component__c Where Id= :componentId];
         
         Id memberId = MemberService.getCurrentMemberId();
@@ -74,7 +74,7 @@ global class CourseActionAPI implements FieloCMS.ViewSubComponentInterface{
     }
 
     @RemoteAction
-    public static sObject joinCourse(String courseId) {
+    global static sObject joinCourse(String courseId) {
         Id memberId = MemberService.getCurrentMemberId();
         FieloELR__CourseStatus__c cs = new FieloELR__CourseStatus__c(FieloELR__Course__c = courseId,FieloELR__Member__c = memberId);
         insert cs; 

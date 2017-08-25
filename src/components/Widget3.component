@@ -2,7 +2,7 @@
 	<apex:attribute name="config" type="SObject" description="" />
     <apex:attribute name="record" type="SObject" description="" />
     <div class="{!config['FieloCMS__ComponentLibrary__r']['FieloCMS__CSSClasses__c']} {!config['FieloCMS__CSSClasses__c']} fielo-js-component" data-remoteobject="{!config['FieloCMS__ComponentLibrary__r']['FieloCMS__sobject__c']}" data-componentid="{! config['Id'] }" data-redirect-page="{!config['RedirectPage__c']}">
-		<h3 class="fielo-title">Question&nbsp;<span id="cms-elr-question-number" class="fielo-output fielo-output__text" data-type="string"/></h3>
+		<h3 class="fielo-title" style="display:none;">Question&nbsp;<span id="cms-elr-question-number" class="fielo-output fielo-output__text" data-type="string"/></h3>
 	    <span id="cms-elr-question-text" class="fielo-output fielo-output__text" data-type="string"/>
 
 	    <div class="cms-elr-answers-container" />

@@ -9,7 +9,7 @@ global with sharing class ModuleAPI implements FieloCMS.DataInterface{
                 c.FieloCMS__Limit__c = 5;
 
             if(c.FieloCMS__ComponentLibrary__r.Name == 'Modules'){
-                String recordId = ApexPages.CurrentPage().getParameters().get( c.FieloCMS__DetailParameter__c );
+                String recordId = ApexPages.CurrentPage().getParameters().get( c.CustomDetailParameter__c );
                 FieloPLT__Member__c member = [SELECT Id, FieloPLT__Program__c FROM FieloPLT__Member__c WHERE Id =: memberId];
                 
                 List<FieloELR__Course__c> courses = FieloELR.CourseService.getCourses(
@@ -27,6 +27,30 @@ global with sharing class ModuleAPI implements FieloCMS.DataInterface{
                     'LastModifiedDate',
                     ''
                 );
+
+                List<FieloELR.CourseService.CourseWrapper> coursesMap = FieloELR.CourseService.getCoursesMap(
+                    new Set<String>{'Id','Name'},
+                    null,
+                    new Set<String>{'Id', 'FieloELR__AttemptsAllowed__c'},
+                    null,
+                    new Set<Id>{recordId},
+                    member.FieloPLT__Program__c,
+                    member.Id,
+                    false,
+                    true,
+                    100,
+                    0,
+                    'LastModifiedDate',
+                    ''
+                );
+                Map<Id,FieloELR__Module__c> modulesMap = new Map<Id,FieloELR__Module__c>(courses[0].FieloELR__Modules__r);
+
+                if(!coursesMap.isEmpty()) {
+                    for (FieloELR.CourseService.ModuleWrapper moduleWrapper: coursesMap[0].modules){
+                        modulesMap.get(moduleWrapper.module.Id).IsApproved__c = moduleWrapper.isApproved;
+                    }
+                }
+
                 newMapData.put(c.Id, (List<Object>) courses[0].FieloELR__Modules__r);
             }
         }
