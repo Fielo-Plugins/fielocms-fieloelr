@@ -59,7 +59,6 @@
         record;
     }, this);
 
-    // TODO: store all display styles
     if (this.records[this.recordIds[0]]) {
       this.oldDisplay =
         this.records[this.recordIds[0]]

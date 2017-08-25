@@ -57,9 +57,9 @@ global class CourseAPI implements FieloCMS.DataInterface, FieloCMS.ViewSubCompon
                     null,
                     member.FieloPLT__Program__c,
                     member.Id,
-                    true,
-                    true,
-                    false,
+                    c.FilterByDependency__c,
+                    c.FilterBySegment__c,
+                    c.FilterByNotTaken__c,
                     Integer.valueof(c.FieloCMS__Limit__c),
                     0,
                     'FieloELR__Order__c',
@@ -72,7 +72,8 @@ global class CourseAPI implements FieloCMS.DataInterface, FieloCMS.ViewSubCompon
             if(c.FieloCMS__ComponentLibrary__r.Name == 'Course Detail'){
                 String recordId = ApexPages.CurrentPage().getParameters().get( c.FieloCMS__DetailParameter__c );
                 FieloPLT__Member__c member = [SELECT Id, FieloPLT__Program__c FROM FieloPLT__Member__c WHERE Id =: memberId];
-                
+                system.debug('$$$FieloCMS__FieldSet__c');
+                system.debug(OrganizationUtil.getFieldSet(c.FieloCMS__FieldSet__c));
                 List<FieloELR__Course__c> courses = FieloELR.CourseService.getCourses(
                     OrganizationUtil.getFieldSet(c.FieloCMS__FieldSet__c),
                     null,
@@ -88,6 +89,18 @@ global class CourseAPI implements FieloCMS.DataInterface, FieloCMS.ViewSubCompon
                     'LastModifiedDate',
                     ''
                 );
+                List<FieloELR__CourseStatus__c> courseStatus = FieloELR.CourseService.getCourseStatus(
+                    new Set<String>{'Id','FieloELR__Course__c', 'FieloELR__Progress__c'},
+                    null,
+                    new Set<Id> {recordId},
+                    member.Id,
+                    1,
+                    0,
+                    ''
+                );
+                if (!courseStatus.isEmpty()) {
+                    courses[0].Progress__c = courseStatus[0].FieloELR__Progress__c;
+                }
                 newMapData.put(c.Id, courses[0]);
             }
         }
@@ -149,7 +162,7 @@ global class CourseAPI implements FieloCMS.DataInterface, FieloCMS.ViewSubCompon
     }
 
     @RemoteAction
-    public static List<SObject> getCourseStatus(List<String> courseIds) {
+    global static List<SObject> getCourseStatus(List<String> courseIds) {
         Id memberId = MemberService.getCurrentMemberId();
         List<FieloELR__CourseStatus__c> courseStatus = FieloELR.CourseService.getCourseStatus(
             new Set<String>{'FieloELR__Progress__c','FieloELR__Course__c'},

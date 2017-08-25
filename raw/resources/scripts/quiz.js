@@ -501,6 +501,8 @@
   };
 
   FieloQuiz.prototype.getElements = function() {
+    this.widgetLabel =
+      this.element_.querySelector('h3');
     this.questionNumberLabel =
       this.element_.querySelector(
         '#' + this.Constant_.QUESTION_NUMBER);
@@ -521,6 +523,8 @@
       this.getModuleResponseId();
       this.getElements();
       if (this.moduleResponseId !== '') {
+        this.widgetLabel
+          .style.display = null;
         this.getData(this.moduleResponseId);
         this.currentQuestionNumber = 0;
         this.loadQuestion(this.currentQuestionNumber);

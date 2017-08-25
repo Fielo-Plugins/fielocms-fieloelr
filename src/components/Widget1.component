@@ -2,5 +2,5 @@
 	<!-- PROGRESS BAR COMPONENT -->
 	<apex:attribute name="record" type="SObject" description="" assignTo="{!cRecord}"/>
     <apex:attribute name="field" type="FieloCMS.Field" description="" assignTo="{!cField}"/>
-	<progress class="fielo-progress-bar" value="{!progress}" max="100" data-record-id="{!record.Id}"></progress><span class="fielo-output fielo-output__text" data-type="string"><apex:outputText value="{!progressLabel}" escape="false"></apex:outputText></span>
+	<progress class="fielo-progress-bar" value="{!progress}" max="100" data-record-id="{!record.Id}"></progress><span class="fielo-output fielo-output__text" data-type="string"><apex:panelGroup layout="none" rendered="{!NOT(ISNULL(progress))}"><apex:outputText value="{!progressLabel}" escape="false"></apex:outputText></apex:panelGroup></span>
 </apex:component>

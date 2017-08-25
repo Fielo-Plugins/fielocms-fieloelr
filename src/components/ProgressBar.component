@@ -1,5 +1,5 @@
-<apex:component layout="none">
-	<apex:attribute name="record" type="SObject" description="" />
-    <apex:attribute name="field" type="FieloCMS.Field" description="" />
+<apex:component layout="none" access="global">
+	<apex:attribute name="record" access="global" type="SObject" description="" />
+    <apex:attribute name="field" access="global" type="FieloCMS.Field" description="" />
 	<progress value="1" max="100"></progress>
 </apex:component>
