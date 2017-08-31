@@ -1,4 +1,4 @@
-<apex:component layout="none" controller="ProgressBar">
+<apex:component layout="none" controller="FieloCMSELR_ProgressBarCtrl">
 	<!-- PROGRESS BAR COMPONENT -->
 	<apex:attribute name="record" type="SObject" description="" assignTo="{!cRecord}"/>
     <apex:attribute name="field" type="FieloCMS.Field" description="" assignTo="{!cField}"/>

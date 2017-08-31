@@ -73,7 +73,7 @@ public class FieloCMSELR_QuestionResponseListCtrl implements FieloCMS.DataInterf
     }
 
     public ApexPages.Component getComponent(FieloCMS__Component__c c){
-        Component.FieloCMSELR_QuestionResponse qResp = new Component.FieloCMSELR_QuestionResponse(config = c);
+        Component.FieloCMSELR_QuestionResponseList qResp = new Component.FieloCMSELR_QuestionResponseList(config = c);
         return qResp;        
     }
 
@@ -88,94 +88,17 @@ public class FieloCMSELR_QuestionResponseListCtrl implements FieloCMS.DataInterf
                 new Set<String> {'Name','FieloELR__Type__c','FieloELR__Module__r.FieloELR__Course__c'},
                 new Set<String> {'FieloELR__Question__c','FieloELR__AnswerOptionText__c','FieloELR__MatchingText__c'}
             );
-
-            /*for(FieloELR.QuestionService.QuestionResponseResult qrr: moduleResponseResult.questions) {
-                row = (sObject) new FieloELR__QuestionResponse__c();
-                row.put('FieloELR__Question__c', qrr.question.Id);
-                row.put('FieloELR__IsCorrect__c', qrr.questionResponse.FieloELR__IsCorrect__c);
-                row.put('FieloELR__NumberOfAttempt__c', qrr.numberOfAttempts);
-                row.put('FieloELR__PartialGradeValue__c', qrr.questionResponse.FieloELR__PartialGradeValue__c);
-                // Proxy Fields
-                row.put('QuestionType__c', qrr.question.FieloELR__Type__c);
-                row.put('CorrectAnswers__c', qrr.correctedAnswers != null ? qrr.correctedAnswers.replace(', ', '<br/>'): '');
-                row.put('Course__c', qrr.question.FieloELR__Module__r.FieloELR__Course__c);
-                rows.add(row);
-            }*/
-
-            //return rows;
         }
         return moduleResponseResult;
     } set;}
 
-    public sObject[] records { get {
-    	sObject[] rows = new List<sObject>();
-    	Id memberId = MemberService.getCurrentMemberId();
-        FieloPLT__Member__c member = [SELECT Id, FieloPLT__Program__c FROM FieloPLT__Member__c WHERE Id =: memberId];
-        Id moduleResponseId = ApexPages.CurrentPage().getParameters().get('id');
-        moduleResponseResult = FieloELR.ModuleService.getModuleResponse(
-        	moduleResponseId,
-        	new Set<String> {'Name'},
-        	new Set<String> {'Name','FieloELR__Type__c','FieloELR__Module__r.FieloELR__Course__c'},
-        	new Set<String> {'FieloELR__Question__c','FieloELR__AnswerOptionText__c','FieloELR__MatchingText__c'}
-        );
-
-        sObject row = (sObject) new FieloELR__QuestionResponse__c();
-        for(FieloELR.QuestionService.QuestionResponseResult qrr: moduleResponseResult.questions) {
-        	row = (sObject) new FieloELR__QuestionResponse__c();
-            row.put('FieloELR__Question__c', qrr.question.Id);
-            row.put('FieloELR__IsCorrect__c', qrr.questionResponse.FieloELR__IsCorrect__c);
-            row.put('FieloELR__NumberOfAttempt__c', qrr.numberOfAttempts);
-            row.put('FieloELR__PartialGradeValue__c', qrr.questionResponse.FieloELR__PartialGradeValue__c);
-            // Proxy Fields
-            row.put('QuestionType__c', qrr.question.FieloELR__Type__c);
-            row.put('CorrectAnswers__c', qrr.correctedAnswers != null ? qrr.correctedAnswers.replace(', ', '<br/>'): '');
-        	row.put('Course__c', qrr.question.FieloELR__Module__r.FieloELR__Course__c);
-        	rows.add(row);
-        }
-
-        return rows;
-    }
-    	set;
-    }
-
     public String courseId {get{
         if (!records.isEmpty()) {
-            return (String) records[0].get('Course__c');
+            return (String) moduleResponseResult.moduleResponse.FieloELR__Course__c;
         } else {
             return '';
         }
     }
         set;
-    }
-
-    public List<sObject> answers { get {
-    	List<sObject> rows = new List<sObject>();
-    	Id memberId = MemberService.getCurrentMemberId();
-        FieloPLT__Member__c member = [SELECT Id, FieloPLT__Program__c FROM FieloPLT__Member__c WHERE Id =: memberId];
-        Id moduleResponseId = ApexPages.CurrentPage().getParameters().get('id');
-        FieloELR.ModuleService.ModuleResponseResult moduleResponseResult = FieloELR.ModuleService.getModuleResponse(
-        	moduleResponseId,
-        	new Set<String> {'Name'},
-        	new Set<String> {'Name','FieloELR__Type__c'},
-        	new Set<String> {'FieloELR__Question__c','FieloELR__AnswerOptionText__c','Status__c','FieloELR__MatchingText__c'}
-        );
-
-        sObject row;
-        for(FieloELR.QuestionService.QuestionResponseResult qrr: moduleResponseResult.questions) {
-        	if (qrr.answerWrappers != null) {
-        		for(FieloELR.QuestionService.AnswerWrapper aw: qrr.answerWrappers) {
-	        		row = (sObject) new FieloELR__AnswerOption__c();
-	        		row.put('FieloELR__Question__c', aw.answerOption.FieloELR__Question__c);
-	        		row.put('FieloELR__AnswerOptionText__c', aw.answerOption.FieloELR__AnswerOptionText__c);
-	        		row.put('FieloELR__IsCorrect__c', aw.answerOption.FieloELR__IsCorrect__c);
-	        		row.put('Status__c', aw.answerStatus);
-	        		rows.add(row);
-	        	}
-        	}
-        }
-
-        return rows;
-    }
-    	set;
     }
 }
