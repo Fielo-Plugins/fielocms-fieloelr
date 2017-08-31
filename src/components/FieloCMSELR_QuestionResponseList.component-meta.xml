@@ -1,20 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ApexComponent xmlns="http://soap.sforce.com/2006/04/metadata">
     <apiVersion>40.0</apiVersion>
-    <label>Widget4</label>
-    <packageVersions>
-        <majorNumber>1</majorNumber>
-        <minorNumber>70</minorNumber>
-        <namespace>FieloCMS</namespace>
-    </packageVersions>
-    <packageVersions>
-        <majorNumber>1</majorNumber>
-        <minorNumber>9</minorNumber>
-        <namespace>FieloELR</namespace>
-    </packageVersions>
-    <packageVersions>
-        <majorNumber>2</majorNumber>
-        <minorNumber>25</minorNumber>
-        <namespace>FieloPLT</namespace>
-    </packageVersions>
+    <label>Question Response List</label>
 </ApexComponent>
