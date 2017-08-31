@@ -149,43 +149,4 @@ public class FieloCMSELR_CourseAPI implements FieloCMS.DataInterface, FieloCMS.V
         
         return null;
     }
-
-    public FieloCMS.Field cField {get; set;}
-    public sObject cRecord {get;set;}
-
-    public Decimal progress {get{
-        if (cField.attributes.containsKey('useFieldValue')) {
-            if (cField.attributes.get('useFieldValue')!=null) {
-                if ((String)cField.attributes.get('useFieldValue')=='true') {
-                    return (Decimal) cRecord.get((String)cField.attributes.get('fieldName'));
-                } else {
-                    return 1;
-                }
-            } else {
-                return 1;
-            }
-        } else {
-            return 1;
-        }
-    }
-        set;
-    }
-
-    public String progressLabel {get{
-        if (cField.attributes.containsKey('useFieldValue')) {
-            if (cField.attributes.get('useFieldValue')!=null) {
-                if ((String)cField.attributes.get('useFieldValue')=='true') {
-                    return '&nbsp;<b>' + String.valueOf(cRecord.get((String)cField.attributes.get('fieldName'))) + '%</b>';
-                } else {
-                    return '';
-                }
-            } else {
-                return '';
-            }
-        } else {
-            return '';
-        }
-    }
-        set;
-    }
 }
