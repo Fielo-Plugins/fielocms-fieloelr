@@ -1,0 +1,122 @@
+<apex:component layout="none" controller="FieloCMSELR_QuestionResponseList" >
+	<apex:attribute name="config" type="SObject" description="" />
+    
+    <div class="{!config['FieloCMS__ComponentLibrary__r']['FieloCMS__CSSClasses__c']} {!config['FieloCMS__CSSClasses__c']} fielo-js-component" data-remoteobject="{!config['FieloCMS__ComponentLibrary__r']['FieloCMS__sobject__c']}" data-componentid="{! config['Id'] }" data-redirect-page="{!config['RedirectPage__c']}">
+    	<h3 class="fielo-title">{!$ObjectType.FieloELR__QuestionResponse__c.labelPlural}</h3>
+
+    	<table class="fielo-table mdl-data-table">
+			<thead class="fielo-table__head">
+				<tr class="fielo-record"  data-order-by-type="list">
+                    <th class="fielo-field fielo-field--is-FieloELR__Question__c mdl-data-table__cell--non-numeric">
+						<span class="{!IF(config['FieloCMS__orderBy__c'] == '' , '', 'fielo-order-by__item')} {!IF(config['FieloCMS__orderBy__c']=='DESC', 'fielo-order-by__item--is-desc active','')} {!IF(config['FieloCMS__orderBy__c']=='ASC', 'fielo-order-by__item--is-asc active','')}" data-order-value="FieloELR__Question__c">{!$ObjectType['FieloELR__QuestionResponse__c'].fields['FieloELR__Question__c'].label}</span>
+                    </th>
+                    <th class="fielo-field fielo-field--is-FieloELR__Question__c mdl-data-table__cell--non-numeric">
+						<span class="{!IF(config['FieloCMS__orderBy__c'] == '' , '', 'fielo-order-by__item')} {!IF(config['FieloCMS__orderBy__c']=='DESC', 'fielo-order-by__item--is-desc active','')} {!IF(config['FieloCMS__orderBy__c']=='ASC', 'fielo-order-by__item--is-asc active','')}" data-order-value="FieloELR__Question__c">{!$ObjectType.FieloELR__QuestionResponse__c.fields.FieloELR__IsCorrect__c.label}</span>
+                    </th>
+                    <th class="fielo-field fielo-field--is-FieloELR__Question__c mdl-data-table__cell--non-numeric">
+						<span class="{!IF(config['FieloCMS__orderBy__c'] == '' , '', 'fielo-order-by__item')} {!IF(config['FieloCMS__orderBy__c']=='DESC', 'fielo-order-by__item--is-desc active','')} {!IF(config['FieloCMS__orderBy__c']=='ASC', 'fielo-order-by__item--is-asc active','')}" data-order-value="FieloELR__Question__c">{!$ObjectType.FieloELR__QuestionResponse__c.fields.FieloELR__NumberOfAttempt__c.label}</span>
+                    </th>
+                    <th class="fielo-field fielo-field--is-FieloELR__Question__c mdl-data-table__cell--non-numeric">
+						<span class="{!IF(config['FieloCMS__orderBy__c'] == '' , '', 'fielo-order-by__item')} {!IF(config['FieloCMS__orderBy__c']=='DESC', 'fielo-order-by__item--is-desc active','')} {!IF(config['FieloCMS__orderBy__c']=='ASC', 'fielo-order-by__item--is-asc active','')}" data-order-value="FieloELR__Question__c">{!$ObjectType.FieloELR__QuestionResponse__c.fields.FieloELR__PartialGradeValue__c.label}</span>
+                    </th>
+	            </tr>
+	        </thead>
+	        <tbody class="fielo-record-set__data">
+	        	<apex:repeat value="{!moduleResponseResult.questions}" var="qWrapper">
+	                <tr class="fielo-record fielo-record-set__template">
+	            		<td class="fielo-field fielo-field--is-FieloELR__Question__c mdl-data-table__cell--non-numeric" data-th="Question">
+				      		<span class="fielo-field__value">
+				      			<c:OutputField sObject="FieloELR__QuestionResponse__c" field="FieloELR__Question__c" record="{!qWrapper.question}"/>
+				      		</span>
+				    	</td>
+				    	<td class="fielo-field fielo-field--is-FieloELR__IsCorrect__c mdl-data-table__cell--non-numeric" data-th="Question">
+				      		<span class="fielo-field__value">
+				      			<c:OutputField sObject="FieloELR__QuestionResponse__c" field="FieloELR__IsCorrect__c" record="{!qWrapper.question}"/>
+				      		</span>
+				    	</td>
+				    	<td class="fielo-field fielo-field--is-FieloELR__NumberOfAttempt__c mdl-data-table__cell--non-numeric" data-th="Question">
+				      		<span class="fielo-field__value">
+				      			<c:OutputField sObject="FieloELR__QuestionResponse__c" field="FieloELR__NumberOfAttempt__c" record="{!qWrapper.question}"/>
+				      		</span>
+				    	</td>
+				    	<td class="fielo-field fielo-field--is-FieloELR__PartialGradeValue__c mdl-data-table__cell--non-numeric" data-th="Question">
+				      		<span class="fielo-field__value">
+				      			<c:OutputField sObject="FieloELR__QuestionResponse__c" field="FieloELR__PartialGradeValue__c" record="{!qWrapper.question}"/>
+				      		</span>
+				    	</td>
+	                </tr>
+	            </apex:repeat>
+	        </tbody>
+	    </table>
+		<a class="fielo-button" 
+			href="{! '/FieloCMS__Page?pageId=' + config['RedirectPage__c'] + '&id=' + courseId }">Back to Course</a>
+
+	    <div class="cms-elr-hidden-table" style="display: none">
+	    	<apex:repeat value="{!moduleResponseResult.questions}" var="qWrapper">
+			    <table class="fielo-table mdl-data-table" data-question-id="{!qWrapper.question.FieloELR__Question__c}">
+					<thead class="fielo-table__head">
+						<tr class="fielo-record"  data-order-by-type="list">
+							<apex:panelGroup rendered="{! qWrapper.question.QuestionType__c != 'Short Answer' && qWrapper.question.QuestionType__c != 'Matching Options'}" layout="none" >
+			                    <th class="fielo-field fielo-field--is-FieloELR__AnswerOptionText__c mdl-data-table__cell--non-numeric">
+									<span class="{!IF(config['FieloCMS__orderBy__c'] == '' , '', 'fielo-order-by__item')} {!IF(config['FieloCMS__orderBy__c']=='DESC', 'fielo-order-by__item--is-desc active','')} {!IF(config['FieloCMS__orderBy__c']=='ASC', 'fielo-order-by__item--is-asc active','')}" data-order-value="FieloELR__AnswerOptionText__c">{!$ObjectType.FieloELR__AnswerOption__c.fieldsFieloELR__AnswerOptionText__c.label}</span>
+			                    </th>
+			                    <th class="fielo-field fielo-field--is-Status__c mdl-data-table__cell--non-numeric">
+									<span class="{!IF(config['FieloCMS__orderBy__c'] == '' , '', 'fielo-order-by__item')} {!IF(config['FieloCMS__orderBy__c']=='DESC', 'fielo-order-by__item--is-desc active','')} {!IF(config['FieloCMS__orderBy__c']=='ASC', 'fielo-order-by__item--is-asc active','')}" data-order-value="Status__c">{!$ObjectType.FieloELR__AnswerOption__c.fields.Status__c.label}</span>
+			                    </th>
+			                </apex:panelGroup>
+			                <apex:panelGroup rendered="{! qWrapper.question.QuestionType__c == 'Short Answer' || qWrapper.question.QuestionType__c == 'Matching Options'}" layout="none" >
+			                	<th class="fielo-field fielo-field--is-CorrectAnswers__c mdl-data-table__cell--non-numeric">
+									<span class="{!IF(config['FieloCMS__orderBy__c'] == '' , '', 'fielo-order-by__item')} {!IF(config['FieloCMS__orderBy__c']=='DESC', 'fielo-order-by__item--is-desc active','')} {!IF(config['FieloCMS__orderBy__c']=='ASC', 'fielo-order-by__item--is-asc active','')}" data-order-value="CorrectAnswers__c">{!$ObjectType.FieloELR__QuestionResponse__c.fields.CorrectAnswers__c.label}</span>
+			                    </th>
+			                </apex:panelGroup>
+			            </tr>
+			        </thead>
+			        <tbody class="fielo-record-set__data">
+			        	<apex:panelGroup rendered="{!qWrapper.question.QuestionType__c != 'Short Answer' && qWrapper.question.QuestionType__c != 'Matching Options'}" layout="none" >
+				        	<apex:repeat value="{!qWrapper.answerWrappers}" var="aWrapper">
+				                <tr class="fielo-record fielo-record-set__template">
+							    	<td class="fielo-field fielo-field--is-FieloELR__AnswerOptionText__c mdl-data-table__cell--non-numeric" data-th="Question">
+							      		<span class="fielo-field__value">
+							      			<c:OutputField sObject="FieloELR__AnswerOption__c" field="FieloELR__AnswerOptionText__c" record="{!aWrapper.answer}"/>
+							      		</span>
+							    	</td>
+							    	<td class="fielo-field fielo-field--is-Status__c mdl-data-table__cell--non-numeric" data-th="Question">
+							      		<span class="fielo-field__value">
+							      			<apex:outputText value="{!aWrapper.answerStatus}" escape="false"></apex:outputText>
+							      		</span>
+							    	</td>
+				                </tr>
+				            </apex:repeat>
+				        </apex:panelGroup>
+				        <apex:panelGroup rendered="{! record['QuestionType__c'] == 'Short Answer' || record['QuestionType__c'] == 'Matching Options'}" layout="none" >
+			                <tr class="fielo-record fielo-record-set__template">
+						    	<td class="fielo-field fielo-field--is-CorrectAnswers__c mdl-data-table__cell--non-numeric" data-th="Question">
+						      		<span class="fielo-field__value">
+						      			<apex:outputText value="{!qWrapper.correctedAnswers}" escape="false"></apex:outputText>
+						      		</span>
+						    	</td>
+			                </tr>
+			            </apex:panelGroup>
+			        </tbody>
+			    </table>
+			</apex:repeat>
+		</div>
+
+   	</div>
+   	<script>
+   	/* For IE Compatibility */
+	if (window.Element && !Element.prototype.closest) {
+	  Element.prototype.closest =
+	  function(s) {
+	    var matches = (this.document || this.ownerDocument).querySelectorAll(s),
+	      i,
+	      el = this;
+	    do {
+	      i = matches.length;
+	      while (--i >= 0 && matches.item(i) !== el) {};
+	    } while ((i < 0) && (el = el.parentElement)); 
+	    return el;
+	  };
+	}
+   	</script>
+</apex:component>

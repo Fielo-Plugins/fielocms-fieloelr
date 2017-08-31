@@ -5,7 +5,7 @@
 			  {
 				"FieloCMS__ControlClass__c": "FieloCMS.StandardAPI", 
 				"FieloCMS__CssClasses__c": "", 
-				"FieloCMS__DataClass__c": "CourseAPI", 
+				"FieloCMS__DataClass__c": "FieloCMSELR_CourseAPI", 
 				"FieloCMS__DefaultFields__c": "Name,FieloELR__Order__c,FieloELR__Status__c", 
 				"FieloCMS__DeveloperName__c": "ElrPlugin.Courses", 
 				"FieloCMS__ExcludeFields__c": "Id,OwnerId,IsDeleted,CreatedDate,CreatedById,LastModifiedDate,LastModifiedById,SystemModstamp", 
@@ -20,7 +20,7 @@
 			  {
 				"FieloCMS__ControlClass__c": "FieloCMS.StandardAPI", 
 				"FieloCMS__CssClasses__c": "", 
-				"FieloCMS__DataClass__c": "CourseAPI", 
+				"FieloCMS__DataClass__c": "FieloCMSELR_CourseAPI", 
 				"FieloCMS__DefaultFields__c": "Name,FieloELR__Description__c", 
 				"FieloCMS__DeveloperName__c": "ElrPlugin.CourseDetail", 
 				"FieloCMS__ExcludeFields__c": "Id,OwnerId,IsDeleted,CreatedDate,CreatedById,LastModifiedDate,LastModifiedById,SystemModstamp", 
@@ -35,7 +35,7 @@
 			  {
 				"FieloCMS__ControlClass__c": "FieloCMS.StandardAPI", 
 				"FieloCMS__CssClasses__c": "", 
-				"FieloCMS__DataClass__c": "CourseAPI", 
+				"FieloCMS__DataClass__c": "FieloCMSELR_CourseAPI", 
 				"FieloCMS__DefaultFields__c": "Name,FieloELR__ApprovalGrade__c", 
 				"FieloCMS__DeveloperName__c": "ElrPlugin.Modules", 
 				"FieloCMS__ExcludeFields__c": "Id,OwnerId,IsDeleted,CreatedDate,CreatedById,LastModifiedDate,LastModifiedById,SystemModstamp", 

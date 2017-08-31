@@ -1,4 +1,4 @@
-global class CourseAPI implements FieloCMS.DataInterface, FieloCMS.ViewSubComponentInterface{
+public class FieloCMSELR_CourseAPI implements FieloCMS.DataInterface, FieloCMS.ViewSubComponentInterface{
     
     private class FilterWrapper{
         public String field;
@@ -26,7 +26,7 @@ global class CourseAPI implements FieloCMS.DataInterface, FieloCMS.ViewSubCompon
         }
     }
 
-    global Map<Id, Object> getBulkData(List<FieloCMS__Component__c> components){
+    public Map<Id, Object> getBulkData(List<FieloCMS__Component__c> components){
         Map<Id,Object> newMapData = new Map<Id,Object>();
         Id memberId = MemberService.getCurrentMemberId();
         //Prepare all the queries
@@ -107,7 +107,7 @@ global class CourseAPI implements FieloCMS.DataInterface, FieloCMS.ViewSubCompon
         return newMapData;
     }
 
-    global List<sObject> getData(FieloCMS__Component__c component, Integer pageNumber, String orderBy, String filters){
+    public List<sObject> getData(FieloCMS__Component__c component, Integer pageNumber, String orderBy, String filters){
         if(component.FieloCMS__Limit__c == null)
             component.FieloCMS__Limit__c = 5;
 
@@ -148,32 +148,6 @@ global class CourseAPI implements FieloCMS.DataInterface, FieloCMS.ViewSubCompon
         }
         
         return null;
-    }
-
-    global ApexPages.Component getSubComponent(FieloCMS.Field field, SObject record){
-        Component.Widget1 progress = new Component.Widget1();
-        if(record != null){
-            progress.record = record;
-        }else{
-            progress.expressions.record = '{!record}';
-        }
-        progress.field = field;
-        return progress;
-    }
-
-    @RemoteAction
-    global static List<SObject> getCourseStatus(List<String> courseIds) {
-        Id memberId = MemberService.getCurrentMemberId();
-        List<FieloELR__CourseStatus__c> courseStatus = FieloELR.CourseService.getCourseStatus(
-            new Set<String>{'FieloELR__Progress__c','FieloELR__Course__c'},
-            null,
-            new Set<Id>((List<Id>)courseIds),
-            memberId,
-            100,
-            0,
-            'FieloELR__Course__r.FieloELR__Order__c'
-        );
-        return courseStatus;
     }
 
     public FieloCMS.Field cField {get; set;}

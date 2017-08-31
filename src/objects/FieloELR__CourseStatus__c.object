@@ -57,7 +57,7 @@
     <enableSharing>false</enableSharing>
     <enableStreamingApi>false</enableStreamingApi>
     <fields>
-        <fullName>CourseName__c</fullName>
+        <fullName>FieloCMSELR_CourseName__c</fullName>
         <externalId>false</externalId>
         <formula>FieloELR__Course__r.Name</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>

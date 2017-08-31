@@ -1,10 +1,10 @@
-public with sharing class ModuleService {
+public with sharing class FieloCMSELR_ModuleService {
 	
 	public static void relateToCategories(Set<Id> moduleIds){
 		SavePoint sp = Database.setSavePoint();
 		try{
 			Set<String> categoryNames = new Set<String>();
-			Map<Id,FieloELR__Module__c> modulesMap = new Map<Id,FieloELR__Module__c>([SELECT Id, ContentCategory__c, FieloELR__Course__r.ContentCategory__c FROM FieloELR__Module__c WHERE ContentCategory__c = null AND Id in : moduleIds]);
+			Map<Id,FieloELR__Module__c> modulesMap = new Map<Id,FieloELR__Module__c>([SELECT Id, Name, ContentCategory__c, FieloELR__Course__r.ContentCategory__c FROM FieloELR__Module__c WHERE ContentCategory__c = null AND Id in : moduleIds]);
 			for(FieloELR__Module__c module : modulesMap.values()){
 				categoryNames.add(module.Name);
 			}

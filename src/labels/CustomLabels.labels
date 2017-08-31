@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata">
     <labels>
-        <fullName>MaximumAttempts</fullName>
+        <fullName>FieloCMSELR_MaximumAttempts</fullName>
         <categories>quiz.js</categories>
         <language>en_US</language>
         <protected>true</protected>
@@ -9,7 +9,7 @@
         <value>Maximum attempts reached.</value>
     </labels>
     <labels>
-        <fullName>ModuleFinished</fullName>
+        <fullName>FieloCMSELR_ModuleFinished</fullName>
         <categories>quiz.js</categories>
         <language>en_US</language>
         <protected>true</protected>
@@ -17,7 +17,7 @@
         <value>Module finished.</value>
     </labels>
     <labels>
-        <fullName>WrongAnswer</fullName>
+        <fullName>FieloCMSELR_WrongAnswer</fullName>
         <categories>quiz.js</categories>
         <language>en_US</language>
         <protected>true</protected>

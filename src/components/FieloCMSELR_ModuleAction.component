@@ -1,4 +1,4 @@
-<apex:component layout="none" controller="ModuleActionAPI">
+<apex:component layout="none" controller="FieloCMSELR_ModuleActionCtlr">
 	<apex:attribute name="record" type="SObject" description="" />
     <apex:attribute name="field" type="FieloCMS.Field" description="" />
     <apex:attribute name="config" type="SObject" description="" />

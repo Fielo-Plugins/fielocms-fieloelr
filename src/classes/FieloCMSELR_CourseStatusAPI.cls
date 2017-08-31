@@ -1,5 +1,5 @@
-global class CourseStatusAPI implements FieloCMS.DataInterface,FieloCMS.ViewSubComponentInterface{
-	global Map<Id, Object> getBulkData(List<FieloCMS__Component__c> components){
+public class FieloCMSELR_CourseStatusAPI implements FieloCMS.DataInterface{
+	public Map<Id, Object> getBulkData(List<FieloCMS__Component__c> components){
         Map<Id,Object> newMapData = new Map<Id,Object>();
         Id memberId = MemberService.getCurrentMemberId();
         //Prepare all the queries
@@ -23,7 +23,7 @@ global class CourseStatusAPI implements FieloCMS.DataInterface,FieloCMS.ViewSubC
         return newMapData;
     }
 
-    global List<sObject> getData(FieloCMS__Component__c component, Integer pageNumber, String orderBy, String filters){
+    public List<sObject> getData(FieloCMS__Component__c component, Integer pageNumber, String orderBy, String filters){
         if(component.FieloCMS__Limit__c == null)
             component.FieloCMS__Limit__c = 5;
 
@@ -58,19 +58,5 @@ global class CourseStatusAPI implements FieloCMS.DataInterface,FieloCMS.ViewSubC
         }
 
         return null;
-    }
-
-    global ApexPages.Component getSubComponent(FieloCMS.Field field, SObject record){
-        Component.Widget2 action = new Component.Widget2();
-        if(record != null){
-            action.record = record;
-        }else{
-            action.expressions.record = '{!record}';
-        }
-        action.expressions.config = '{!config123}';
-        action.field = field;
-        action.useFieldAsSource = true;
-        action.calculateAction = true;
-        return action;
     }
 }

@@ -1,10 +1,10 @@
-public with sharing class CourseService {
+public with sharing class FieloCMSELR_CourseService {
 	
 	public static void relateToCategories(Set<Id> courseIds){
 		SavePoint sp = Database.setSavePoint();
 		try{
 			Set<String> categoryNames = new Set<String>();
-			Map<Id,FieloELR__Course__c> coursesMap = new Map<Id,FieloELR__Course__c>([SELECT Id FROM FieloELR__Course__c WHERE ContentCategory__c = null AND Id in : courseIds]);
+			Map<Id,FieloELR__Course__c> coursesMap = new Map<Id,FieloELR__Course__c>([SELECT Id, Name FROM FieloELR__Course__c WHERE ContentCategory__c = null AND Id in : courseIds]);
 			for(FieloELR__Course__c course : coursesMap.values()){
 				categoryNames.add(course.Name);
 			}

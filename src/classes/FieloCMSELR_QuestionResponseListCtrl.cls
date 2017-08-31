@@ -1,7 +1,7 @@
-global class QuestionResponseAPI implements FieloCMS.DataInterface, FieloCMS.ViewInterface {
-	global Map<Id, Object> getBulkData(List<FieloCMS__Component__c> components){
+public class FieloCMSELR_QuestionResponseListCtrl implements FieloCMS.DataInterface{
+	public Map<Id, Object> getBulkData(List<FieloCMS__Component__c> components){
         Map<Id,Object> newMapData = new Map<Id,Object>();
-        Id memberId = MemberService.getCurrentMemberId();
+        Id memberId = FieloCMSPLT_MemberService.getCurrentMemberId();
         //Prepare all the queries
         for(FieloCMS__Component__c c : components){
             if(c.FieloCMS__Limit__c == null)
@@ -33,12 +33,12 @@ global class QuestionResponseAPI implements FieloCMS.DataInterface, FieloCMS.Vie
         return newMapData;
     }
 
-    global List<sObject> getData(FieloCMS__Component__c component, Integer pageNumber, String orderBy, String filters){
+    public List<sObject> getData(FieloCMS__Component__c component, Integer pageNumber, String orderBy, String filters){
         if(component.FieloCMS__Limit__c == null)
             component.FieloCMS__Limit__c = 5;
 
         //Member Id
-        Id memberId = MemberService.getCurrentMemberId();
+        Id memberId = FieloCMSPLT_MemberService.getCurrentMemberId();
 
         //Member Data
         FieloPLT__Member__c member = [SELECT Id, FieloPLT__Program__c FROM FieloPLT__Member__c WHERE Id =: memberId];
@@ -72,21 +72,51 @@ global class QuestionResponseAPI implements FieloCMS.DataInterface, FieloCMS.Vie
         return Database.query(query);
     }
 
-    global ApexPages.Component getComponent(FieloCMS__Component__c c){
-        Component.Widget4 quiz = new Component.Widget4(config = c);
-        return quiz;        
+    public ApexPages.Component getComponent(FieloCMS__Component__c c){
+        Component.FieloCMSELR_QuestionResponse qResp = new Component.FieloCMSELR_QuestionResponse(config = c);
+        return qResp;        
     }
+
+    public FieloELR.ModuleService.ModuleResponseResult moduleResponseResult {get {
+        if(moduleResponseResult == null){
+            Id memberId = FieloCMSPLT_MemberService.getCurrentMemberId();
+            FieloPLT__Member__c member = [SELECT Id, FieloPLT__Program__c FROM FieloPLT__Member__c WHERE Id =: memberId];
+            Id moduleResponseId = ApexPages.CurrentPage().getParameters().get('id');
+            moduleResponseResult = FieloELR.ModuleService.getModuleResponse(
+                moduleResponseId,
+                new Set<String> {'Name'},
+                new Set<String> {'Name','FieloELR__Type__c','FieloELR__Module__r.FieloELR__Course__c'},
+                new Set<String> {'FieloELR__Question__c','FieloELR__AnswerOptionText__c','FieloELR__MatchingText__c'}
+            );
+
+            /*for(FieloELR.QuestionService.QuestionResponseResult qrr: moduleResponseResult.questions) {
+                row = (sObject) new FieloELR__QuestionResponse__c();
+                row.put('FieloELR__Question__c', qrr.question.Id);
+                row.put('FieloELR__IsCorrect__c', qrr.questionResponse.FieloELR__IsCorrect__c);
+                row.put('FieloELR__NumberOfAttempt__c', qrr.numberOfAttempts);
+                row.put('FieloELR__PartialGradeValue__c', qrr.questionResponse.FieloELR__PartialGradeValue__c);
+                // Proxy Fields
+                row.put('QuestionType__c', qrr.question.FieloELR__Type__c);
+                row.put('CorrectAnswers__c', qrr.correctedAnswers != null ? qrr.correctedAnswers.replace(', ', '<br/>'): '');
+                row.put('Course__c', qrr.question.FieloELR__Module__r.FieloELR__Course__c);
+                rows.add(row);
+            }*/
+
+            //return rows;
+        }
+        return moduleResponseResult;
+    } set;}
 
     public sObject[] records { get {
     	sObject[] rows = new List<sObject>();
     	Id memberId = MemberService.getCurrentMemberId();
         FieloPLT__Member__c member = [SELECT Id, FieloPLT__Program__c FROM FieloPLT__Member__c WHERE Id =: memberId];
         Id moduleResponseId = ApexPages.CurrentPage().getParameters().get('id');
-        FieloELR.ModuleService.ModuleResponseResult moduleResponseResult = FieloELR.ModuleService.getModuleResponse(
+        moduleResponseResult = FieloELR.ModuleService.getModuleResponse(
         	moduleResponseId,
         	new Set<String> {'Name'},
         	new Set<String> {'Name','FieloELR__Type__c','FieloELR__Module__r.FieloELR__Course__c'},
-        	new Set<String> {'FieloELR__AnswerOptionText__c','FieloELR__MatchingText__c'}
+        	new Set<String> {'FieloELR__Question__c','FieloELR__AnswerOptionText__c','FieloELR__MatchingText__c'}
         );
 
         sObject row = (sObject) new FieloELR__QuestionResponse__c();

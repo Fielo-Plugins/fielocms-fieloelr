@@ -1,4 +1,4 @@
-public with sharing class Modules {
+public with sharing class FieloCMSELR_Modules {
 	
 	public static void onBeforeUpdate(List<FieloELR__Module__c> modules, Map<Id,FieloELR__Module__c> existingRecords){
 		List<FieloCMS__Category__c> categories = new List<FieloCMS__Category__c>();

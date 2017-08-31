@@ -1,6 +1,6 @@
-global class CourseActionAPI implements FieloCMS.ViewSubComponentInterface{
-	global ApexPages.Component getSubComponent(FieloCMS.Field field, SObject record){
-        Component.Widget2 action = new Component.Widget2();
+public class FieloCMSELR_CourseActionCtlr implements FieloCMS.ViewSubComponentInterface{
+	public ApexPages.Component getSubComponent(FieloCMS.Field field, SObject record){
+        Component.FieloCMSELR_CourseAction action = new Component.FieloCMSELR_CourseAction();
         if(record != null){
             action.record = record;
         }else{
@@ -12,7 +12,7 @@ global class CourseActionAPI implements FieloCMS.ViewSubComponentInterface{
     }
 
     @RemoteAction
-    global static Map<String,String> getCourseActions(Id componentId, List<String> courseIds) {
+    public static Map<String,String> getCourseActions(Id componentId, List<String> courseIds) {
         FieloCMS__Component__c component = [Select Id, FieloCMS__ComponentLibrary__r.FieloCMS__sObject__c From FieloCMS__Component__c Where Id= :componentId];
         
         Id memberId = MemberService.getCurrentMemberId();
@@ -74,7 +74,7 @@ global class CourseActionAPI implements FieloCMS.ViewSubComponentInterface{
     }
 
     @RemoteAction
-    global static sObject joinCourse(String courseId) {
+    public static sObject joinCourse(String courseId) {
         Id memberId = MemberService.getCurrentMemberId();
         FieloELR__CourseStatus__c cs = new FieloELR__CourseStatus__c(FieloELR__Course__c = courseId,FieloELR__Member__c = memberId);
         insert cs; 

@@ -1,6 +1,6 @@
-global class ModuleActionAPI implements FieloCMS.ViewSubComponentInterface{
-	global ApexPages.Component getSubComponent(FieloCMS.Field field, SObject record){
-        Component.Widget5 action = new Component.Widget5();
+public class FieloCMSELR_ModuleActionAPI implements FieloCMS.ViewSubComponentInterface{
+	public ApexPages.Component getSubComponent(FieloCMS.Field field, SObject record){
+        Component.FieloCMSELR_ModuleAction action = new Component.FieloCMSELR_ModuleAction();
         if(record != null){
             action.record = record;
         }else{
@@ -13,7 +13,7 @@ global class ModuleActionAPI implements FieloCMS.ViewSubComponentInterface{
     @RemoteAction
     public static Map<String,Object> getModuleActions(Id componentId, List<String> moduleIds){
     	FieloCMS__Component__c component = [SELECT FieloCMS__DetailParameter__c, RedirectPage__c FROM FieloCMS__Component__c WHERE Id =: componentId];
-        Id memberId = MemberService.getCurrentMemberId();
+        Id memberId = FieloCMSPLT_MemberService.getCurrentMemberId();
         FieloPLT__Member__c member = [SELECT Id, FieloPLT__Program__c FROM FieloPLT__Member__c WHERE Id =: memberId];
         List<FieloELR__Module__c> modules = [SELECT FieloELR__Course__r.Id, FieloELR__Course__r.FieloELR__SubscriptionMode__c From FieloELR__Module__c Where Id in :moduleIds];
         Set<Id> courseIds = new Set<Id>();
@@ -91,7 +91,7 @@ global class ModuleActionAPI implements FieloCMS.ViewSubComponentInterface{
 
     @RemoteAction
     public static FieloELR.ModuleService.ModuleWrapper takeModule(String moduleId) {
-        Id memberId = MemberService.getCurrentMemberId();
+        Id memberId = FieloCMSPLT_MemberService.getCurrentMemberId();
         FieloPLT__Member__c member = [SELECT Id, FieloPLT__Program__c FROM FieloPLT__Member__c WHERE Id =: memberId];
         FieloELR.ModuleService.ModuleWrapper moduleWrapper = FieloELR.ModuleService.takeModule(
             moduleId,

@@ -1,8 +1,8 @@
-global with sharing class ModuleAPI implements FieloCMS.DataInterface{
+public with sharing class FieloCMSELR_ModuleAPI implements FieloCMS.DataInterface{
 	
-	global Map<Id, Object> getBulkData(List<FieloCMS__Component__c> components){
+	public Map<Id, Object> getBulkData(List<FieloCMS__Component__c> components){
         Map<Id,Object> newMapData = new Map<Id,Object>();
-        Id memberId = MemberService.getCurrentMemberId();
+        Id memberId = FieloCMSPLT_MemberService.getCurrentMemberId();
         //Prepare all the queries
         for(FieloCMS__Component__c c : components){
             if(c.FieloCMS__Limit__c == null)
@@ -57,7 +57,7 @@ global with sharing class ModuleAPI implements FieloCMS.DataInterface{
         return newMapData;
     }
 
-    global List<sObject> getData(FieloCMS__Component__c component, Integer pageNumber, String orderBy, String filters){
+    public List<sObject> getData(FieloCMS__Component__c component, Integer pageNumber, String orderBy, String filters){
         return null;
     }
 
