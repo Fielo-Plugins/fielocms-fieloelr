@@ -94,7 +94,7 @@ public class FieloCMSELR_QuestionResponseListCtrl implements FieloCMS.DataInterf
 
     public String courseId {get{
         if (moduleResponseResult != null) {
-            return (String) moduleResponseResult.moduleResponse.FieloELR__Course__c;
+            return (String) moduleResponseResult.moduleResponse.FieloELR__Module__r.FieloELR__Course__c;
         } else {
             return '';
         }
