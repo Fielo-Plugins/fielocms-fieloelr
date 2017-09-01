@@ -72,7 +72,7 @@
 			            </tr>
 			        </thead>
 			        <tbody class="fielo-record-set__data">
-			        	<apex:panelGroup rendered="{!qWrapper.question.QuestionType__c != 'Short Answer' && qWrapper.question.QuestionType__c != 'Matching Options'}" layout="none" >
+			        	<apex:panelGroup rendered="{!qWrapper.question.FieloELR__Type__c != 'Short Answer' && qWrapper.question.FieloELR__Type__c != 'Matching Options'}" layout="none" >
 				        	<apex:repeat value="{!qWrapper.answerWrappers}" var="aWrapper">
 				                <tr class="fielo-record fielo-record-set__template">
 							    	<td class="fielo-field fielo-field--is-FieloELR__AnswerOptionText__c mdl-data-table__cell--non-numeric" data-th="Question">
@@ -88,7 +88,7 @@
 				                </tr>
 				            </apex:repeat>
 				        </apex:panelGroup>
-				        <apex:panelGroup rendered="{! record['QuestionType__c'] == 'Short Answer' || record['QuestionType__c'] == 'Matching Options'}" layout="none" >
+				        <apex:panelGroup rendered="{! qWrapper.question.FieloELR__Type__c == 'Short Answer' || qWrapper.question.FieloELR__Type__c == 'Matching Options'}" layout="none" >
 			                <tr class="fielo-record fielo-record-set__template">
 						    	<td class="fielo-field fielo-field--is-CorrectAnswers__c mdl-data-table__cell--non-numeric" data-th="Question">
 						      		<span class="fielo-field__value">
