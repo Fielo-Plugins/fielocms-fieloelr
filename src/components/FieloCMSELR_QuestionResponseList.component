@@ -8,7 +8,7 @@
 			<thead class="fielo-table__head">
 				<tr class="fielo-record"  data-order-by-type="list">
                     <th class="fielo-field fielo-field--is-FieloELR__Question__c mdl-data-table__cell--non-numeric">
-						<span class="{!IF(config['FieloCMS__orderBy__c'] == '' , '', 'fielo-order-by__item')} {!IF(config['FieloCMS__orderBy__c']=='DESC', 'fielo-order-by__item--is-desc active','')} {!IF(config['FieloCMS__orderBy__c']=='ASC', 'fielo-order-by__item--is-asc active','')}" data-order-value="FieloELR__Question__c">{!$ObjectType['FieloELR__QuestionResponse__c'].fields['FieloELR__Question__c'].label}</span>
+						<span class="{!IF(config['FieloCMS__orderBy__c'] == '' , '', 'fielo-order-by__item')} {!IF(config['FieloCMS__orderBy__c']=='DESC', 'fielo-order-by__item--is-desc active','')} {!IF(config['FieloCMS__orderBy__c']=='ASC', 'fielo-order-by__item--is-asc active','')}" data-order-value="FieloELR__Question__c">{!$ObjectType.FieloELR__QuestionResponse__c.fields.FieloELR__Question__c.label}</span>
                     </th>
                     <th class="fielo-field fielo-field--is-FieloELR__Question__c mdl-data-table__cell--non-numeric">
 						<span class="{!IF(config['FieloCMS__orderBy__c'] == '' , '', 'fielo-order-by__item')} {!IF(config['FieloCMS__orderBy__c']=='DESC', 'fielo-order-by__item--is-desc active','')} {!IF(config['FieloCMS__orderBy__c']=='ASC', 'fielo-order-by__item--is-asc active','')}" data-order-value="FieloELR__Question__c">{!$ObjectType.FieloELR__QuestionResponse__c.fields.FieloELR__IsCorrect__c.label}</span>
@@ -53,7 +53,7 @@
 
 	    <div class="cms-elr-hidden-table" style="display: none">
 	    	<apex:repeat value="{!moduleResponseResult.questions}" var="qWrapper">
-			    <table class="fielo-table mdl-data-table" data-question-id="{!qWrapper.question.FieloELR__Question__c}">
+			    <table class="fielo-table mdl-data-table" data-question-id="{!qWrapper.question.Name}">
 					<thead class="fielo-table__head">
 						<tr class="fielo-record"  data-order-by-type="list">
 							<apex:panelGroup rendered="{! qWrapper.question.QuestionType__c != 'Short Answer' && qWrapper.question.QuestionType__c != 'Matching Options'}" layout="none" >
