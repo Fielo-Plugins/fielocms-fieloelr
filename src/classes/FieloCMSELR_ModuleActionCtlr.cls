@@ -1,4 +1,4 @@
-public class FieloCMSELR_ModuleActionCtrl implements FieloCMS.ViewSubComponentInterface{
+public class FieloCMSELR_ModuleActionCtlr implements FieloCMS.ViewSubComponentInterface{
 	public ApexPages.Component getSubComponent(FieloCMS.Field field, SObject record){
         Component.FieloCMSELR_ModuleAction action = new Component.FieloCMSELR_ModuleAction();
         if(record != null){
