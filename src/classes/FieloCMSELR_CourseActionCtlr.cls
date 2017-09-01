@@ -15,7 +15,7 @@ public class FieloCMSELR_CourseActionCtlr implements FieloCMS.ViewSubComponentIn
     public static Map<String,String> getCourseActions(Id componentId, List<String> courseIds) {
         FieloCMS__Component__c component = [Select Id, FieloCMS__ComponentLibrary__r.FieloCMS__sObject__c From FieloCMS__Component__c Where Id= :componentId];
         
-        Id memberId = MemberService.getCurrentMemberId();
+        Id memberId = FieloCMSPLT_MemberService.getCurrentMemberId();
         FieloPLT__Member__c member = [SELECT Id, FieloPLT__Program__c FROM FieloPLT__Member__c WHERE Id =: memberId];
         List<FieloELR__Course__c> courses = FieloELR.CourseService.getCourses(
             new Set<String>{'Id','FieloELR__SubscriptionMode__c'},
@@ -75,7 +75,7 @@ public class FieloCMSELR_CourseActionCtlr implements FieloCMS.ViewSubComponentIn
 
     @RemoteAction
     public static sObject joinCourse(String courseId) {
-        Id memberId = MemberService.getCurrentMemberId();
+        Id memberId = FieloCMSPLT_MemberService.getCurrentMemberId();
         FieloELR__CourseStatus__c cs = new FieloELR__CourseStatus__c(FieloELR__Course__c = courseId,FieloELR__Member__c = memberId);
         insert cs; 
         return (sObject) cs;
