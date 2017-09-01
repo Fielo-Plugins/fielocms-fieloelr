@@ -221,18 +221,6 @@
         <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
-    <fields>
-        <fullName>Progress__c</fullName>
-        <description>Proxy Field</description>
-        <externalId>false</externalId>
-        <label>Progress</label>
-        <precision>18</precision>
-        <required>false</required>
-        <scale>2</scale>
-        <trackTrending>false</trackTrending>
-        <type>Number</type>
-        <unique>false</unique>
-    </fields>
     <gender>Masculine</gender>
     <label>Course</label>
     <listViews>
@@ -247,66 +235,4 @@
     <pluralLabel>Courses</pluralLabel>
     <searchLayouts/>
     <sharingModel>ReadWrite</sharingModel>
-    <validationRules>
-        <fullName>FieloELR__CourseNameNotBlank</fullName>
-        <active>true</active>
-        <description>Course name field needs to be complete.</description>
-        <errorConditionFormula>ISBLANK( Name )|| ISNULL(Name)</errorConditionFormula>
-        <errorDisplayField>Name</errorDisplayField>
-        <errorMessage>You must enter the Name of the Course</errorMessage>
-    </validationRules>
-    <validationRules>
-        <fullName>FieloELR__CourseProgram</fullName>
-        <active>true</active>
-        <description>Forces the user to choose a program in the Course object.</description>
-        <errorConditionFormula>ISBLANK(FieloELR__Program__c)||  ISNULL(FieloELR__Program__c)</errorConditionFormula>
-        <errorDisplayField>FieloELR__Program__c</errorDisplayField>
-        <errorMessage>You must select a Program</errorMessage>
-    </validationRules>
-    <validationRules>
-        <fullName>FieloELR__CourseProgramCannotEdit</fullName>
-        <active>true</active>
-        <description>Cannot change the program from the course.</description>
-        <errorConditionFormula>ISCHANGED( FieloELR__Program__c )</errorConditionFormula>
-        <errorDisplayField>FieloELR__Program__c</errorDisplayField>
-        <errorMessage>Cannot change the program from the course.</errorMessage>
-    </validationRules>
-    <validationRules>
-        <fullName>FieloELR__CourseValidateModule</fullName>
-        <active>true</active>
-        <description>Course need at least one Active Module if is Active.</description>
-        <errorConditionFormula>NOT(ISNEW()) &amp;&amp;
-NOT(ISPICKVAL( PRIORVALUE(FieloELR__Status__c) , &quot;Active&quot;)) &amp;&amp;
-ISPICKVAL( FieloELR__Status__c , &quot;Active&quot;) &amp;&amp; FieloELR__ActiveModules__c &lt; 1</errorConditionFormula>
-        <errorDisplayField>FieloELR__ActiveModules__c</errorDisplayField>
-        <errorMessage>To activate a course, it must have at least one active related module.</errorMessage>
-    </validationRules>
-    <validationRules>
-        <fullName>FieloELR__SameProgramSegment</fullName>
-        <active>true</active>
-        <description>The course must have a segment within the same program.</description>
-        <errorConditionFormula>FieloELR__Segment__r.FieloPLT__Program__c  &lt;&gt;  FieloELR__Program__c &amp;&amp;  NOT(ISNULL(FieloELR__Segment__r.FieloPLT__Program__c) ||  ISBLANK(FieloELR__Segment__r.FieloPLT__Program__c))</errorConditionFormula>
-        <errorDisplayField>FieloELR__Segment__c</errorDisplayField>
-        <errorMessage>Segment must be on the same program.</errorMessage>
-    </validationRules>
-    <validationRules>
-        <fullName>FieloELR__StartDateEndDateGreaterToday</fullName>
-        <active>true</active>
-        <description>Start Date and End Date should be greater than Today date</description>
-        <errorConditionFormula>OR(ISNEW(), NOT(ISNEW()) &amp;&amp; (ISCHANGED(FieloELR__StartDate__c) || ISCHANGED(FieloELR__EndDate__c))) &amp;&amp; 
-
-AND(NOT(FieloELR__StartDate__c &gt;=  TODAY()) || AND(NOT( FieloELR__EndDate__c &gt;=  TODAY())))</errorConditionFormula>
-        <errorDisplayField>FieloELR__StartDate__c</errorDisplayField>
-        <errorMessage>Start Date and End Date must be equal or greater than today date.</errorMessage>
-    </validationRules>
-    <validationRules>
-        <fullName>FieloELR__StartDateNotGreaterThanEnd</fullName>
-        <active>true</active>
-        <description>Start Date cannot be greater than End Date</description>
-        <errorConditionFormula>OR(ISNEW(), NOT(ISNEW()) &amp;&amp; (ISCHANGED(FieloELR__StartDate__c) || ISCHANGED(FieloELR__EndDate__c))) &amp;&amp;
-
-AND(!ISNULL( FieloELR__StartDate__c ), !ISNULL( FieloELR__EndDate__c )) &amp;&amp;  FieloELR__StartDate__c  &gt;  FieloELR__EndDate__c</errorConditionFormula>
-        <errorDisplayField>FieloELR__StartDate__c</errorDisplayField>
-        <errorMessage>Start Date cannot be greater than End Date</errorMessage>
-    </validationRules>
 </CustomObject>

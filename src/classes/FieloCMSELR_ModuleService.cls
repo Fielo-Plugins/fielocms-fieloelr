@@ -4,7 +4,7 @@ public with sharing class FieloCMSELR_ModuleService {
 		SavePoint sp = Database.setSavePoint();
 		try{
 			Set<String> categoryNames = new Set<String>();
-			Map<Id,FieloELR__Module__c> modulesMap = new Map<Id,FieloELR__Module__c>([SELECT Id, Name, ContentCategory__c, FieloELR__Course__r.ContentCategory__c FROM FieloELR__Module__c WHERE ContentCategory__c = null AND Id in : moduleIds]);
+			Map<Id,FieloELR__Module__c> modulesMap = new Map<Id,FieloELR__Module__c>([SELECT Id, Name, FieloCMSELR_ContentCategory__c, FieloELR__Course__r.FieloCMSELR_ContentCategory__c FROM FieloELR__Module__c WHERE FieloCMSELR_ContentCategory__c = null AND Id in : moduleIds]);
 			for(FieloELR__Module__c module : modulesMap.values()){
 				categoryNames.add(module.Name);
 			}
@@ -20,18 +20,18 @@ public with sharing class FieloCMSELR_ModuleService {
 				Map<Id,FieloCMS__Category__c> newCategoriesMap = new Map<Id,FieloCMS__Category__c>();
 				for(FieloELR__Module__c module : modulesMap.values()){
 					if(categoriesByName.containsKey(module.Name)){
-						module.ContentCategory__c = categoriesByName.get(module.Name);
-					}else if(module.FieloELR__Course__r.ContentCategory__c == null){
+						module.FieloCMSELR_ContentCategory__c = categoriesByName.get(module.Name);
+					}else if(module.FieloELR__Course__r.FieloCMSELR_ContentCategory__c == null){
 						throw new FieloPLT.FieloException('The related course must have content enabled.');
 					}else{
-						newCategoriesMap.put(module.Id, new FieloCMS__Category__c(Name = module.Name, FieloCMS__Category__c = module.FieloELR__Course__r.ContentCategory__c));
+						newCategoriesMap.put(module.Id, new FieloCMS__Category__c(Name = module.Name, FieloCMS__Category__c = module.FieloELR__Course__r.FieloCMSELR_ContentCategory__c));
 					}
 				}
 
 				if(!newCategoriesMap.isEmpty()){
 					insert newCategoriesMap.values();
 					for(Id moduleId : newCategoriesMap.keySet()){
-						modulesMap.get(moduleId).ContentCategory__c = newCategoriesMap.get(moduleId).Id;
+						modulesMap.get(moduleId).FieloCMSELR_ContentCategory__c = newCategoriesMap.get(moduleId).Id;
 					}
 				}
 				update modulesMap.values();

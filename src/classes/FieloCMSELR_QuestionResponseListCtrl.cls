@@ -23,7 +23,7 @@ public class FieloCMSELR_QuestionResponseListCtrl implements FieloCMS.DataInterf
                 moduleResponseId = ApexPages.CurrentPage().getParameters().get(c.FieloCMS__DetailParameter__c);
                 whereCondition = ' FieloELR__ModuleResponse__c = \'' + moduleResponseId + '\'';
             }else{
-                whereCondition += 'FieloELR__ModuleResponse__r.FieloELR__Member__c = \'' + MemberService.getCurrentMemberId() + '\'';
+                whereCondition += 'FieloELR__ModuleResponse__r.FieloELR__Member__c = \'' + FieloCMSPLT_MemberService.getCurrentMemberId() + '\'';
             }
             whereCondition += ' LIMIT ' + String.valueOf(c.FieloCMS__Limit__c);
             whereCondition += ' OFFSET 0';
@@ -56,7 +56,7 @@ public class FieloCMSELR_QuestionResponseListCtrl implements FieloCMS.DataInterf
 
         // Assemble Where Condition
         String whereCondition = '';
-        whereCondition += 'FieloELR__ModuleResponse__r.FieloELR__Member__c = \'' + MemberService.getCurrentMemberId() + '\'';
+        whereCondition += 'FieloELR__ModuleResponse__r.FieloELR__Member__c = \'' + FieloCMSPLT_MemberService.getCurrentMemberId() + '\'';
         if (recordId != null) {
         	whereCondition += ' AND FieloELR__ModuleResponse__c = \'' + recordId + '\'';
         }
@@ -64,7 +64,7 @@ public class FieloCMSELR_QuestionResponseListCtrl implements FieloCMS.DataInterf
         whereCondition += ' OFFSET ' + String.valueOf(offset);
 
         String query = 'SELECT ';
-        query += String.join(new List<String>(OrganizationUtil.getFieldSet(component.FieloCMS__FieldSet__c)), ',');
+        query += String.join(new List<String>(FieloCMSPLT_OrganizationUtil.getFieldSet(component.FieloCMS__FieldSet__c)), ',');
         query += ' FROM FieloELR__QuestionResponse__c WHERE ';
         query += whereCondition;
         system.debug('***query');
@@ -93,7 +93,7 @@ public class FieloCMSELR_QuestionResponseListCtrl implements FieloCMS.DataInterf
     } set;}
 
     public String courseId {get{
-        if (!records.isEmpty()) {
+        if (moduleResponseResult != null) {
             return (String) moduleResponseResult.moduleResponse.FieloELR__Course__c;
         } else {
             return '';

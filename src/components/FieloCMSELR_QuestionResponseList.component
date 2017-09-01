@@ -1,4 +1,4 @@
-<apex:component layout="none" controller="FieloCMSELR_QuestionResponseList" >
+<apex:component layout="none" controller="FieloCMSELR_QuestionResponseListCtrl" >
 	<apex:attribute name="config" type="SObject" description="" />
     
     <div class="{!config['FieloCMS__ComponentLibrary__r']['FieloCMS__CSSClasses__c']} {!config['FieloCMS__CSSClasses__c']} fielo-js-component" data-remoteobject="{!config['FieloCMS__ComponentLibrary__r']['FieloCMS__sobject__c']}" data-componentid="{! config['Id'] }" data-redirect-page="{!config['RedirectPage__c']}">

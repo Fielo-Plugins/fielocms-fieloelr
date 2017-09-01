@@ -12,7 +12,7 @@ public class FieloCMSELR_ModuleActionAPI implements FieloCMS.ViewSubComponentInt
 
     @RemoteAction
     public static Map<String,Object> getModuleActions(Id componentId, List<String> moduleIds){
-    	FieloCMS__Component__c component = [SELECT FieloCMS__DetailParameter__c, RedirectPage__c FROM FieloCMS__Component__c WHERE Id =: componentId];
+    	FieloCMS__Component__c component = [SELECT FieloCMS__DetailParameter__c, FieloCMSPLT_RedirectPage__c FROM FieloCMS__Component__c WHERE Id =: componentId];
         Id memberId = FieloCMSPLT_MemberService.getCurrentMemberId();
         FieloPLT__Member__c member = [SELECT Id, FieloPLT__Program__c FROM FieloPLT__Member__c WHERE Id =: memberId];
         List<FieloELR__Module__c> modules = [SELECT FieloELR__Course__r.Id, FieloELR__Course__r.FieloELR__SubscriptionMode__c From FieloELR__Module__c Where Id in :moduleIds];
@@ -69,11 +69,11 @@ public class FieloCMSELR_ModuleActionAPI implements FieloCMS.ViewSubComponentInt
                                     moduleActions.put(moduleWrapper.module.Id,(Object) new Map<String,Object>{'Actions' => (Object) new List<String>{'Take','Hide'}});
                                 }
                             } else if(!moduleWrapper.isApproved && ( moduleWrapper.numberOfAttempts < moduleWrapper.module.FieloELR__AttemptsAllowed__c || moduleWrapper.module.FieloELR__AttemptsAllowed__c == null)) {
-                                moduleActions.put(moduleWrapper.module.Id,(Object) new Map<String,Object>{'Actions' => (Object) new List<String>{'Retake'}, 'ModuleResponseId' => (Object) moduleWrapper.moduleResponses.get(moduleWrapper.moduleResponses.size()-1).Id, 'PageId' => component.RedirectPage__c});
+                                moduleActions.put(moduleWrapper.module.Id,(Object) new Map<String,Object>{'Actions' => (Object) new List<String>{'Retake'}, 'ModuleResponseId' => (Object) moduleWrapper.moduleResponses.get(moduleWrapper.moduleResponses.size()-1).Id, 'PageId' => component.FieloCMSPLT_RedirectPage__c});
                             } else if(moduleWrapper.isApproved && ( moduleWrapper.numberOfAttempts < moduleWrapper.module.FieloELR__AttemptsAllowed__c || moduleWrapper.module.FieloELR__AttemptsAllowed__c == null) ){
-                                moduleActions.put(moduleWrapper.module.Id,(Object) new Map<String,Object>{'Actions' => (Object) new List<String>{'View','Retake'}, 'ModuleResponseId' => (Object) moduleWrapper.moduleResponses.get(moduleWrapper.moduleResponses.size()-1).Id, 'PageId' => component.RedirectPage__c});
+                                moduleActions.put(moduleWrapper.module.Id,(Object) new Map<String,Object>{'Actions' => (Object) new List<String>{'View','Retake'}, 'ModuleResponseId' => (Object) moduleWrapper.moduleResponses.get(moduleWrapper.moduleResponses.size()-1).Id, 'PageId' => component.FieloCMSPLT_RedirectPage__c});
                             } else {
-                                moduleActions.put(moduleWrapper.module.Id,(Object) new Map<String,Object>{'Actions' => (Object) new List<String>{'View'}, 'ModuleResponseId' => (Object) moduleWrapper.moduleResponses.get(moduleWrapper.moduleResponses.size()-1).Id, 'PageId' => component.RedirectPage__c});
+                                moduleActions.put(moduleWrapper.module.Id,(Object) new Map<String,Object>{'Actions' => (Object) new List<String>{'View'}, 'ModuleResponseId' => (Object) moduleWrapper.moduleResponses.get(moduleWrapper.moduleResponses.size()-1).Id, 'PageId' => component.FieloCMSPLT_RedirectPage__c});
                             }
                         } else {
                             if (moduleWrapper.allowedForDependency) {

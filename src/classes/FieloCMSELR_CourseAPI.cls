@@ -1,4 +1,4 @@
-public class FieloCMSELR_CourseAPI implements FieloCMS.DataInterface, FieloCMS.ViewSubComponentInterface{
+public class FieloCMSELR_CourseAPI implements FieloCMS.DataInterface{
     
     private class FilterWrapper{
         public String field;

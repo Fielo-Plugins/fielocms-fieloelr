@@ -46,7 +46,7 @@ public class FieloCMSELR_CourseStatusAPI implements FieloCMS.DataInterface{
 
         if(component.FieloCMS__ComponentLibrary__r.Name == 'Course Status'){
             List<FieloELR__CourseStatus__c> courseStatus = FieloELR.CourseService.getCourseStatus(
-	            OrganizationUtil.getFieldSet(component.FieloCMS__FieldSet__c),
+	            FieloCMSPLT_OrganizationUtil.getFieldSet(component.FieloCMS__FieldSet__c),
 	            null,
 	            null,
 	            memberId,
