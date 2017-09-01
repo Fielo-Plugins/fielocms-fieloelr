@@ -1,7 +1,7 @@
 public class FieloCMSELR_CourseStatusAPI implements FieloCMS.DataInterface{
 	public Map<Id, Object> getBulkData(List<FieloCMS__Component__c> components){
         Map<Id,Object> newMapData = new Map<Id,Object>();
-        Id memberId = MemberService.getCurrentMemberId();
+        Id memberId = FieloCMSPLT_MemberService.getCurrentMemberId();
         //Prepare all the queries
         for(FieloCMS__Component__c c : components){
             if(c.FieloCMS__Limit__c == null)
@@ -9,7 +9,7 @@ public class FieloCMSELR_CourseStatusAPI implements FieloCMS.DataInterface{
 
             if(c.FieloCMS__ComponentLibrary__r.Name == 'Course Status'){
                 List<FieloELR__CourseStatus__c> courseStatus = FieloELR.CourseService.getCourseStatus(
-		            OrganizationUtil.getFieldSet(c.FieloCMS__FieldSet__c),
+		            FieloCMSPLT_OrganizationUtil.getFieldSet(c.FieloCMS__FieldSet__c),
 		            null,
 		            null,
 		            memberId,
@@ -28,7 +28,7 @@ public class FieloCMSELR_CourseStatusAPI implements FieloCMS.DataInterface{
             component.FieloCMS__Limit__c = 5;
 
         //Member Id
-        Id memberId = MemberService.getCurrentMemberId();
+        Id memberId = FieloCMSPLT_MemberService.getCurrentMemberId();
 
         //Member Data
         FieloPLT__Member__c member = [SELECT Id, FieloPLT__Program__c FROM FieloPLT__Member__c WHERE Id =: memberId];

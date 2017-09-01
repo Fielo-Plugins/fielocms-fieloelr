@@ -9,13 +9,13 @@ public with sharing class FieloCMSELR_ModuleAPI implements FieloCMS.DataInterfac
                 c.FieloCMS__Limit__c = 5;
 
             if(c.FieloCMS__ComponentLibrary__r.Name == 'Modules'){
-                String recordId = ApexPages.CurrentPage().getParameters().get( c.CustomDetailParameter__c );
+                String recordId = ApexPages.CurrentPage().getParameters().get( c.FieloCMSELR_CustomDetailParameter__c );
                 FieloPLT__Member__c member = [SELECT Id, FieloPLT__Program__c FROM FieloPLT__Member__c WHERE Id =: memberId];
                 
                 List<FieloELR__Course__c> courses = FieloELR.CourseService.getCourses(
                     new Set<String>{'Id','Name'},
                     null,
-                    OrganizationUtil.getFieldSet(c.FieloCMS__FieldSet__c),
+                    FieloCMSPLT_OrganizationUtil.getFieldSet(c.FieloCMS__FieldSet__c),
                     new Set<Id>{recordId},
                     member.FieloPLT__Program__c,
                     member.Id,
@@ -43,14 +43,6 @@ public with sharing class FieloCMSELR_ModuleAPI implements FieloCMS.DataInterfac
                     'LastModifiedDate',
                     ''
                 );
-                Map<Id,FieloELR__Module__c> modulesMap = new Map<Id,FieloELR__Module__c>(courses[0].FieloELR__Modules__r);
-
-                if(!coursesMap.isEmpty()) {
-                    for (FieloELR.CourseService.ModuleWrapper moduleWrapper: coursesMap[0].modules){
-                        modulesMap.get(moduleWrapper.module.Id).IsApproved__c = moduleWrapper.isApproved;
-                    }
-                }
-
                 newMapData.put(c.Id, (List<Object>) courses[0].FieloELR__Modules__r);
             }
         }

@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <deprecated>false</deprecated>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>false</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>false</enableSharing>
+    <enableStreamingApi>false</enableStreamingApi>
+    <fields>
+        <fullName>Category__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Category</label>
+        <referenceTo>FieloCMS__Category__c</referenceTo>
+        <relationshipLabel>Courses</relationshipLabel>
+        <relationshipName>Courses</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>FieloCMSELR_ContentCategory__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Content Category</label>
+        <referenceTo>FieloCMS__Category__c</referenceTo>
+        <relationshipLabel>Courses (Content Category)</relationshipLabel>
+        <relationshipName>ContentCourses</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>FieloELR__ActiveModules__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Active Modules</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>FieloELR__Description__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Description</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>FieloELR__EndDate__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>End Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>FieloELR__HasDependencies__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Has Dependencies</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>FieloELR__KeyDependencies__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Key Dependencies</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>FieloELR__Order__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Order</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>FieloELR__Program__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Program</label>
+        <referenceTo>FieloPLT__Program__c</referenceTo>
+        <relationshipLabel>Courses</relationshipLabel>
+        <relationshipName>Courses</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>FieloELR__Segment__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Segment</label>
+        <referenceTo>FieloPLT__Segment__c</referenceTo>
+        <relationshipLabel>Courses</relationshipLabel>
+        <relationshipName>Courses</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>FieloELR__StartDate__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Start Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>FieloELR__Status__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Status</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Draft</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Active</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Inactive</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>FieloELR__SubscriptionMode__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Subscription Mode</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Manual</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Automatic</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Progress__c</fullName>
+        <description>Proxy Field</description>
+        <externalId>false</externalId>
+        <label>Progress</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <gender>Masculine</gender>
+    <label>Course</label>
+    <listViews>
+        <fullName>FieloELR__All</fullName>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <label>Course Name</label>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Courses</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ReadWrite</sharingModel>
+    <validationRules>
+        <fullName>FieloELR__CourseNameNotBlank</fullName>
+        <active>true</active>
+        <description>Course name field needs to be complete.</description>
+        <errorConditionFormula>ISBLANK( Name )|| ISNULL(Name)</errorConditionFormula>
+        <errorDisplayField>Name</errorDisplayField>
+        <errorMessage>You must enter the Name of the Course</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>FieloELR__CourseProgram</fullName>
+        <active>true</active>
+        <description>Forces the user to choose a program in the Course object.</description>
+        <errorConditionFormula>ISBLANK(FieloELR__Program__c)||  ISNULL(FieloELR__Program__c)</errorConditionFormula>
+        <errorDisplayField>FieloELR__Program__c</errorDisplayField>
+        <errorMessage>You must select a Program</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>FieloELR__CourseProgramCannotEdit</fullName>
+        <active>true</active>
+        <description>Cannot change the program from the course.</description>
+        <errorConditionFormula>ISCHANGED( FieloELR__Program__c )</errorConditionFormula>
+        <errorDisplayField>FieloELR__Program__c</errorDisplayField>
+        <errorMessage>Cannot change the program from the course.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>FieloELR__CourseValidateModule</fullName>
+        <active>true</active>
+        <description>Course need at least one Active Module if is Active.</description>
+        <errorConditionFormula>NOT(ISNEW()) &amp;&amp;
+NOT(ISPICKVAL( PRIORVALUE(FieloELR__Status__c) , &quot;Active&quot;)) &amp;&amp;
+ISPICKVAL( FieloELR__Status__c , &quot;Active&quot;) &amp;&amp; FieloELR__ActiveModules__c &lt; 1</errorConditionFormula>
+        <errorDisplayField>FieloELR__ActiveModules__c</errorDisplayField>
+        <errorMessage>To activate a course, it must have at least one active related module.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>FieloELR__SameProgramSegment</fullName>
+        <active>true</active>
+        <description>The course must have a segment within the same program.</description>
+        <errorConditionFormula>FieloELR__Segment__r.FieloPLT__Program__c  &lt;&gt;  FieloELR__Program__c &amp;&amp;  NOT(ISNULL(FieloELR__Segment__r.FieloPLT__Program__c) ||  ISBLANK(FieloELR__Segment__r.FieloPLT__Program__c))</errorConditionFormula>
+        <errorDisplayField>FieloELR__Segment__c</errorDisplayField>
+        <errorMessage>Segment must be on the same program.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>FieloELR__StartDateEndDateGreaterToday</fullName>
+        <active>true</active>
+        <description>Start Date and End Date should be greater than Today date</description>
+        <errorConditionFormula>OR(ISNEW(), NOT(ISNEW()) &amp;&amp; (ISCHANGED(FieloELR__StartDate__c) || ISCHANGED(FieloELR__EndDate__c))) &amp;&amp; 
+
+AND(NOT(FieloELR__StartDate__c &gt;=  TODAY()) || AND(NOT( FieloELR__EndDate__c &gt;=  TODAY())))</errorConditionFormula>
+        <errorDisplayField>FieloELR__StartDate__c</errorDisplayField>
+        <errorMessage>Start Date and End Date must be equal or greater than today date.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>FieloELR__StartDateNotGreaterThanEnd</fullName>
+        <active>true</active>
+        <description>Start Date cannot be greater than End Date</description>
+        <errorConditionFormula>OR(ISNEW(), NOT(ISNEW()) &amp;&amp; (ISCHANGED(FieloELR__StartDate__c) || ISCHANGED(FieloELR__EndDate__c))) &amp;&amp;
+
+AND(!ISNULL( FieloELR__StartDate__c ), !ISNULL( FieloELR__EndDate__c )) &amp;&amp;  FieloELR__StartDate__c  &gt;  FieloELR__EndDate__c</errorConditionFormula>
+        <errorDisplayField>FieloELR__StartDate__c</errorDisplayField>
+        <errorMessage>Start Date cannot be greater than End Date</errorMessage>
+    </validationRules>
+</CustomObject>

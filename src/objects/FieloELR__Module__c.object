@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <deprecated>false</deprecated>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>FieloCMSELR_ContentCategory__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Content Category</label>
+        <referenceTo>FieloCMS__Category__c</referenceTo>
+        <relationshipLabel>Content Modules</relationshipLabel>
+        <relationshipName>ContentModules</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>FieloELR__ApprovalGrade__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Approval Grade</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>FieloELR__AttemptsAllowedPerQuestion__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Attempts Allowed per Question</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>FieloELR__AttemptsAllowed__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Attempts Allowed</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>FieloELR__Course__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <description>Course to which the module belongs.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Course to which the module belongs.</inlineHelpText>
+        <label>Course</label>
+        <referenceTo>FieloELR__Course__c</referenceTo>
+        <relationshipLabel>Modules</relationshipLabel>
+        <relationshipName>Modules</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>FieloELR__Description__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Description</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>FieloELR__HasDependencies__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Has Dependencies</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>FieloELR__IsActive__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Is Active</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>FieloELR__KeyDependencies__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Key Dependencies</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>FieloELR__Order__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Order</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>FieloELR__PenaltyMode__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Penalty Mode</label>
+        <picklist>
+            <picklistValues>
+                <fullName>None</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Percent Decrease</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Negative Weight</fullName>
+                <default>false</default>
+            </picklistValues>
+            <restrictedPicklist>true</restrictedPicklist>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>FieloELR__QuestionPool__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Question Pool</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>FieloELR__ShuffleQuestions__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Shuffle Questions</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>FieloELR__TotalValue__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Total Value</label>
+        <summarizedField>FieloELR__Question__c.FieloELR__CorrectWeight__c</summarizedField>
+        <summaryForeignKey>FieloELR__Question__c.FieloELR__Module__c</summaryForeignKey>
+        <summaryOperation>sum</summaryOperation>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>FieloELR__WeightedQuestions__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Weighted Questions</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <gender>Masculine</gender>
+    <label>Module</label>
+    <listViews>
+        <fullName>FieloELR__All</fullName>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <label>Module Name</label>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Modules</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ReadWrite</sharingModel>
+    <validationRules>
+        <fullName>FieloELR__ApprovalGradeRange</fullName>
+        <active>true</active>
+        <description>Approval grade must be a value between 0 and 100.</description>
+        <errorConditionFormula>OR(FieloELR__ApprovalGrade__c &lt; 0, FieloELR__ApprovalGrade__c &gt; 1)</errorConditionFormula>
+        <errorDisplayField>FieloELR__ApprovalGrade__c</errorDisplayField>
+        <errorMessage>The approval grade must be a value between 0 and 100.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>FieloELR__AttemptsAllowedPerQuestionRange</fullName>
+        <active>true</active>
+        <description>The field Attempts Allowed per Question must be a number that can be null or greater than 0.</description>
+        <errorConditionFormula>AND( NOT( ISBLANK(  FieloELR__AttemptsAllowedPerQuestion__c  ) ) ,  FieloELR__AttemptsAllowedPerQuestion__c   &lt;= 0)</errorConditionFormula>
+        <errorDisplayField>FieloELR__AttemptsAllowedPerQuestion__c</errorDisplayField>
+        <errorMessage>When filled, the number of attempts allowed per question must be positive.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>FieloELR__AttemptsAllowedRange</fullName>
+        <active>true</active>
+        <description>The field Attempts Allowed must be a number that can be null or greater than 0.</description>
+        <errorConditionFormula>AND( NOT( ISBLANK( FieloELR__AttemptsAllowed__c ) ) , FieloELR__AttemptsAllowed__c  &lt;= 0)</errorConditionFormula>
+        <errorDisplayField>FieloELR__AttemptsAllowed__c</errorDisplayField>
+        <errorMessage>When filled, the number of attempts allowed must be positive.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>FieloELR__CannotChangeCourse</fullName>
+        <active>true</active>
+        <description>The course cannot be changed.</description>
+        <errorConditionFormula>ISCHANGED( FieloELR__Course__c )</errorConditionFormula>
+        <errorDisplayField>FieloELR__Course__c</errorDisplayField>
+        <errorMessage>The course cannot be changed.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>FieloELR__CourseMandatory</fullName>
+        <active>true</active>
+        <description>The course field is mandatory.</description>
+        <errorConditionFormula>ISBLANK( FieloELR__Course__c )</errorConditionFormula>
+        <errorDisplayField>FieloELR__Course__c</errorDisplayField>
+        <errorMessage>The course is mandatory.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>FieloELR__GradeApprovalIfActive</fullName>
+        <active>true</active>
+        <description>When the module is set to active must validate that the Grade Approval is not null.</description>
+        <errorConditionFormula>AND( FieloELR__IsActive__c , ISBLANK( FieloELR__ApprovalGrade__c ))</errorConditionFormula>
+        <errorDisplayField>FieloELR__ApprovalGrade__c</errorDisplayField>
+        <errorMessage>Active modules must have an approval grade.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>FieloELR__IsActiveChangedWhenCourseIsActive</fullName>
+        <active>true</active>
+        <description>The module &quot;IsActive&quot; field cannot be changed if the related course is active.</description>
+        <errorConditionFormula>AND( ISCHANGED( FieloELR__IsActive__c ) ,  TEXT(FieloELR__Course__r.FieloELR__Status__c) = &apos;Active&apos;)</errorConditionFormula>
+        <errorDisplayField>FieloELR__IsActive__c</errorDisplayField>
+        <errorMessage>&quot;Active&quot; status cannot be changed if the related course is active.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>FieloELR__ModuleNameNotNull</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND( ISNEW(),  ISBLANK(Name) )</errorConditionFormula>
+        <errorMessage>Module Name cannot be blank</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>FieloELR__NoActiveCourseOnCreation</fullName>
+        <active>true</active>
+        <description>A Module cannot be created with a relation to an active Course, and the Course cannot be modified afterwards.</description>
+        <errorConditionFormula>AND( 
+      ISNEW() , 
+      ISPICKVAL(FieloELR__Course__r.FieloELR__Status__c , 
+         &apos;Active&apos;) 
+   )</errorConditionFormula>
+        <errorDisplayField>FieloELR__Course__c</errorDisplayField>
+        <errorMessage>On module creation, course cannot be active.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>FieloELR__NoQuestionPoolIfWeightedQuestions</fullName>
+        <active>true</active>
+        <description>The Module cannot have a value for Question Pool and use Weighted Questions.</description>
+        <errorConditionFormula>AND( NOT(ISBLANK(FieloELR__QuestionPool__c)) , FieloELR__WeightedQuestions__c)</errorConditionFormula>
+        <errorMessage>The Module cannot use a Question Pool together with Weighted Questions.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>FieloELR__NotActiveIfNew</fullName>
+        <active>true</active>
+        <description>The module cannot be created with status active, as it won&apos;t have questions yet.</description>
+        <errorConditionFormula>AND( ISNEW() , FieloELR__IsActive__c )</errorConditionFormula>
+        <errorDisplayField>FieloELR__IsActive__c</errorDisplayField>
+        <errorMessage>New module (without questions) cannot be active.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>FieloELR__QuestioPoolNotZero</fullName>
+        <active>true</active>
+        <description>Question Pool cannot be equal to zero.</description>
+        <errorConditionFormula>FieloELR__QuestionPool__c  = 0</errorConditionFormula>
+        <errorDisplayField>FieloELR__QuestionPool__c</errorDisplayField>
+        <errorMessage>Question Pool cannot be equal to zero.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>FieloELR__QuestioPoolPositive</fullName>
+        <active>true</active>
+        <description>Question Pool cannot be equal to zero.</description>
+        <errorConditionFormula>FieloELR__QuestionPool__c &lt;= 0</errorConditionFormula>
+        <errorDisplayField>FieloELR__QuestionPool__c</errorDisplayField>
+        <errorMessage>Question Pool must be greater than zero.</errorMessage>
+    </validationRules>
+</CustomObject>

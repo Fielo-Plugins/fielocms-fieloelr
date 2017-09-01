@@ -4,7 +4,7 @@ public with sharing class FieloCMSELR_CourseService {
 		SavePoint sp = Database.setSavePoint();
 		try{
 			Set<String> categoryNames = new Set<String>();
-			Map<Id,FieloELR__Course__c> coursesMap = new Map<Id,FieloELR__Course__c>([SELECT Id, Name FROM FieloELR__Course__c WHERE ContentCategory__c = null AND Id in : courseIds]);
+			Map<Id,FieloELR__Course__c> coursesMap = new Map<Id,FieloELR__Course__c>([SELECT Id, Name FROM FieloELR__Course__c WHERE FieloCMSELR_ContentCategory__c = null AND Id in : courseIds]);
 			for(FieloELR__Course__c course : coursesMap.values()){
 				categoryNames.add(course.Name);
 			}
@@ -20,7 +20,7 @@ public with sharing class FieloCMSELR_CourseService {
 				Map<Id,FieloCMS__Category__c> newCategoriesMap = new Map<Id,FieloCMS__Category__c>();
 				for(FieloELR__Course__c course : coursesMap.values()){
 					if(categoriesByName.containsKey(course.Name)){
-						course.ContentCategory__c = categoriesByName.get(course.Name);
+						course.FieloCMSELR_ContentCategory__c = categoriesByName.get(course.Name);
 					}else{
 						newCategoriesMap.put(course.Id, new FieloCMS__Category__c(Name = course.Name, FieloCMS__Category__c = getELearningCategory()));
 					}
@@ -29,7 +29,7 @@ public with sharing class FieloCMSELR_CourseService {
 				if(!newCategoriesMap.isEmpty()){
 					insert newCategoriesMap.values();
 					for(Id courseId : newCategoriesMap.keySet()){
-						coursesMap.get(courseId).ContentCategory__c = newCategoriesMap.get(courseId).Id;
+						coursesMap.get(courseId).FieloCMSELR_ContentCategory__c = newCategoriesMap.get(courseId).Id;
 					}
 				}
 				update coursesMap.values();
