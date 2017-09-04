@@ -61,7 +61,7 @@
 									<span class="{!IF(config['FieloCMS__orderBy__c'] == '' , '', 'fielo-order-by__item')} {!IF(config['FieloCMS__orderBy__c']=='DESC', 'fielo-order-by__item--is-desc active','')} {!IF(config['FieloCMS__orderBy__c']=='ASC', 'fielo-order-by__item--is-asc active','')}" data-order-value="FieloELR__AnswerOptionText__c">{!$ObjectType.FieloELR__AnswerOption__c.fields.FieloELR__AnswerOptionText__c.label}</span>
 			                    </th>
 			                    <th class="fielo-field fielo-field--is-Status__c mdl-data-table__cell--non-numeric">
-									<span class="{!IF(config['FieloCMS__orderBy__c'] == '' , '', 'fielo-order-by__item')} {!IF(config['FieloCMS__orderBy__c']=='DESC', 'fielo-order-by__item--is-desc active','')} {!IF(config['FieloCMS__orderBy__c']=='ASC', 'fielo-order-by__item--is-asc active','')}" data-order-value="Status__c">{!$ObjectType.FieloELR__AnswerOption__c.fields.Status__c.label}</span>
+									<span class="{!IF(config['FieloCMS__orderBy__c'] == '' , '', 'fielo-order-by__item')} {!IF(config['FieloCMS__orderBy__c']=='DESC', 'fielo-order-by__item--is-desc active','')} {!IF(config['FieloCMS__orderBy__c']=='ASC', 'fielo-order-by__item--is-asc active','')}" data-order-value="Status__c">Status</span>
 			                    </th>
 			                </apex:panelGroup>
 			                <apex:panelGroup rendered="{! qWrapper.question.FieloELR__Type__c == 'Short Answer' || qWrapper.question.FieloELR__Type__c == 'Matching Options'}" layout="none" >
