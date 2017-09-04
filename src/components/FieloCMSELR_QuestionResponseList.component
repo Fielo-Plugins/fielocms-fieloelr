@@ -77,7 +77,7 @@
 				                <tr class="fielo-record fielo-record-set__template">
 							    	<td class="fielo-field fielo-field--is-FieloELR__AnswerOptionText__c mdl-data-table__cell--non-numeric" data-th="Question">
 							      		<span class="fielo-field__value">
-							      			<c:FieloCMSELR_OutputField sObject="FieloELR__AnswerOption__c" field="FieloELR__AnswerOptionText__c" record="{!aWrapper.answer}"/>
+							      			<c:FieloCMSELR_OutputField sObject="FieloELR__AnswerOption__c" field="FieloELR__AnswerOptionText__c" record="{!aWrapper.answerOption}"/>
 							      		</span>
 							    	</td>
 							    	<td class="fielo-field fielo-field--is-Status__c mdl-data-table__cell--non-numeric" data-th="Question">
