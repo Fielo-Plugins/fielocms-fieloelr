@@ -3,7 +3,7 @@
 
   /**
    * @description Constructor for the login form
-   * FieloCourseProgress Implements design patterns defined by MDL at
+   * FieloCourseFormProgress Implements design patterns defined by MDL at
    * {@link https://github.com/jasonmayes/mdl-component-design-pattern}
    *
    * @version 1
@@ -12,13 +12,13 @@
    * @param {HTMLElement} element - Element to be upgraded
    * @constructor
    */
-  var FieloCourseProgress = function FieloCourseProgress(element) {
+  var FieloCourseFormProgress = function FieloCourseFormProgress(element) {
     this.element_ = element;
 
     // Initialize instance.
     this.init();
   };
-  window.FieloCourseProgress = FieloCourseProgress;
+  window.FieloCourseFormProgress = FieloCourseFormProgress;
 
   // Properties
   /**
@@ -26,7 +26,7 @@
    * @enum {string | number}
    * @private
    */
-  FieloCourseProgress.prototype.Constant_ = {
+  FieloCourseFormProgress.prototype.Constant_ = {
     LABEL: 'Progress',
     GET_PROGRESS: 'FieloCMSELR_ProgressBarCtlr.getCourseStatus'
   };
@@ -37,37 +37,23 @@
    * @enum {string}
    * @private
    */
-  FieloCourseProgress.prototype.CssClasses_ = {
-    PROGRESS_FIELD: 'fielo-field--is-ProgressBar',
+  FieloCourseFormProgress.prototype.CssClasses_ = {
     PROGRESS_BAR: 'fielo-progress-bar',
     OUTPUT_TEXT: 'fielo-output__text',
     RECORD: 'fielo-record-set__template'
   };
 
-  FieloCourseProgress.prototype.getRecordIds = function() {
-    var records = this.element_
-      .querySelectorAll('.' + this.CssClasses_.RECORD);
+  FieloCourseFormProgress.prototype.getRecordIds = function() {
     this.recordIds = [];
     this.records = {};
-    var recordId;
-    [].forEach.call(records, function(record) {
-      recordId = record
-        .querySelector('.' + this.CssClasses_.PROGRESS_BAR)
-          .getAttribute('data-record-id');
-      this.recordIds.push(recordId);
-      this.records[recordId] =
-        record;
-    }, this);
-
-    if (this.records[this.recordIds[0]]) {
-      this.oldDisplay =
-        this.records[this.recordIds[0]]
-          .querySelector('.' + this.CssClasses_.PROGRESS_BAR)
-            .style.display;
-    }
+    var recordId = this.element_
+      .querySelector('.' + this.CssClasses_.PROGRESS_BAR)
+        .getAttribute('data-record-id');
+    this.recordIds.push(recordId);
+    this.records[recordId] = this.element_;
   };
 
-  FieloCourseProgress.prototype.updateProgress = function(results) {
+  FieloCourseFormProgress.prototype.updateProgress = function(results) {
     console.log(results);
     if (results) {
       if (results.length === 0) {
@@ -100,7 +86,7 @@
     }
   };
 
-  FieloCourseProgress.prototype.getProgress = function() {
+  FieloCourseFormProgress.prototype.getProgress = function() {
     Visualforce.remoting.Manager.invokeAction( // eslint-disable-line no-undef
       this.Constant_.GET_PROGRESS,
       this.recordIds,
@@ -114,12 +100,8 @@
   /**
    * Inicializa el elemento
    */
-  FieloCourseProgress.prototype.init = function() {
+  FieloCourseFormProgress.prototype.init = function() {
     if (this.element_) {
-      this.header = this.element_
-        .querySelector('.' + this.CssClasses_.PROGRESS_FIELD);
-      this.header.innerHTML = this.Constant_.LABEL;
-
       this.getRecordIds();
 
       this.getProgress();
@@ -129,9 +111,9 @@
   // El componente se registra por si solo.
   // Asume que el componentHandler esta habilitado en el scope global
   componentHandler.register({ // eslint-disable-line no-undef
-    constructor: FieloCourseProgress,
-    classAsString: 'FieloCourseProgress',
-    cssClass: 'cms-elr-list-progress',
+    constructor: FieloCourseFormProgress,
+    classAsString: 'FieloCourseFormProgress',
+    cssClass: 'cms-elr-form-progress',
     widget: true
   });
 })();

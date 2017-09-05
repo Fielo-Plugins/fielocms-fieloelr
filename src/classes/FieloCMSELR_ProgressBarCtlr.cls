@@ -1,13 +1,17 @@
-public class FieloCMSELR_ProgressBarCtlr implements FieloCMS.ViewSubComponentInterface {
+global class FieloCMSELR_ProgressBarCtlr implements FieloCMS.ViewSubComponentInterface {
     public ApexPages.Component getSubComponent(FieloCMS.Field field, SObject record){
-    	system.debug(field);
-    	system.debug(record);
         Component.FieloCMSELR_ProgressBar progress = new Component.FieloCMSELR_ProgressBar();
+        if(record != null){
+            progress.record = record;
+        }else{
+            progress.expressions.record = '{!record}';
+        }
+        progress.field = field;
         return progress;
     }
 
     @RemoteAction
-    public static List<SObject> getCourseStatus(List<String> courseIds) {
+    global static List<SObject> getCourseStatus(List<String> courseIds) {
         Id memberId = FieloCMSPLT_MemberService.getCurrentMemberId();
         List<FieloELR__CourseStatus__c> courseStatus = FieloELR.CourseService.getCourseStatus(
             new Set<String>{'FieloELR__Progress__c','FieloELR__Course__c'},

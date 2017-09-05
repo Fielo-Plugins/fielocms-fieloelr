@@ -1,4 +1,4 @@
-public class FieloCMSELR_CourseAPI implements FieloCMS.DataInterface{
+global class FieloCMSELR_CourseAPI implements FieloCMS.DataInterface{
     
     private class FilterWrapper{
         public String field;
@@ -35,6 +35,8 @@ public class FieloCMSELR_CourseAPI implements FieloCMS.DataInterface{
                 c.FieloCMS__Limit__c = 5;
 
             if(c.FieloCMS__ComponentLibrary__r.Name == 'Courses'){
+                system.debug('Component: ' + c.FieloCMS__ComponentLibrary__r.Name);
+
                 FieloPLT__Member__c member = [SELECT Id, FieloPLT__Program__c FROM FieloPLT__Member__c WHERE Id =: memberId];
                 
                 List<FilterWrapper> dynamicFilters = new List<FilterWrapper>();
@@ -65,7 +67,7 @@ public class FieloCMSELR_CourseAPI implements FieloCMS.DataInterface{
                     'FieloELR__Order__c',
                     dynamicFilters.isEmpty() ? null : JSON.serialize(dynamicFilters)
                 );
-                
+                system.debug('Records: ' + courses);
                 newMapData.put(c.Id, (List<Object>)courses);
             }
             if(c.FieloCMS__ComponentLibrary__r.Name == 'Course Detail'){

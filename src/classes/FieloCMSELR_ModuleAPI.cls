@@ -1,4 +1,4 @@
-public with sharing class FieloCMSELR_ModuleAPI implements FieloCMS.DataInterface{
+global with sharing class FieloCMSELR_ModuleAPI implements FieloCMS.DataInterface{
 	
 	public Map<Id, Object> getBulkData(List<FieloCMS__Component__c> components){
         Map<Id,Object> newMapData = new Map<Id,Object>();
@@ -28,21 +28,6 @@ public with sharing class FieloCMSELR_ModuleAPI implements FieloCMS.DataInterfac
                     ''
                 );
 
-                List<FieloELR.CourseService.CourseWrapper> coursesMap = FieloELR.CourseService.getCoursesMap(
-                    new Set<String>{'Id','Name'},
-                    null,
-                    new Set<String>{'Id', 'FieloELR__AttemptsAllowed__c'},
-                    null,
-                    new Set<Id>{recordId},
-                    member.FieloPLT__Program__c,
-                    member.Id,
-                    false,
-                    true,
-                    100,
-                    0,
-                    'LastModifiedDate',
-                    ''
-                );
                 newMapData.put(c.Id, (List<Object>) courses[0].FieloELR__Modules__r);
             }
         }
