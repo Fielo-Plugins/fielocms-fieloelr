@@ -27,8 +27,8 @@
    * @private
    */
   FieloQuiz.prototype.Constant_ = {
-    SUBMIT_METHOD: 'QuizAPI.submitQuestion',
-    SUBMIT_MODULE: 'QuizAPI.submitModuleResponse',
+    SUBMIT_METHOD: 'FieloCMSELR_QuizCtlr.submitQuestion',
+    SUBMIT_MODULE: 'FieloCMSELR_QuizCtlr.submitModuleResponse',
     QUESTION_NUMBER: 'cms-elr-question-number',
     QUESTION_TEXT: 'cms-elr-question-text'
   };
@@ -522,7 +522,9 @@
     if (this.element_) {
       this.getModuleResponseId();
       this.getElements();
-      if (this.moduleResponseId !== '') {
+      if (this.moduleResponseId !== '' &&
+        this.moduleResponseId !== undefined &&
+        this.moduleResponseId !== null) {
         this.widgetLabel
           .style.display = null;
         this.getData(this.moduleResponseId);

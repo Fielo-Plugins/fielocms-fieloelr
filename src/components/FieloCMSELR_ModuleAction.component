@@ -18,5 +18,16 @@
 	    return el;
 	  };
 	}
+
+	if(typeof FrontEndJSSettings == 'undefined') {
+		var FrontEndJSSettings = {};
+	}
+	if(typeof FrontEndJSSettings.LABELS == 'undefined') {
+	 	FrontEndJSSettings.LABELS = {};
+	}
+	FrontEndJSSettings.LABELS.ApprovedLabel = 
+		'{!$ObjectType.FieloELR__ModuleResponse__c.fields.FieloELR__IsApproved__c.label}';
+	FrontEndJSSettings.LABELS.Approved = '{!$Label.FieloCMSELR_Approved}';
+	FrontEndJSSettings.LABELS.NotApproved = '{!$Label.FieloCMSELR_NotApproved}';
 	</script>
 </apex:component>

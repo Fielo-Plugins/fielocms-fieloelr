@@ -1,4 +1,4 @@
-public class FieloCMSELR_ModuleActionCtlr implements FieloCMS.ViewSubComponentInterface{
+global class FieloCMSELR_ModuleActionCtlr implements FieloCMS.ViewSubComponentInterface{
 	public ApexPages.Component getSubComponent(FieloCMS.Field field, SObject record){
         Component.FieloCMSELR_ModuleAction action = new Component.FieloCMSELR_ModuleAction();
         if(record != null){
@@ -11,7 +11,7 @@ public class FieloCMSELR_ModuleActionCtlr implements FieloCMS.ViewSubComponentIn
     }
 
     @RemoteAction
-    public static Map<String,Object> getModuleActions(Id componentId, List<String> moduleIds){
+    global static Map<String,Object> getModuleActions(Id componentId, List<String> moduleIds){
     	FieloCMS__Component__c component = [SELECT FieloCMS__DetailParameter__c, FieloCMSPLT_RedirectPage__c FROM FieloCMS__Component__c WHERE Id =: componentId];
         Id memberId = FieloCMSPLT_MemberService.getCurrentMemberId();
         FieloPLT__Member__c member = [SELECT Id, FieloPLT__Program__c FROM FieloPLT__Member__c WHERE Id =: memberId];
@@ -69,17 +69,46 @@ public class FieloCMSELR_ModuleActionCtlr implements FieloCMS.ViewSubComponentIn
                                     moduleActions.put(moduleWrapper.module.Id,(Object) new Map<String,Object>{'Actions' => (Object) new List<String>{'Take','Hide'}});
                                 }
                             } else if(!moduleWrapper.isApproved && ( moduleWrapper.numberOfAttempts < moduleWrapper.module.FieloELR__AttemptsAllowed__c || moduleWrapper.module.FieloELR__AttemptsAllowed__c == null)) {
-                                moduleActions.put(moduleWrapper.module.Id,(Object) new Map<String,Object>{'Actions' => (Object) new List<String>{'Retake'}, 'ModuleResponseId' => (Object) moduleWrapper.moduleResponses.get(moduleWrapper.moduleResponses.size()-1).Id, 'PageId' => component.FieloCMSPLT_RedirectPage__c});
+                                moduleActions.put(moduleWrapper.module.Id,
+                                    (Object) new Map<String,Object>{
+                                        'Actions' => (Object) new List<String>{'Retake'},
+                                        'ModuleResponseId' => (Object) moduleWrapper.moduleResponses.get(0).Id,
+                                        'PageId' => component.FieloCMSPLT_RedirectPage__c,
+                                        'Approved' => moduleWrapper.isApproved
+                                    }
+                                );
                             } else if(moduleWrapper.isApproved && ( moduleWrapper.numberOfAttempts < moduleWrapper.module.FieloELR__AttemptsAllowed__c || moduleWrapper.module.FieloELR__AttemptsAllowed__c == null) ){
-                                moduleActions.put(moduleWrapper.module.Id,(Object) new Map<String,Object>{'Actions' => (Object) new List<String>{'View','Retake'}, 'ModuleResponseId' => (Object) moduleWrapper.moduleResponses.get(moduleWrapper.moduleResponses.size()-1).Id, 'PageId' => component.FieloCMSPLT_RedirectPage__c});
+                                moduleActions.put(moduleWrapper.module.Id,
+                                    (Object) new Map<String,Object>{
+                                        'Actions' => (Object) new List<String>{'View','Retake'},
+                                        'ModuleResponseId' => (Object) moduleWrapper.moduleResponses.get(0).Id,
+                                        'PageId' => component.FieloCMSPLT_RedirectPage__c,
+                                        'Approved' => moduleWrapper.isApproved
+                                    }
+                                );
                             } else {
-                                moduleActions.put(moduleWrapper.module.Id,(Object) new Map<String,Object>{'Actions' => (Object) new List<String>{'View'}, 'ModuleResponseId' => (Object) moduleWrapper.moduleResponses.get(moduleWrapper.moduleResponses.size()-1).Id, 'PageId' => component.FieloCMSPLT_RedirectPage__c});
+                                moduleActions.put(moduleWrapper.module.Id,
+                                    (Object) new Map<String,Object>{
+                                        'Actions' => (Object) new List<String>{'View'},
+                                        'ModuleResponseId' => (Object) moduleWrapper.moduleResponses.get(0).Id,
+                                        'PageId' => component.FieloCMSPLT_RedirectPage__c,
+                                        'Approved' => moduleWrapper.isApproved
+                                    }
+                                );
                             }
                         } else {
                             if (moduleWrapper.allowedForDependency) {
-                                moduleActions.put(moduleWrapper.module.Id,(Object) new Map<String,Object>{'Actions' => (Object) new List<String>{'Take'}});
+                                moduleActions.put(moduleWrapper.module.Id,
+                                    (Object) new Map<String,Object>{
+                                        'Actions' => (Object) new List<String>{'Take'}
+                                    }
+                                );
                             } else {
-                                moduleActions.put(moduleWrapper.module.Id,(Object) new Map<String,Object>{'Actions' => (Object) new List<String>{'Take','Hide'}});
+                                moduleActions.put(moduleWrapper.module.Id,
+                                    (Object) new Map<String,Object>{
+                                        'Actions' => (Object) new List<String>{'Take','Hide'}
+                                    }
+                                );
                             }
                         }
                     }

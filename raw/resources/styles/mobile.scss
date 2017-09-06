@@ -2,28 +2,9 @@
 @import '_variables';
 
 
-// Importa vistas
-@import 'mobile/views/_component';
-@import 'mobile/views/_modal';
-@import 'mobile/views/_header';
-@import 'mobile/views/_footer';
-@import 'mobile/views/_table';
-@import 'mobile/views/_grid';
-@import 'mobile/views/_forms';
-@import 'mobile/views/_slider';
-@import 'mobile/views/_acordeon';
-
 // Importa Componentes
-@import 'mobile/components/_buttons';
-@import 'mobile/components/_shoppingCart';
-@import 'mobile/components/_catalog';
-@import 'mobile/components/_addToCart';
-@import 'mobile/components/_contentFeed';
-@import 'mobile/components/_filter';
-@import 'mobile/components/_navigationDetail';
-@import 'mobile/components/_login';
-@import 'mobile/components/_paginator';
-@import 'mobile/components/_register';
+@import 'mobile/components/_approvedIcon';
+@import 'mobile/components/_notapproved';
 
 
 @media #{$bp-mobile-1} {}
