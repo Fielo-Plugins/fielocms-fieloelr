@@ -8,9 +8,9 @@
 	<a class="{!config['FieloCMS__ComponentLibrary__r']['FieloCMS__CSSClasses__c']} {!config['FieloCMS__CSSClasses__c']} fielo-button cms-elr-record-action" 
 	data-remoteobject="{!config['FieloCMS__ComponentLibrary__r']['FieloCMS__sobject__c']}"
 	data-componentid="{! config['Id'] }"
-	data-redirect-page="{!config['RedirectPage__c']}"
+	data-redirect-page="{!config['FieloCMSPLT_RedirectPage__c']}"
 	type="button" 
-	data-record-id="{!record.Id}"
+	data-record-id="{!record[field.attributes['fieldName']]}"
 	href="{!IF(useFieldAsSource, href, '')}">{!IF(calculateAction, action, 'Loading...')}</a>
 	<script>
 	/* For IE Compatibility */

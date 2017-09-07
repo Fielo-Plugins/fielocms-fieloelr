@@ -7,6 +7,7 @@ global class FieloCMSELR_ProgressBarCtlr implements FieloCMS.ViewSubComponentInt
             progress.expressions.record = '{!record}';
         }
         progress.field = field;
+        system.debug('Loaded Subcomponent.');
         return progress;
     }
 

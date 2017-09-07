@@ -1,4 +1,4 @@
-public class FieloCMSELR_CourseStatusAPI implements FieloCMS.DataInterface{
+global class FieloCMSELR_CourseStatusAPI implements FieloCMS.DataInterface{
 	public Map<Id, Object> getBulkData(List<FieloCMS__Component__c> components){
         Map<Id,Object> newMapData = new Map<Id,Object>();
         Id memberId = FieloCMSPLT_MemberService.getCurrentMemberId();
