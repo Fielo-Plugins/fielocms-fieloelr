@@ -56,14 +56,16 @@ global class FieloCMSELR_CourseActionCtlr implements FieloCMS.ViewSubComponentIn
                     courseActionMap.put(course.Id,
                         (Object) new Map<String,Object>{
                             'Action' => 'Join',
-                            'PageId' => component.FieloCMSPLT_RedirectPage__c
+                            'Page' => '/FieloCMS__Page?pageId=' + component.FieloCMSPLT_RedirectPage__c + 
+                                    '&' + component.FieloCMSELR_CustomDetailParameter__c + '=' + course.Id
                         }
                     );
                 } else {
                     courseActionMap.put(course.Id,
                         (Object) new Map<String,Object>{
                             'Action' => 'View',
-                            'PageId' => component.FieloCMSPLT_RedirectPage__c
+                            'Page' => '/FieloCMS__Page?pageId=' + component.FieloCMSPLT_RedirectPage__c + 
+                                    '&' + component.FieloCMSELR_CustomDetailParameter__c + '=' + course.Id
                         }
                     );
                 }
