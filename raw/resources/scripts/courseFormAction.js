@@ -27,8 +27,8 @@
    * @private
    */
   FieloCourseAction.prototype.Constant_ = {
-    GET_ACTIONS: 'CourseActionAPI.getCourseActions',
-    JOIN_COURSE: 'CourseActionAPI.joinCourse'
+    GET_ACTIONS: 'FieloCMSELR_CourseActionCtlr.getCourseActions',
+    JOIN_COURSE: 'FieloCMSELR_CourseActionCtlr.joinCourse'
   };
 
   /**
@@ -39,7 +39,7 @@
    */
   FieloCourseAction.prototype.CssClasses_ = {
     ACTION: 'cms-elr-record-action',
-    RECORD: 'fielo-record'
+    RECORD: 'fielo-record-set__template'
   };
 
   FieloCourseAction.prototype.getRecordIds = function() {
@@ -58,9 +58,9 @@
       [].forEach.call(Object.keys(results), function(courseId) {
         this.records[courseId]
           .querySelector('.' + this.CssClasses_.ACTION)
-            .innerHTML = results[courseId];
-        if (results[courseId] === 'View' ||
-          results[courseId] === 'Continue') {
+            .innerHTML = results[courseId].Action;
+        if (results[courseId].Action === 'View' ||
+          results[courseId].Action === 'Continue') {
           this.records[courseId]
             .querySelector('.' + this.CssClasses_.ACTION)
               .style.display = 'none';

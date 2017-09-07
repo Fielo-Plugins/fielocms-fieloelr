@@ -27,8 +27,8 @@
    * @private
    */
   FieloCourseAction.prototype.Constant_ = {
-    GET_ACTIONS: 'CourseActionAPI.getCourseActions',
-    JOIN_COURSE: 'CourseActionAPI.joinCourse'
+    GET_ACTIONS: 'FieloCMSELR_CourseActionCtlr.getCourseActions',
+    JOIN_COURSE: 'FieloCMSELR_CourseActionCtlr.joinCourse'
   };
 
   /**
@@ -63,12 +63,14 @@
       [].forEach.call(Object.keys(results), function(courseId) {
         this.records[courseId]
           .querySelector('.' + this.CssClasses_.ACTION)
-            .innerHTML = results[courseId];
-        if (results[courseId] === 'View' ||
-          results[courseId] === 'Continue') {
+            .innerHTML = results[courseId].Action;
+        if (results[courseId].Action === 'View' ||
+          results[courseId].Action === 'Continue') {
           this.records[courseId]
             .querySelector('.' + this.CssClasses_.ACTION)
-              .href = this.records[courseId].FieloRecord.link_;
+              .href = this.records[courseId].FieloRecord.link_ ?
+                this.records[courseId].FieloRecord.link_ :
+                results[courseId].Page;
         } else {
           this.records[courseId]
             .querySelector('.' + this.CssClasses_.ACTION)

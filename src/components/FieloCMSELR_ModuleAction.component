@@ -1,0 +1,33 @@
+<apex:component layout="none" controller="FieloCMSELR_ModuleActionCtlr">
+	<apex:attribute name="record" type="SObject" description="" />
+    <apex:attribute name="field" type="FieloCMS.Field" description="" />
+    <apex:attribute name="config" type="SObject" description="" />
+	<a class="fielo-button cms-elr-record-action" type="button" data-record-id="{!record.Id}" data-redirect-page="{!config['RedirectPage__c']}">Loading...</a>
+	<script>
+	/* For IE Compatibility */
+	if (window.Element && !Element.prototype.closest) {
+	  Element.prototype.closest =
+	  function(s) {
+	    var matches = (this.document || this.ownerDocument).querySelectorAll(s),
+	      i,
+	      el = this;
+	    do {
+	      i = matches.length;
+	      while (--i >= 0 && matches.item(i) !== el) {};
+	    } while ((i < 0) && (el = el.parentElement)); 
+	    return el;
+	  };
+	}
+
+	if(typeof FrontEndJSSettings == 'undefined') {
+		var FrontEndJSSettings = {};
+	}
+	if(typeof FrontEndJSSettings.LABELS == 'undefined') {
+	 	FrontEndJSSettings.LABELS = {};
+	}
+	FrontEndJSSettings.LABELS.ApprovedLabel = 
+		'{!$ObjectType.FieloELR__ModuleResponse__c.fields.FieloELR__IsApproved__c.label}';
+	FrontEndJSSettings.LABELS.Approved = '{!$Label.FieloCMSELR_Approved}';
+	FrontEndJSSettings.LABELS.NotApproved = '{!$Label.FieloCMSELR_NotApproved}';
+	</script>
+</apex:component>

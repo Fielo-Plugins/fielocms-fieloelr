@@ -27,8 +27,8 @@
    * @private
    */
   FieloModuleAction.prototype.Constant_ = {
-    GET_ACTIONS: 'ModuleActionAPI.getModuleActions',
-    TAKE_MODULE: 'ModuleActionAPI.takeModule'
+    GET_ACTIONS: 'FieloCMSELR_ModuleActionCtlr.getModuleActions',
+    TAKE_MODULE: 'FieloCMSELR_ModuleActionCtlr.takeModule'
   };
 
   /**
@@ -39,7 +39,8 @@
    */
   FieloModuleAction.prototype.CssClasses_ = {
     ACTION: 'cms-elr-record-action',
-    RECORD: 'fielo-record-set__template'
+    RECORD: 'fielo-record-set__template',
+    IS_ACTION: 'fielo-field--is-ModuleAction'
   };
 
   FieloModuleAction.prototype.getRecordIds = function() {
@@ -61,14 +62,17 @@
   FieloModuleAction.prototype.updateAction = function(results) {
     console.log(results);
     var actions;
+    var model;
+    var newButton;
     if (results) {
       [].forEach.call(Object.keys(results), function(moduleId) {
         actions = results[moduleId].Actions;
         var buttons = this.records[moduleId]
           .querySelectorAll('.' + this.CssClasses_.ACTION);
-        while (actions.length > buttons.length) {
-          var newButton = this.records[moduleId]
+        model = this.records[moduleId]
           .querySelector('.' + this.CssClasses_.ACTION).cloneNode(true);
+        while (actions.length > buttons.length) {
+          newButton = model.cloneNode(true);
           this.records[moduleId]
           .querySelector('.' + this.CssClasses_.ACTION).closest('td')
             .appendChild(newButton);
@@ -105,8 +109,52 @@
             }
           }
         }, this);
+        if (results[moduleId].Approved) {
+          this.addStatusField(this.records[moduleId],
+            FrontEndJSSettings.LABELS.Approved, // eslint-disable-line no-undef
+            'cms-elr-icon__approved'
+          );
+        } else {
+          this.addStatusField(this.records[moduleId],
+            FrontEndJSSettings.LABELS.NotApproved, // eslint-disable-line no-undef
+            'cms-elr-icon__notapproved');
+        }
       }, this);
     }
+  };
+
+  FieloModuleAction.prototype.addStatusField = function(row, label, statusCss) {
+    var td = row
+      .querySelector('.' + this.CssClasses_.IS_ACTION);
+    var newTd = td.cloneNode(true);
+    var tdIndex = [].indexOf.call(td.parentNode.cells, td);
+    var th = td.closest('table')
+      .querySelector('thead')
+        .querySelector('tr').cells[tdIndex];
+    var newTh = th.cloneNode(true);
+
+    if (!this.hasApprovedHeader) {
+      th.parentNode.insertBefore(newTh, th);
+      this.hasApprovedHeader = true;
+      newTh.innerHTML =
+        FrontEndJSSettings.LABELS.ApprovedLabel; // eslint-disable-line no-undef
+    }
+    td.parentNode.insertBefore(newTd, td);
+
+    while (newTd.firstChild) {
+      newTd.removeChild(newTd.firstChild);
+    }
+
+    var newButton = document.createElement('div');
+    newButton.setAttribute('title', label);
+    this.addClass(newButton, statusCss);
+    newTd.appendChild(newButton);
+  };
+
+  FieloModuleAction.prototype.addClass = function(element, className) {
+    var classString = element.className;
+    var newClass = classString.concat(' ' + className);
+    element.className = newClass;
   };
 
   FieloModuleAction.prototype.takeModule = function(event) {
