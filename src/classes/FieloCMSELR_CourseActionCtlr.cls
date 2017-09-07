@@ -49,23 +49,24 @@ global class FieloCMSELR_CourseActionCtlr implements FieloCMS.ViewSubComponentIn
         }
 
         Map<String,Object> courseActionMap = new Map<String,Object>();
+        String redirectPage;
 
         for(FieloELR__Course__c course: courses) {
+            redirectPage = '/FieloCMS__Page?pageId=' + component.FieloCMSPLT_RedirectPage__c + 
+                '&' + component.FieloCMSELR_CustomDetailParameter__c + '=' + course.Id;
             if (!joinedCourses.containsKey(course.Id)) {
                 if (course.FieloELR__SubscriptionMode__c =='Manual') {
                     courseActionMap.put(course.Id,
                         (Object) new Map<String,Object>{
                             'Action' => 'Join',
-                            'Page' => '/FieloCMS__Page?pageId=' + component.FieloCMSPLT_RedirectPage__c + 
-                                    '&' + component.FieloCMSELR_CustomDetailParameter__c + '=' + course.Id
+                            'Page' => redirectPage
                         }
                     );
                 } else {
                     courseActionMap.put(course.Id,
                         (Object) new Map<String,Object>{
                             'Action' => 'View',
-                            'Page' => '/FieloCMS__Page?pageId=' + component.FieloCMSPLT_RedirectPage__c + 
-                                    '&' + component.FieloCMSELR_CustomDetailParameter__c + '=' + course.Id
+                            'Page' => redirectPage
                         }
                     );
                 }
@@ -74,8 +75,7 @@ global class FieloCMSELR_CourseActionCtlr implements FieloCMS.ViewSubComponentIn
                     courseActionMap.put(course.Id,
                         (Object) new Map<String,Object>{
                             'Action' => 'Continue',
-                            'Page' => '/FieloCMS__Page?pageId=' + component.FieloCMSPLT_RedirectPage__c + 
-                                    '&' + component.FieloCMSELR_CustomDetailParameter__c + '=' + course.Id
+                            'Page' => redirectPage
                         }
                     );
                 } else {
@@ -84,16 +84,14 @@ global class FieloCMSELR_CourseActionCtlr implements FieloCMS.ViewSubComponentIn
                         courseActionMap.put(course.Id,
                             (Object) new Map<String,Object>{
                                 'Action' => 'Continue',
-                                'Page' => '/FieloCMS__Page?pageId=' + component.FieloCMSPLT_RedirectPage__c + 
-                                    '&' + component.FieloCMSELR_CustomDetailParameter__c + '=' + course.Id
+                                'Page' => redirectPage
                             }
                         );
                     } else {
                         courseActionMap.put(course.Id,
                             (Object) new Map<String,Object>{
                                 'Action' => 'View',
-                                'Page' => '/FieloCMS__Page?pageId=' + component.FieloCMSPLT_RedirectPage__c + 
-                                    '&' + component.FieloCMSELR_CustomDetailParameter__c + '=' + course.Id
+                                'Page' => redirectPage
                             }
                         );
                     }
