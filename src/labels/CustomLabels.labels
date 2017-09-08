@@ -1,6 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata">
     <labels>
+        <fullName>FieloCMSELR_Approved</fullName>
+        <categories>moduleAction.js</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Approved</shortDescription>
+        <value>Approved</value>
+    </labels>
+    <labels>
+        <fullName>FieloCMSELR_Continue</fullName>
+        <categories>courseAction.js</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Continue</shortDescription>
+        <value>Continue</value>
+    </labels>
+    <labels>
+        <fullName>FieloCMSELR_Join</fullName>
+        <categories>courseAction.js</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Join</shortDescription>
+        <value>Join</value>
+    </labels>
+    <labels>
         <fullName>FieloCMSELR_MaximumAttempts</fullName>
         <categories>quiz.js</categories>
         <language>en_US</language>
@@ -15,6 +39,38 @@
         <protected>true</protected>
         <shortDescription>ModuleFinished</shortDescription>
         <value>Module finished.</value>
+    </labels>
+    <labels>
+        <fullName>FieloCMSELR_NotApproved</fullName>
+        <categories>moduleAction.js</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>NotApproved</shortDescription>
+        <value>Not Approved</value>
+    </labels>
+    <labels>
+        <fullName>FieloCMSELR_Retake</fullName>
+        <categories>moduleAction.js</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Retake</shortDescription>
+        <value>Retake</value>
+    </labels>
+    <labels>
+        <fullName>FieloCMSELR_Take</fullName>
+        <categories>moduleAction.js</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Take</shortDescription>
+        <value>Take</value>
+    </labels>
+    <labels>
+        <fullName>FieloCMSELR_View</fullName>
+        <categories>moduleAction.js</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>View</shortDescription>
+        <value>View</value>
     </labels>
     <labels>
         <fullName>FieloCMSELR_WrongAnswer</fullName>
