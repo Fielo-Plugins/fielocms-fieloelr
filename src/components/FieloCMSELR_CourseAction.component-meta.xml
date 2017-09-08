@@ -2,19 +2,4 @@
 <ApexComponent xmlns="http://soap.sforce.com/2006/04/metadata">
     <apiVersion>36.0</apiVersion>
     <label>Course Action</label>
-    <packageVersions>
-        <majorNumber>1</majorNumber>
-        <minorNumber>74</minorNumber>
-        <namespace>FieloCMS</namespace>
-    </packageVersions>
-    <packageVersions>
-        <majorNumber>1</majorNumber>
-        <minorNumber>18</minorNumber>
-        <namespace>FieloELR</namespace>
-    </packageVersions>
-    <packageVersions>
-        <majorNumber>2</majorNumber>
-        <minorNumber>28</minorNumber>
-        <namespace>FieloPLT</namespace>
-    </packageVersions>
 </ApexComponent>
