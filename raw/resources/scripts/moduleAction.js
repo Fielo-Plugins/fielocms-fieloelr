@@ -73,64 +73,66 @@
     var newButton;
     if (results) {
       [].forEach.call(Object.keys(results), function(moduleId) {
-        actions = results[moduleId].Actions;
-        var buttons = this.records[moduleId]
-          .querySelectorAll('.' + this.CssClasses_.ACTION);
-        model = this.records[moduleId]
-          .querySelector('.' + this.CssClasses_.ACTION).cloneNode(true);
-        while (actions.length > buttons.length) {
-          newButton = model.cloneNode(true);
-          if (this.dataLayout === 'grid') {
-            this.records[moduleId]
-              .querySelector('.' + this.CssClasses_.ACTION).closest('span')
-                .appendChild(newButton);
-          } else {
-            this.records[moduleId]
-              .querySelector('.' + this.CssClasses_.ACTION).closest('td')
-                .appendChild(newButton);
+        if (this.records[moduleId]) {
+          actions = results[moduleId].Actions;
+          var buttons = this.records[moduleId]
+            .querySelectorAll('.' + this.CssClasses_.ACTION);
+          model = this.records[moduleId]
+            .querySelector('.' + this.CssClasses_.ACTION).cloneNode(true);
+          while (actions.length > buttons.length) {
+            newButton = model.cloneNode(true);
+            if (this.dataLayout === 'grid') {
+              this.records[moduleId]
+                .querySelector('.' + this.CssClasses_.ACTION).closest('span')
+                  .appendChild(newButton);
+            } else {
+              this.records[moduleId]
+                .querySelector('.' + this.CssClasses_.ACTION).closest('td')
+                  .appendChild(newButton);
+            }
+            buttons = this.records[moduleId]
+            .querySelectorAll('.' + this.CssClasses_.ACTION);
           }
-          buttons = this.records[moduleId]
-          .querySelectorAll('.' + this.CssClasses_.ACTION);
-        }
-        [].forEach.call(actions, function(action) {
-          if (action === 'Take' || action === 'Retake') {
-            buttons[actions.indexOf(action)].innerHTML = action;
-            buttons[actions.indexOf(action)].href = '#';
-            buttons[actions.indexOf(action)]
-                .addEventListener('click', this.takeModule.bind(this));
-          } else if (action === 'Hide') {
-            [].forEach.call(buttons, function(button) {
-              button.style.visibility = 'hidden';
-            }, this);
-          } else {
-            buttons[actions.indexOf(action)]
-              .innerHTML = action;
-            buttons[actions.indexOf(action)]
-              .href = this.records[moduleId].FieloRecord.link_;
-          }
-          if (action === 'View') {
-            if (results[moduleId].ModuleResponseId) {
+          [].forEach.call(actions, function(action) {
+            if (action === 'Take' || action === 'Retake') {
+              buttons[actions.indexOf(action)].innerHTML = action;
+              buttons[actions.indexOf(action)].href = '#';
               buttons[actions.indexOf(action)]
-                .setAttribute('data-module-response-id',
-                  results[moduleId].ModuleResponseId);
-              if (results[moduleId].PageId) {
+                  .addEventListener('click', this.takeModule.bind(this));
+            } else if (action === 'Hide') {
+              [].forEach.call(buttons, function(button) {
+                button.style.visibility = 'hidden';
+              }, this);
+            } else {
+              buttons[actions.indexOf(action)]
+                .innerHTML = action;
+              buttons[actions.indexOf(action)]
+                .href = this.records[moduleId].FieloRecord.link_;
+            }
+            if (action === 'View') {
+              if (results[moduleId].ModuleResponseId) {
                 buttons[actions.indexOf(action)]
-                  .href = 'FieloCMS__Page?pageId=' +
-                    results[moduleId].PageId +
-                      '&id=' + results[moduleId].ModuleResponseId;
+                  .setAttribute('data-module-response-id',
+                    results[moduleId].ModuleResponseId);
+                if (results[moduleId].PageId) {
+                  buttons[actions.indexOf(action)]
+                    .href = 'FieloCMS__Page?pageId=' +
+                      results[moduleId].PageId +
+                        '&id=' + results[moduleId].ModuleResponseId;
+                }
               }
             }
+          }, this);
+          if (results[moduleId].Approved) {
+            this.addStatusField(this.records[moduleId],
+              FrontEndJSSettings.LABELS.Approved, // eslint-disable-line no-undef
+              'cms-elr-icon__approved'
+            );
+          } else {
+            this.addStatusField(this.records[moduleId],
+              FrontEndJSSettings.LABELS.NotApproved, // eslint-disable-line no-undef
+              'cms-elr-icon__notapproved');
           }
-        }, this);
-        if (results[moduleId].Approved) {
-          this.addStatusField(this.records[moduleId],
-            FrontEndJSSettings.LABELS.Approved, // eslint-disable-line no-undef
-            'cms-elr-icon__approved'
-          );
-        } else {
-          this.addStatusField(this.records[moduleId],
-            FrontEndJSSettings.LABELS.NotApproved, // eslint-disable-line no-undef
-            'cms-elr-icon__notapproved');
         }
       }, this);
     }

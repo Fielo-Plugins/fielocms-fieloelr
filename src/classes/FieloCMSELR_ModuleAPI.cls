@@ -33,7 +33,7 @@ global with sharing class FieloCMSELR_ModuleAPI implements FieloCMS.DataInterfac
                 if (c.FieloCMS__Limit__c > courses[0].FieloELR__Modules__r.size()) {
                     records.addAll((List<sObject>)courses[0].FieloELR__Modules__r);
                 } else {
-                    for (Integer index=0; index < courses[0].FieloELR__Modules__r.size();index++) {
+                    for (Integer index=0; index < c.FieloCMS__Limit__c;index++) {
                         records.add(courses[0].FieloELR__Modules__r[index]);
                     }
                 }
