@@ -39,13 +39,20 @@
    */
   FieloModuleAction.prototype.CssClasses_ = {
     ACTION: 'cms-elr-record-action',
-    RECORD: 'fielo-record-set__template',
-    IS_ACTION: 'fielo-field--is-ModuleAction'
+    RECORD_TEMPLATE: 'fielo-record-set__template',
+    RECORD: 'fielo-record',
+    IS_ACTION: 'fielo-field--is-ModuleAction',
+    PAGINATOR: 'fielo-paginator',
+    FIELD_LABEL: 'fielo-field__label',
+    FIELD_VALUE: 'fielo-field__value'
   };
 
   FieloModuleAction.prototype.getRecordIds = function() {
-    var records = this.element_
-      .querySelectorAll('.' + this.CssClasses_.RECORD);
+    var records = this.dataLayout === 'grid' ?
+      this.element_
+        .querySelectorAll('.' + this.CssClasses_.RECORD) :
+        this.element_
+        .querySelectorAll('.' + this.CssClasses_.RECORD_TEMPLATE);
     this.recordIds = [];
     this.records = {};
     var recordId;
@@ -73,9 +80,15 @@
           .querySelector('.' + this.CssClasses_.ACTION).cloneNode(true);
         while (actions.length > buttons.length) {
           newButton = model.cloneNode(true);
-          this.records[moduleId]
-          .querySelector('.' + this.CssClasses_.ACTION).closest('td')
-            .appendChild(newButton);
+          if (this.dataLayout === 'grid') {
+            this.records[moduleId]
+              .querySelector('.' + this.CssClasses_.ACTION).closest('span')
+                .appendChild(newButton);
+          } else {
+            this.records[moduleId]
+              .querySelector('.' + this.CssClasses_.ACTION).closest('td')
+                .appendChild(newButton);
+          }
           buttons = this.records[moduleId]
           .querySelectorAll('.' + this.CssClasses_.ACTION);
         }
@@ -123,32 +136,54 @@
     }
   };
 
-  FieloModuleAction.prototype.addStatusField = function(row, label, statusCss) {
-    var td = row
-      .querySelector('.' + this.CssClasses_.IS_ACTION);
-    var newTd = td.cloneNode(true);
-    var tdIndex = [].indexOf.call(td.parentNode.cells, td);
-    var th = td.closest('table')
-      .querySelector('thead')
-        .querySelector('tr').cells[tdIndex];
-    var newTh = th.cloneNode(true);
+  FieloModuleAction.prototype.addStatusField = function(record, label, statusCss) { // eslint-disable-line max-len
+    var newButton;
+    if (this.dataLayout === 'grid') {
+      var field = record
+        .querySelector('.' + this.CssClasses_.IS_ACTION);
+      var newField = field.cloneNode(true);
+      newField
+        .querySelector('.' + this.CssClasses_.FIELD_LABEL)
+          .innerHTML =
+            FrontEndJSSettings.LABELS.ApprovedLabel; // eslint-disable-line no-undef
 
-    if (!this.hasApprovedHeader) {
-      th.parentNode.insertBefore(newTh, th);
-      this.hasApprovedHeader = true;
-      newTh.innerHTML =
-        FrontEndJSSettings.LABELS.ApprovedLabel; // eslint-disable-line no-undef
+      var newFieldValue = newField
+        .querySelector('.' + this.CssClasses_.FIELD_VALUE);
+      while (newFieldValue.firstChild) {
+        newFieldValue.removeChild(newFieldValue.firstChild);
+      }
+      newButton = document.createElement('div');
+      newButton.setAttribute('title', label);
+      this.addClass(newButton, statusCss);
+      newFieldValue.appendChild(newButton);
+      field.parentNode.insertBefore(newField, field);
+    } else {
+      var td = record
+        .querySelector('.' + this.CssClasses_.IS_ACTION);
+      var newTd = td.cloneNode(true);
+      var tdIndex = [].indexOf.call(td.parentNode.cells, td);
+      var th = td.closest('table')
+        .querySelector('thead')
+          .querySelector('tr').cells[tdIndex];
+      var newTh = th.cloneNode(true);
+
+      if (!this.hasApprovedHeader) {
+        th.parentNode.insertBefore(newTh, th);
+        this.hasApprovedHeader = true;
+        newTh.innerHTML =
+          FrontEndJSSettings.LABELS.ApprovedLabel; // eslint-disable-line no-undef
+      }
+      td.parentNode.insertBefore(newTd, td);
+
+      while (newTd.firstChild) {
+        newTd.removeChild(newTd.firstChild);
+      }
+
+      newButton = document.createElement('div');
+      newButton.setAttribute('title', label);
+      this.addClass(newButton, statusCss);
+      newTd.appendChild(newButton);
     }
-    td.parentNode.insertBefore(newTd, td);
-
-    while (newTd.firstChild) {
-      newTd.removeChild(newTd.firstChild);
-    }
-
-    var newButton = document.createElement('div');
-    newButton.setAttribute('title', label);
-    this.addClass(newButton, statusCss);
-    newTd.appendChild(newButton);
   };
 
   FieloModuleAction.prototype.addClass = function(element, className) {
@@ -188,7 +223,7 @@
   FieloModuleAction.prototype.getActions = function() {
     Visualforce.remoting.Manager.invokeAction( // eslint-disable-line no-undef
       this.Constant_.GET_ACTIONS,
-      this.element_.getAttribute('data-componentid'),
+      this.componentId,
       this.recordIds,
       this.updateAction.bind(this),
       {
@@ -197,13 +232,27 @@
     );
   };
 
+  FieloModuleAction.prototype.getComponentId = function() {
+    if (this.dataLayout === 'grid') {
+      this.componentId =
+        this.element_
+          .querySelector('.' + this.CssClasses_.PAGINATOR)
+            .getAttribute('data-component-id');
+    } else {
+      this.componentId =
+        this.element_.getAttribute('data-componentid');
+    }
+  };
+
   /**
    * Inicializa el elemento
    */
   FieloModuleAction.prototype.init = function() {
     if (this.element_) {
+      this.dataLayout =
+        this.element_.getAttribute('data-layout');
       this.getRecordIds();
-
+      this.getComponentId();
       this.getActions();
     }
   };

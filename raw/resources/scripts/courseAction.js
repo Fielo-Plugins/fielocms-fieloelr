@@ -39,12 +39,17 @@
    */
   FieloCourseAction.prototype.CssClasses_ = {
     ACTION: 'cms-elr-record-action',
-    RECORD: 'fielo-record-set__template'
+    RECORD_TEMPLATE: 'fielo-record-set__template',
+    RECORD: 'fielo-record',
+    PAGINATOR: 'fielo-paginator'
   };
 
   FieloCourseAction.prototype.getRecordIds = function() {
-    var records = this.element_
-      .querySelectorAll('.' + this.CssClasses_.RECORD);
+    var records = this.dataLayout === 'grid' ?
+      this.element_
+        .querySelectorAll('.' + this.CssClasses_.RECORD) :
+        this.element_
+        .querySelectorAll('.' + this.CssClasses_.RECORD_TEMPLATE);
     this.recordIds = [];
     this.records = {};
     var recordId;
@@ -106,7 +111,7 @@
   FieloCourseAction.prototype.getActions = function() {
     Visualforce.remoting.Manager.invokeAction( // eslint-disable-line no-undef
       this.Constant_.GET_ACTIONS,
-      this.element_.getAttribute('data-componentid'),
+      this.componentId,
       this.recordIds,
       this.updateAction.bind(this),
       {
@@ -115,13 +120,27 @@
     );
   };
 
+  FieloCourseAction.prototype.getComponentId = function() {
+    if (this.dataLayout === 'grid') {
+      this.componentId =
+        this.element_
+          .querySelector('.' + this.CssClasses_.PAGINATOR)
+            .getAttribute('data-component-id');
+    } else {
+      this.componentId =
+        this.element_.getAttribute('data-componentid');
+    }
+  };
+
   /**
    * Inicializa el elemento
    */
   FieloCourseAction.prototype.init = function() {
     if (this.element_) {
+      this.dataLayout =
+        this.element_.getAttribute('data-layout');
       this.getRecordIds();
-
+      this.getComponentId();
       this.getActions();
     }
   };
