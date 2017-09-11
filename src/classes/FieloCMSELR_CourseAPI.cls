@@ -31,6 +31,8 @@ global class FieloCMSELR_CourseAPI implements FieloCMS.DataInterface{
         Id memberId = FieloCMSPLT_MemberService.getCurrentMemberId();
         //Prepare all the queries
         for(FieloCMS__Component__c c : components){
+            system.debug('component');
+            system.debug(c);
             if(c.FieloCMS__Limit__c == null)
                 c.FieloCMS__Limit__c = 5;
 

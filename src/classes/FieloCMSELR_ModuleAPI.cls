@@ -28,7 +28,17 @@ global with sharing class FieloCMSELR_ModuleAPI implements FieloCMS.DataInterfac
                     ''
                 );
 
-                newMapData.put(c.Id, (List<Object>) courses[0].FieloELR__Modules__r);
+                List<sObject> records = new List<sObject>();
+
+                if (c.FieloCMS__Limit__c > courses[0].FieloELR__Modules__r.size()) {
+                    records.addAll((List<sObject>)courses[0].FieloELR__Modules__r);
+                } else {
+                    for (Integer index=0; index < courses[0].FieloELR__Modules__r.size();index++) {
+                        records.add(courses[0].FieloELR__Modules__r[index]);
+                    }
+                }
+
+                newMapData.put(c.Id, (List<Object>) records);
             }
         }
         return newMapData;

@@ -116,9 +116,11 @@
    */
   FieloCourseProgress.prototype.init = function() {
     if (this.element_) {
-      this.header = this.element_
-        .querySelector('.' + this.CssClasses_.PROGRESS_FIELD);
-      this.header.innerHTML = this.Constant_.LABEL;
+      if (this.element_.getAttribute('data-layout') === 'table') {
+        this.header = this.element_
+          .querySelector('.' + this.CssClasses_.PROGRESS_FIELD);
+        this.header.innerHTML = this.Constant_.LABEL;
+      }
 
       this.getRecordIds();
 
