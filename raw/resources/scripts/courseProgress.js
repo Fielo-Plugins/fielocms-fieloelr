@@ -41,12 +41,16 @@
     PROGRESS_FIELD: 'fielo-field--is-ProgressBar',
     PROGRESS_BAR: 'fielo-progress-bar',
     OUTPUT_TEXT: 'fielo-output__text',
-    RECORD: 'fielo-record-set__template'
+    RECORD: 'fielo-record',
+    RECORD_TEMPLATE: 'fielo-record-set__template'
   };
 
   FieloCourseProgress.prototype.getRecordIds = function() {
-    var records = this.element_
-      .querySelectorAll('.' + this.CssClasses_.RECORD);
+    var records = this.dataLayout === 'grid' ?
+      this.element_
+        .querySelectorAll('.' + this.CssClasses_.RECORD) :
+      this.element_
+        .querySelectorAll('.' + this.CssClasses_.RECORD_TEMPLATE);
     this.recordIds = [];
     this.records = {};
     var recordId;
@@ -116,7 +120,10 @@
    */
   FieloCourseProgress.prototype.init = function() {
     if (this.element_) {
-      if (this.element_.getAttribute('data-layout') === 'table') {
+      this.dataLayout =
+        this.element_.getAttribute('data-layout');
+
+      if (this.dataLayout === 'table') {
         this.header = this.element_
           .querySelector('.' + this.CssClasses_.PROGRESS_FIELD);
         this.header.innerHTML = this.Constant_.LABEL;
