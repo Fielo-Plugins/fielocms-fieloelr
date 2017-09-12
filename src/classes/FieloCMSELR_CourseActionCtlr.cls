@@ -18,7 +18,7 @@ global class FieloCMSELR_CourseActionCtlr implements FieloCMS.ViewSubComponentIn
         Id memberId = FieloCMSPLT_MemberService.getCurrentMemberId();
         FieloPLT__Member__c member = [SELECT Id, FieloPLT__Program__c FROM FieloPLT__Member__c WHERE Id =: memberId];
         List<FieloELR__Course__c> courses = FieloELR.CourseService.getCourses(
-            new Set<String>{'Id','FieloELR__SubscriptionMode__c'},
+            new Set<String>{'Id','FieloELR__SubscriptionMode__c','FieloELR__Status__c'},
             null,
             null,
             new Set<Id>((List<Id>)courseIds),
@@ -80,7 +80,8 @@ global class FieloCMSELR_CourseActionCtlr implements FieloCMS.ViewSubComponentIn
                     );
                 } else {
                     if (courseStatusMap.get(joinedCourses.get(course.Id)).FieloELR__Progress__c >= 0 && 
-                        courseStatusMap.get(joinedCourses.get(course.Id)).FieloELR__Progress__c < 100) {
+                        courseStatusMap.get(joinedCourses.get(course.Id)).FieloELR__Progress__c < 100 &&
+                        course.FieloELR__Status__c == 'Active') {
                         courseActionMap.put(course.Id,
                             (Object) new Map<String,Object>{
                                 'Action' => 'Continue',
