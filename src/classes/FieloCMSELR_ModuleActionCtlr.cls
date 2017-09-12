@@ -72,7 +72,7 @@ global class FieloCMSELR_ModuleActionCtlr implements FieloCMS.ViewSubComponentIn
                                 moduleActions.put(moduleWrapper.module.Id,
                                     (Object) new Map<String,Object>{
                                         'Actions' => (Object) new List<String>{'Retake'},
-                                        'ModuleResponseId' => (Object) moduleWrapper.moduleResponses.get(0).Id,
+                                        'ModuleResponseId' => (Object) moduleWrapper.moduleResponses.get(moduleWrapper.moduleResponses.size()-1).Id,
                                         'PageId' => component.FieloCMSPLT_RedirectPage__c,
                                         'Approved' => moduleWrapper.isApproved
                                     }
@@ -81,7 +81,7 @@ global class FieloCMSELR_ModuleActionCtlr implements FieloCMS.ViewSubComponentIn
                                 moduleActions.put(moduleWrapper.module.Id,
                                     (Object) new Map<String,Object>{
                                         'Actions' => (Object) new List<String>{'View','Retake'},
-                                        'ModuleResponseId' => (Object) moduleWrapper.moduleResponses.get(0).Id,
+                                        'ModuleResponseId' => (Object) moduleWrapper.moduleResponses.get(moduleWrapper.moduleResponses.size()-1).Id,
                                         'PageId' => component.FieloCMSPLT_RedirectPage__c,
                                         'Approved' => moduleWrapper.isApproved
                                     }
@@ -90,7 +90,7 @@ global class FieloCMSELR_ModuleActionCtlr implements FieloCMS.ViewSubComponentIn
                                 moduleActions.put(moduleWrapper.module.Id,
                                     (Object) new Map<String,Object>{
                                         'Actions' => (Object) new List<String>{'View'},
-                                        'ModuleResponseId' => (Object) moduleWrapper.moduleResponses.get(0).Id,
+                                        'ModuleResponseId' => (Object) moduleWrapper.moduleResponses.get(moduleWrapper.moduleResponses.size()-1).Id,
                                         'PageId' => component.FieloCMSPLT_RedirectPage__c,
                                         'Approved' => moduleWrapper.isApproved
                                     }
