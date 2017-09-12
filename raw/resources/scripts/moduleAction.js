@@ -144,9 +144,16 @@
       var field = record
         .querySelector('.' + this.CssClasses_.IS_ACTION);
       var newField = field.cloneNode(true);
-      newField
-        .querySelector('.' + this.CssClasses_.FIELD_LABEL)
-          .innerHTML =
+      var newFieldLabel = newField
+        .querySelector('.' + this.CssClasses_.FIELD_LABEL);
+
+      if (!newFieldLabel) {
+        newFieldLabel = document.createElement('span');
+        this.addClass(newFieldLabel, this.CssClasses_.FIELD_LABEL);
+        newField.insertBefore(newFieldLabel, newField.firstChild);
+      }
+
+      newFieldLabel.innerHTML =
             FrontEndJSSettings.LABELS.ApprovedLabel; // eslint-disable-line no-undef
 
       var newFieldValue = newField
