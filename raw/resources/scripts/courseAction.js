@@ -27,8 +27,11 @@
    * @private
    */
   FieloCourseAction.prototype.Constant_ = {
+    PARAMETER: 'data-detail-parameter',
+    RECORD_ID: 'data-record-id',
     GET_ACTIONS: 'FieloCMSELR_CourseActionCtlr.getCourseActions',
-    JOIN_COURSE: 'FieloCMSELR_CourseActionCtlr.joinCourse'
+    JOIN_COURSE: 'FieloCMSELR_CourseActionCtlr.joinCourse',
+    COMPONENT_NAME: 'data-component-name'
   };
 
   /**
@@ -41,7 +44,8 @@
     ACTION: 'cms-elr-record-action',
     RECORD_TEMPLATE: 'fielo-record-set__template',
     RECORD: 'fielo-record',
-    PAGINATOR: 'fielo-paginator'
+    PAGINATOR: 'fielo-paginator',
+    LINK_DETAIL: 'fielo-link__to-detail--is-InternalPage'
   };
 
   FieloCourseAction.prototype.getRecordIds = function() {
@@ -63,7 +67,6 @@
   };
 
   FieloCourseAction.prototype.updateAction = function(results) {
-    console.log(results);
     if (results) {
       [].forEach.call(Object.keys(results), function(courseId) {
         this.records[courseId]
@@ -100,7 +103,6 @@
   };
 
   FieloCourseAction.prototype.joinCallback = function(result) {
-    console.log(result);
     if (result) {
       window.location.href =
         this.records[result.FieloELR__Course__c]
@@ -132,6 +134,85 @@
     }
   };
 
+  FieloCourseAction.prototype.parseQueryString = function(query) {
+    var vars = query.split('&');
+    var queryString = {};
+    [].forEach.call(vars, function(param) {
+      var pair = param.split('=');
+      // If first entry with this name
+      if (typeof queryString[pair[0]] === 'undefined') {
+        queryString[pair[0]] = decodeURIComponent(pair[1]);
+        // If second entry with this name
+      } else if (typeof queryString[pair[0]] === 'string') {
+        var arr = [queryString[pair[0]], decodeURIComponent(pair[1])];
+        queryString[pair[0]] = arr;
+        // If third or later entry with this name
+      } else {
+        queryString[pair[0]].push(decodeURIComponent(pair[1]));
+      }
+    }, this);
+    return queryString;
+  };
+
+  FieloCourseAction.prototype.courseActionPaginatorCallback = function() {
+    var records = this.element_
+      .querySelectorAll('.' + this.CssClasses_.RECORD);
+
+    var recordIds = [];
+    var recordId;
+    var linkToDetail;
+    var actionElement;
+    [].forEach.call(records, function(record) {
+      linkToDetail = record
+        .querySelector('.' + this.CssClasses_.LINK_DETAIL);
+      if (linkToDetail) {
+        recordId = this.parseQueryString(linkToDetail.href)[
+          linkToDetail.getAttribute(this.Constant_.PARAMETER)];
+        actionElement = record
+          .querySelector('.' + this.CssClasses_.ACTION);
+        actionElement.setAttribute(this.Constant_.RECORD_ID,
+          recordId);
+        recordIds.push(recordId);
+      }
+    }, this);
+
+    if (recordIds.length > 0) {
+      this.getRecordIds();
+      this.getActions();
+    }
+  };
+
+  FieloCourseAction.prototype.courseActionPaginatorCb = function(records) {
+    var renderedRecords = this.element_
+      .querySelectorAll('.' + this.CssClasses_.RECORD);
+
+    var recordIds = [];
+    var recordId;
+    var actionElement;
+    [].forEach.call(records, function(record) {
+      recordId = this.componentName === 'course-status' ?
+        record.FieloELR__Course__c :
+        record.Id;
+      actionElement = renderedRecords[records.indexOf(record)]
+        .querySelector('.' + this.CssClasses_.ACTION);
+      actionElement.setAttribute(this.Constant_.RECORD_ID,
+        recordId);
+      recordIds.push(recordId);
+    }, this);
+
+    if (recordIds.length > 0) {
+      this.getRecordIds();
+      this.getActions();
+    }
+  };
+
+  FieloCourseAction.prototype.registerCallback = function() {
+    var p = this.element_.querySelector('.' + this.CssClasses_.PAGINATOR);
+    if (p) {
+      p.FieloPaginator.callback(this.courseActionPaginatorCb.bind(this));
+    }
+  };
+
   /**
    * Inicializa el elemento
    */
@@ -139,9 +220,16 @@
     if (this.element_) {
       this.dataLayout =
         this.element_.getAttribute('data-layout');
+      this.componentName =
+        this.element_.getAttribute(this.Constant_.COMPONENT_NAME);
       this.getRecordIds();
       this.getComponentId();
       this.getActions();
+
+      if (!this.callbackRegistered) {
+        this.registerCallback();
+        this.callbackRegistered = true;
+      }
     }
   };
 
