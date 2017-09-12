@@ -28,6 +28,8 @@
    */
   FieloCourseProgress.prototype.Constant_ = {
     LABEL: 'Progress',
+    PARAMETER: 'data-detail-parameter',
+    RECORD_ID: 'data-record-id',
     GET_PROGRESS: 'FieloCMSELR_ProgressBarCtlr.getCourseStatus'
   };
 
@@ -42,7 +44,9 @@
     PROGRESS_BAR: 'fielo-progress-bar',
     OUTPUT_TEXT: 'fielo-output__text',
     RECORD: 'fielo-record',
-    RECORD_TEMPLATE: 'fielo-record-set__template'
+    RECORD_TEMPLATE: 'fielo-record-set__template',
+    PAGINATOR: 'fielo-paginator',
+    LINK_DETAIL: 'fielo-link__to-detail--is-InternalPage'
   };
 
   FieloCourseProgress.prototype.getRecordIds = function() {
@@ -115,6 +119,61 @@
     );
   };
 
+  FieloCourseProgress.prototype.parseQueryString = function(query) {
+    var vars = query.split('&');
+    var queryString = {};
+    [].forEach.call(vars, function(param) {
+      var pair = param.split('=');
+      // If first entry with this name
+      if (typeof queryString[pair[0]] === 'undefined') {
+        queryString[pair[0]] = decodeURIComponent(pair[1]);
+        // If second entry with this name
+      } else if (typeof queryString[pair[0]] === 'string') {
+        var arr = [queryString[pair[0]], decodeURIComponent(pair[1])];
+        queryString[pair[0]] = arr;
+        // If third or later entry with this name
+      } else {
+        queryString[pair[0]].push(decodeURIComponent(pair[1]));
+      }
+    }, this);
+    return queryString;
+  };
+
+  FieloCourseProgress.prototype.progressPaginatorCallback = function() {
+    var records = this.element_
+      .querySelectorAll('.' + this.CssClasses_.RECORD);
+
+    var recordIds = [];
+    var recordId;
+    var linkToDetail;
+    var progressElement;
+    [].forEach.call(records, function(record) {
+      linkToDetail = record
+        .querySelector('.' + this.CssClasses_.LINK_DETAIL);
+      if (linkToDetail) {
+        recordId = this.parseQueryString(linkToDetail.href)[
+          linkToDetail.getAttribute(this.Constant_.PARAMETER)];
+        progressElement = record
+          .querySelector('.' + this.CssClasses_.PROGRESS_BAR);
+        progressElement.setAttribute(this.Constant_.RECORD_ID,
+          recordId);
+        recordIds.push(recordId);
+      }
+    }, this);
+
+    if (recordIds.length > 0) {
+      this.getRecordIds();
+      this.getProgress();
+    }
+  };
+
+  FieloCourseProgress.prototype.registerCallback = function() {
+    var p = this.element_.querySelector('.' + this.CssClasses_.PAGINATOR);
+    if (p) {
+      p.FieloPaginator.callback(this.progressPaginatorCallback.bind(this));
+    }
+  };
+
   /**
    * Inicializa el elemento
    */
@@ -132,6 +191,11 @@
       this.getRecordIds();
 
       this.getProgress();
+
+      if (!this.callbackRegistered) {
+        this.registerCallback();
+        this.callbackRegistered = true;
+      }
     }
   };
 

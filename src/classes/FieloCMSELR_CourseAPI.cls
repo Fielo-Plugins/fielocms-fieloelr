@@ -37,8 +37,6 @@ global class FieloCMSELR_CourseAPI implements FieloCMS.DataInterface{
                 c.FieloCMS__Limit__c = 5;
 
             if(c.FieloCMS__ComponentLibrary__r.Name == 'Courses'){
-                system.debug('Component: ' + c.FieloCMS__ComponentLibrary__r.Name);
-
                 FieloPLT__Member__c member = [SELECT Id, FieloPLT__Program__c FROM FieloPLT__Member__c WHERE Id =: memberId];
                 
                 List<FilterWrapper> dynamicFilters = new List<FilterWrapper>();
@@ -107,16 +105,21 @@ global class FieloCMSELR_CourseAPI implements FieloCMS.DataInterface{
         //Member Data
         FieloPLT__Member__c member = [SELECT Id, FieloPLT__Program__c FROM FieloPLT__Member__c WHERE Id =: memberId];
 
-        //Filter
-        Id recordId;
-        Map<String, String> filtersMap = (Map<String, String>)JSON.deserialize(filters, Map<string,String>.class);
-        if (!filtersMap.isEmpty()){
-            if (filtersMap.containsKey('id')) {
-                recordId = filtersMap.get('id');
-            }
-        }
         //Calculate the offset from the Page Number
         Integer offset = Integer.valueOf(component.FieloCMS__Limit__c * (pageNumber - 1));
+
+        List<FilterWrapper> dynamicFilters = new List<FilterWrapper>();
+        if(component.FieloCMS__Category__c != null){
+            dynamicFilters.add(new FilterWrapper('Category__c', 'eq', component.FieloCMS__Category__c));
+        }
+        if(component.FieloCMS__Tag__c != null){
+            FilterWrapper filter = new FilterWrapper('Id', 'in', null);
+            if(component.FieloCMS__Category__c != null){
+                filter.andOrOperator = 'and';
+            }
+            filter.subQueryFilter = new SubQueryFilter('Course__c', 'FieloCMS__TagItem__c', new List<FilterWrapper>{new FilterWrapper('FieloCMS__Tag__c','eq',component.FieloCMS__Tag__c)});
+            dynamicFilters.add(filter);
+        }
 
         if (component.FieloCMS__ComponentLibrary__r.Name == 'Courses') {
             List<FieloELR__Course__c> courses = FieloELR.CourseService.getCourses(
@@ -126,13 +129,13 @@ global class FieloCMSELR_CourseAPI implements FieloCMS.DataInterface{
                 null,
                 member.FieloPLT__Program__c,
                 member.Id,
-                true,
-                true,
-                true,
+                component.FieloCMSELR_FilterByDependency__c,
+                component.FieloCMSELR_FilterBySegment__c,
+                component.FieloCMSELR_FilterByNotTaken__c,
                 Integer.valueof(component.FieloCMS__Limit__c),
                 offset,
-                'LastModifiedDate',
-                ''
+                'FieloELR__Order__c',
+                dynamicFilters.isEmpty() ? null : JSON.serialize(dynamicFilters)
             );
             return (List<sObject>) courses;
         }
