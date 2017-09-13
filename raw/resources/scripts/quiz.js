@@ -30,7 +30,8 @@
     SUBMIT_METHOD: 'FieloCMSELR_QuizCtlr.submitQuestion',
     SUBMIT_MODULE: 'FieloCMSELR_QuizCtlr.submitModuleResponse',
     QUESTION_NUMBER: 'cms-elr-question-number',
-    QUESTION_TEXT: 'cms-elr-question-text'
+    QUESTION_TEXT: 'cms-elr-question-text',
+    DETAIL_PARAMETER: 'data-detail-parameter'
   };
 
   /**
@@ -331,7 +332,6 @@
   };
 
   FieloQuiz.prototype.submitCallback = function(result) {
-    console.log(result);
     try {
       if (result) {
         if (result.questionResponse) {
@@ -385,7 +385,6 @@
   };
 
   FieloQuiz.prototype.submitModuleCallback = function(result) {
-    console.log(result);
     this.clearQuestion();
     this.questionText.innerHTML =
       '';
@@ -509,10 +508,17 @@
     this.questionText =
       this.element_.querySelector(
         '#' + this.Constant_.QUESTION_TEXT);
+    this.detailParameter =
+      this.element_.getAttribute(
+        this.Constant_.DETAIL_PARAMETER);
+    this.detailParameter =
+      this.detailParameter ?
+      this.detailParameter :
+      'id';
     this.redirectURL =
       'FieloCMS__Page?pageId=' +
         this.element_.getAttribute('data-redirect-page') +
-          '&id=' + this.moduleResponseId;
+          '&' + this.detailParameter + '=' + this.moduleResponseId;
   };
 
   /**

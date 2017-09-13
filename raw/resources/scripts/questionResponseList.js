@@ -122,7 +122,6 @@
    */
   FieloQuestionResponseList.prototype.init = function() {
     if (this.element_) {
-      console.log('hello fielo!');
       this.getAnswers();
       this.initLinks();
     }
