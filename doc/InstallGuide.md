@@ -164,6 +164,18 @@ After that, still in the Sites tab, create some pages. We suggest creating the f
   - Invoice Upload Settings
   - Invoice Upload
   
+Now go to:
+
+> **Sites** Tab > **Main** Navigation
+
+There is a button called **Add Existing Page**. With that, add the following pages:
+
+- Home
+- My Profile
+- Contact Us
+- F.A.Q.s
+- Login & Register
+  
 ### 5.1 FieloELR Implementation Guide
 
 After creating the suggested pages from step 5, one should do the following configuration. Go to:
@@ -213,6 +225,15 @@ In the Course Status section do the following:
 
 **NOTE**: If you are not able to see any of this fields go to the Component object configuration or to your profile configuration and check the field's permissions.
 
+Now go to:
+
+> **Sites** Tab > **Main** Navigation
+
+There is a button called **Add Existing Page**. With that, add the following pages:
+
+- Courses
+- My Courses
+
 ### 5.2 FieloPRP Implementation Guide
 
 After creating the suggested pages from step 5, one should do the following configuration. Go to:
@@ -241,18 +262,12 @@ In the **Invoice Upload** section you should set the following:
 
 **NOTE 2**: If you are not able to see the Title field in the lookup of component, go to the Object **FieloCMS\_\_Component\_\_c** and change the **Search Layout** in order to have that field.
 
-
 Now go to:
 
 > **Sites** Tab > **Main** Navigation
 
 There is a button called **Add Existing Page**. With that, add the following pages:
 
-- Home
-- My Profile
-- Contact Us
-- F.A.Q.s
-- Login & Register
 - My Invoices
 - Invoice Upload
 
