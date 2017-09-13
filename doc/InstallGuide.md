@@ -164,36 +164,6 @@ After that, still in the Sites tab, create some pages. We suggest creating the f
   - Invoice Upload Settings
   - Invoice Upload
   
-### 5.1 FieloELR Implementation Guide
-
-:warning: (_not working_)
-
-### 5.2 FieloPRP Implementation Guide
-
-After creating the suggested pages from step 5, one should do the following configuration. Go to:
-
-> **My Invoices** Page > **My Invoices** Component
-
-In the Record View Section chose **Internal Page**. For the **Detail component** choose **Invoice Detail > Invoice Record** and for the **Detail Parameter** choose **Id**
-
-Then go to:
-
-> **Invoice Upload** Page > **Invoice Upload** Widget
-
-In the **Invoice Upload** section you should set the following:
-
-| Field | Value | Description |
-| --- | --- | --- |
-| Redirect Page | Invoice Detail | |
-| Main Source Component | Invoice Record | Description: Invoice Record Src |
-| Secondary Source Component | Invoice Items | Desctiption: Invoice Items Src |
-| Custom Detail Parameter | id |  |
-| Submit Mode | Submit |  |
-| Has Details	| True |  |
-| Product Source Component | Product List |  |
-
-**NOTE**: If you are not able to see any of this fields go to the Component object configuration or to your profile configuration and check the field's permissions.
-
 Now go to:
 
 > **Sites** Tab > **Main** Navigation
@@ -205,6 +175,99 @@ There is a button called **Add Existing Page**. With that, add the following pag
 - Contact Us
 - F.A.Q.s
 - Login & Register
+  
+### 5.1 FieloELR Implementation Guide
+
+After creating the suggested pages from step 5, one should do the following configuration. Go to:
+
+> **Courses** Page > **Courses** Component
+
+In the Record View Section chose **Internal Page**. For the **Detail component** choose **Course Detail > Course Detail** and for the **Detail Parameter** choose **id** and save it. If when you loaded the page these fields were already set, save it to force these fields to be stored in the database.
+
+Now, go to:
+
+> **Couse Detail** Page > **Modules** Component
+
+In the Record View Section chose **Internal Page**. For the **Detail component** choose **Module Detail > Module Record** and for the **Detail Parameter** choose **id** and save it. If when you loaded the page these fields were already set, save it to force these fields to be stored in the database.
+
+In the Modules Section do the following:
+
+| Field | Value |
+| --- | --- |
+| Redirect Page | Module Response Detail |
+| Custom Detail Parameter | id |
+
+**NOTE**: If you are not able to see any of this fields go to the Component object configuration or to your profile configuration and check the field's permissions.
+
+Now, go to:
+
+> **Module Response Detail** Page > **Question Response List** Component
+
+In the Question Response List Section do the following:
+
+| Field | Value |
+| --- | --- |
+| Redirect Page | Course Detail |
+| Custom Detail Parameter | id |
+
+**NOTE**: If you are not able to see any of this fields go to the Component object configuration or to your profile configuration and check the field's permissions.
+
+Now, go to:
+
+> **My Courses** Page > **Course Status** Component
+
+In the Course Status section do the following:
+
+| Field | Value |
+| --- | --- |
+| Redirect Page | Course Detail |
+| Custom Detail Parameter | id |
+
+**NOTE**: If you are not able to see any of this fields go to the Component object configuration or to your profile configuration and check the field's permissions.
+
+Now go to:
+
+> **Sites** Tab > **Main** Navigation
+
+There is a button called **Add Existing Page**. With that, add the following pages:
+
+- Courses
+- My Courses
+
+### 5.2 FieloPRP Implementation Guide
+
+After creating the suggested pages from step 5, one should do the following configuration. Go to:
+
+> **My Invoices** Page > **My Invoices** Component
+
+In the Record View Section chose **Internal Page**. For the **Detail component** choose **Invoice Detail > Invoice Record** and for the **Detail Parameter** choose **id** and save it. If when you loaded the page these fields were already set, save it to force these fields to be stored in the database.
+
+Then go to:
+
+> **Invoice Upload** Page > **Invoice Upload** Widget
+
+In the **Invoice Upload** section you should set the following:
+
+| Field | Value | Description |
+| --- | --- | --- |
+| Redirect Page | Invoice Detail | |
+| Main Source Component | Invoice Record | Title: Invoice Record Src |
+| Secondary Source Component | Invoice Items | Title: Invoice Items Src |
+| Custom Detail Parameter | id |  |
+| Submit Mode | Submit |  |
+| Has Details	| True |  |
+| Product Source Component | Product List |  |
+
+**NOTE**: If you are not able to see any of this fields go to the Component object configuration or to your profile configuration and check the field's permissions.
+
+**NOTE 2**: If you are not able to see the Title field in the lookup of component, go to the Object **FieloCMS\_\_Component\_\_c** and change the **Search Layout** in order to have that field.
+
+Now go to:
+
+> **Sites** Tab > **Main** Navigation
+
+There is a button called **Add Existing Page**. With that, add the following pages:
+
 - My Invoices
 - Invoice Upload
 
