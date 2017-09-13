@@ -41,7 +41,6 @@
         return pair[1];
       }
     }
-    console.log('Query parameter ' + paramName + ' not found');
   };
 
   FieloPaginatorFilter.prototype.parseQueryString = function(query) {

@@ -1,7 +1,7 @@
 <apex:component layout="none" controller="FieloCMSELR_QuestionResponseListCtlr" >
 	<apex:attribute name="config" type="SObject" description="" />
     
-    <div class="{!config['FieloCMS__ComponentLibrary__r']['FieloCMS__CSSClasses__c']} {!config['FieloCMS__CSSClasses__c']} fielo-js-component" data-remoteobject="{!config['FieloCMS__ComponentLibrary__r']['FieloCMS__sobject__c']}" data-componentid="{! config['Id'] }" data-redirect-page="{!config['FieloCMSPLT_RedirectPage__c']}">
+    <div class="{!config['FieloCMS__ComponentLibrary__r']['FieloCMS__CSSClasses__c']} {!config['FieloCMS__CSSClasses__c']} fielo-js-component" data-remoteobject="{!config['FieloCMS__ComponentLibrary__r']['FieloCMS__sobject__c']}" data-componentid="{! config['Id'] }" data-redirect-page="{!config['FieloCMSPLT_RedirectPage__c']}" data-detail-parameter="{!config['FieloCMSELR_CustomDetailParameter__c']}">
     	<h3 class="fielo-title">{!$ObjectType.FieloELR__QuestionResponse__c.labelPlural}</h3>
 
     	<table class="fielo-table mdl-data-table">
@@ -53,7 +53,7 @@
 	        </tbody>
 	    </table>
 		<a class="fielo-button" 
-			href="{! '/FieloCMS__Page?pageId=' + config['FieloCMSPLT_RedirectPage__c'] + '&id=' + courseId }">Back to Course</a>
+			href="{! '/FieloCMS__Page?pageId=' + config['FieloCMSPLT_RedirectPage__c'] + '&' + IF(ISNULL(config['FieloCMSELR_CustomDetailParameter__c']), 'id', config['FieloCMSELR_CustomDetailParameter__c']) + '=' + courseId }">Back to Course</a>
 
 	    <div class="cms-elr-hidden-table" style="display: none">
 	    	<apex:repeat value="{!moduleResponseResult.questions}" var="qWrapper">

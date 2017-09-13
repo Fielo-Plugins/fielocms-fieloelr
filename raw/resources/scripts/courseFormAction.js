@@ -53,7 +53,6 @@
   };
 
   FieloCourseAction.prototype.updateAction = function(results) {
-    console.log(results);
     if (results) {
       [].forEach.call(Object.keys(results), function(courseId) {
         this.records[courseId]
@@ -88,7 +87,6 @@
   };
 
   FieloCourseAction.prototype.joinCallback = function(result) {
-    console.log(result);
     if (result) {
       window.location.reload();
     }

@@ -76,7 +76,6 @@
   };
 
   FieloCourseProgress.prototype.updateProgress = function(results) {
-    console.log(results);
     if (results) {
       if (results.length === 0) {
         [].forEach.call(this.recordIds, function(recordId) {

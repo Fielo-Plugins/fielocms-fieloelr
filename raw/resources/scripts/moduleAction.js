@@ -67,7 +67,6 @@
   };
 
   FieloModuleAction.prototype.updateAction = function(results) {
-    console.log(results);
     var actions;
     var model;
     var newButton;
@@ -213,8 +212,6 @@
   };
 
   FieloModuleAction.prototype.takeCallback = function(result) {
-    console.log(result);
-    console.log(String(result));
     if (result) {
       localStorage.clear();
       this.storeData(result.moduleResponse.Id, result);
