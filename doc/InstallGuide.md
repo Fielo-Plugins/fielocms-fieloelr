@@ -166,7 +166,9 @@ After that, still in the Sites tab, create some pages. We suggest creating the f
   
 ### 5.1 FieloELR Implementation Guide
 
-:warning: (_not working_)
+After creating the suggested pages from step 5, one should do the following configuration. Go to:
+
+:warning: (_work in progress_)
 
 ### 5.2 FieloPRP Implementation Guide
 
