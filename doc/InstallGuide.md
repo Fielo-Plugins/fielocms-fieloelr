@@ -187,14 +187,17 @@ In the **Invoice Upload** section you should set the following:
 | Field | Value | Description |
 | --- | --- | --- |
 | Redirect Page | Invoice Detail | |
-| Main Source Component | Invoice Record | Description: Invoice Record Src |
-| Secondary Source Component | Invoice Items | Desctiption: Invoice Items Src |
+| Main Source Component | Invoice Record | Title: Invoice Record Src |
+| Secondary Source Component | Invoice Items | Title: Invoice Items Src |
 | Custom Detail Parameter | id |  |
 | Submit Mode | Submit |  |
 | Has Details	| True |  |
 | Product Source Component | Product List |  |
 
 **NOTE**: If you are not able to see any of this fields go to the Component object configuration or to your profile configuration and check the field's permissions.
+
+**NOTE 2**: If you are not able to see the Title field in the lookup of component, go to the Object **FieloCMS\_\_Component\_\_c** and change the **Search Layout** in order to have that field.
+
 
 Now go to:
 
