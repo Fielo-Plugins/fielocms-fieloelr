@@ -168,7 +168,50 @@ After that, still in the Sites tab, create some pages. We suggest creating the f
 
 After creating the suggested pages from step 5, one should do the following configuration. Go to:
 
-:warning: (_work in progress_)
+> **Courses** Page > **Courses** Component
+
+In the Record View Section chose **Internal Page**. For the **Detail component** choose **Course Detail > Course Detail** and for the **Detail Parameter** choose **id** and save it. If when you loaded the page these fields were already set, save it to force these fields to be stored in the database.
+
+Now, go to:
+
+> **Couse Detail** Page > **Modules** Component
+
+In the Record View Section chose **Internal Page**. For the **Detail component** choose **Module Detail > Module Record** and for the **Detail Parameter** choose **id** and save it. If when you loaded the page these fields were already set, save it to force these fields to be stored in the database.
+
+In the Modules Section do the following:
+
+| Field | Value |
+| --- | --- |
+| Redirect Page | Module Response Detail |
+| Custom Detail Parameter | id |
+
+**NOTE**: If you are not able to see any of this fields go to the Component object configuration or to your profile configuration and check the field's permissions.
+
+Now, go to:
+
+> **Module Response Detail** Page > **Question Response List** Component
+
+In the Question Response List Section do the following:
+
+| Field | Value |
+| --- | --- |
+| Redirect Page | Course Detail |
+| Custom Detail Parameter | id |
+
+**NOTE**: If you are not able to see any of this fields go to the Component object configuration or to your profile configuration and check the field's permissions.
+
+Now, go to:
+
+> **My Courses** Page > **Course Status** Component
+
+In the Course Status section do the following:
+
+| Field | Value |
+| --- | --- |
+| Redirect Page | Course Detail |
+| Custom Detail Parameter | id |
+
+**NOTE**: If you are not able to see any of this fields go to the Component object configuration or to your profile configuration and check the field's permissions.
 
 ### 5.2 FieloPRP Implementation Guide
 
@@ -176,7 +219,7 @@ After creating the suggested pages from step 5, one should do the following conf
 
 > **My Invoices** Page > **My Invoices** Component
 
-In the Record View Section chose **Internal Page**. For the **Detail component** choose **Invoice Detail > Invoice Record** and for the **Detail Parameter** choose **Id**
+In the Record View Section chose **Internal Page**. For the **Detail component** choose **Invoice Detail > Invoice Record** and for the **Detail Parameter** choose **id** and save it. If when you loaded the page these fields were already set, save it to force these fields to be stored in the database.
 
 Then go to:
 
