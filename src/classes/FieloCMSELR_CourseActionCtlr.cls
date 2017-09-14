@@ -13,7 +13,7 @@ global class FieloCMSELR_CourseActionCtlr implements FieloCMS.ViewSubComponentIn
 
     @RemoteAction
     global static Map<String,Object> getCourseActions(Id componentId, List<String> courseIds) {
-        FieloCMS__Component__c component = [Select Id, FieloCMSELR_CustomDetailParameter__c, FieloCMSPLT_RedirectPage__c, FieloCMS__ComponentLibrary__r.FieloCMS__sObject__c From FieloCMS__Component__c Where Id= :componentId];
+        FieloCMS__Component__c component = [Select Id, FieloCMSELR_CustomDetailParameter__c, FieloCMSPLT_RedirectPage__c, FieloCMS__ComponentLibrary__r.FieloCMS__sObject__c, FieloCMSELR_FilterByDependency__c, FieloCMSELR_FilterBySegment__c, FieloCMSELR_FilterByNotTaken__c From FieloCMS__Component__c Where Id= :componentId];
         
         Id memberId = FieloCMSPLT_MemberService.getCurrentMemberId();
         FieloPLT__Member__c member = [SELECT Id, FieloPLT__Program__c FROM FieloPLT__Member__c WHERE Id =: memberId];
@@ -24,9 +24,9 @@ global class FieloCMSELR_CourseActionCtlr implements FieloCMS.ViewSubComponentIn
             new Set<Id>((List<Id>)courseIds),
             member.FieloPLT__Program__c,
             member.Id,
-            true,
-            true,
-            false,
+            component.FieloCMSELR_FilterByDependency__c,
+            component.FieloCMSELR_FilterBySegment__c,
+            component.FieloCMSELR_FilterByNotTaken__c,
             null,
             0,
             'LastModifiedDate',
