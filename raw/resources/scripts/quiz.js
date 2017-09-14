@@ -384,7 +384,7 @@
     );
   };
 
-  FieloQuiz.prototype.submitModuleCallback = function(result) {
+  FieloQuiz.prototype.submitModuleCallback = function() {
     this.clearQuestion();
     this.questionText.innerHTML =
       '';

@@ -56,8 +56,22 @@ global class FieloCMSELR_ModuleActionCtlr implements FieloCMS.ViewSubComponentIn
                 }
             }
         } else {
+            Boolean allowedForDependency;
             for (FieloELR.CourseService.CourseWrapper courseMap :coursesMap) {
-                if (courseMap.course.FieloELR__Status__c != 'Active') {
+                allowedForDependency = courseMap.allowedForDependency;
+                // Once it can be null, it must be set to boolean to avoid nullpointer.
+                allowedForDependency = allowedForDependency != null ?
+                    allowedForDependency :
+                    true;
+                if (!allowedForDependency) {
+                    for (FieloELR.CourseService.ModuleWrapper moduleWrapper: courseMap.modules){
+                        moduleActions.put(moduleWrapper.module.Id,
+                            (Object) new Map<String,Object>{
+                                'Actions' => (Object) new List<String>{'Hide'}
+                            }
+                        );
+                    }
+                } else if (courseMap.course.FieloELR__Status__c != 'Active') {
                     for (FieloELR.CourseService.ModuleWrapper moduleWrapper: courseMap.modules){
                         if (moduleWrapper.moduleResponses.isEmpty()) {
                                 moduleActions.put(moduleWrapper.module.Id,(Object) new Map<String,Object>{'Actions' => (Object) new List<String>{'Hide'}});
@@ -80,25 +94,14 @@ global class FieloCMSELR_ModuleActionCtlr implements FieloCMS.ViewSubComponentIn
                         }
                     } else {
                         for (FieloELR.CourseService.ModuleWrapper moduleWrapper: courseMap.modules){
-                            system.debug('moduleWrapper');
-                            system.debug(moduleWrapper);
                             if (moduleWrapper.moduleResponses != null) {
                                 if(moduleWrapper.moduleResponses.isEmpty()){
                                     if (moduleWrapper.allowedForDependency) {
                                         moduleActions.put(moduleWrapper.module.Id,(Object) new Map<String,Object>{'Actions' => (Object) new List<String>{'Take'}});
                                     } else {
-                                        moduleActions.put(moduleWrapper.module.Id,(Object) new Map<String,Object>{'Actions' => (Object) new List<String>{'Take','Hide'}});
+                                        moduleActions.put(moduleWrapper.module.Id,(Object) new Map<String,Object>{'Actions' => (Object) new List<String>{'Hide'}});
                                     }
-                                } else if(!moduleWrapper.isApproved && ( moduleWrapper.numberOfAttempts < moduleWrapper.module.FieloELR__AttemptsAllowed__c || moduleWrapper.module.FieloELR__AttemptsAllowed__c == null)) {
-                                    moduleActions.put(moduleWrapper.module.Id,
-                                        (Object) new Map<String,Object>{
-                                            'Actions' => (Object) new List<String>{'Retake'},
-                                            'ModuleResponseId' => (Object) moduleWrapper.moduleResponses.get(moduleWrapper.moduleResponses.size()-1).Id,
-                                            'PageId' => component.FieloCMSPLT_RedirectPage__c,
-                                            'Approved' => moduleWrapper.isApproved
-                                        }
-                                    );
-                                } else if(moduleWrapper.isApproved && ( moduleWrapper.numberOfAttempts < moduleWrapper.module.FieloELR__AttemptsAllowed__c || moduleWrapper.module.FieloELR__AttemptsAllowed__c == null) ){
+                                } else if(moduleWrapper.numberOfAttempts < moduleWrapper.module.FieloELR__AttemptsAllowed__c || moduleWrapper.module.FieloELR__AttemptsAllowed__c == null){
                                     moduleActions.put(moduleWrapper.module.Id,
                                         (Object) new Map<String,Object>{
                                             'Actions' => (Object) new List<String>{'View','Retake'},
@@ -127,7 +130,7 @@ global class FieloCMSELR_ModuleActionCtlr implements FieloCMS.ViewSubComponentIn
                                 } else {
                                     moduleActions.put(moduleWrapper.module.Id,
                                         (Object) new Map<String,Object>{
-                                            'Actions' => (Object) new List<String>{'Take','Hide'}
+                                            'Actions' => (Object) new List<String>{'Hide'}
                                         }
                                     );
                                 }

@@ -59,7 +59,8 @@
           .querySelector('.' + this.CssClasses_.ACTION)
             .innerHTML = results[courseId].Action;
         if (results[courseId].Action === 'View' ||
-          results[courseId].Action === 'Continue') {
+          results[courseId].Action === 'Continue' ||
+          results[courseId].Action === 'Hide') {
           this.records[courseId]
             .querySelector('.' + this.CssClasses_.ACTION)
               .style.display = 'none';
