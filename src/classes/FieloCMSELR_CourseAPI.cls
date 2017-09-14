@@ -78,7 +78,7 @@ global class FieloCMSELR_CourseAPI implements FieloCMS.DataInterface{
                     new Set<Id>{recordId},
                     member.FieloPLT__Program__c,
                     member.Id,
-                    true,
+                    false,
                     true,
                     false,
                     Integer.valueof(c.FieloCMS__Limit__c),

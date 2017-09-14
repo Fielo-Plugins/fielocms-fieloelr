@@ -79,6 +79,10 @@
               .href = this.records[courseId].FieloRecord.link_ ?
                 this.records[courseId].FieloRecord.link_ :
                 results[courseId].Page;
+        } else if (results[courseId].Action === 'Hide') {
+          this.records[courseId]
+            .querySelector('.' + this.CssClasses_.ACTION)
+              .style.display = 'none';
         } else {
           this.records[courseId]
             .querySelector('.' + this.CssClasses_.ACTION)
