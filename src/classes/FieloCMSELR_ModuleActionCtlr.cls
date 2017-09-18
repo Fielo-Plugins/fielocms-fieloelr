@@ -15,7 +15,7 @@ global class FieloCMSELR_ModuleActionCtlr implements FieloCMS.ViewSubComponentIn
     	FieloCMS__Component__c component = [SELECT FieloCMS__DetailParameter__c, FieloCMSPLT_RedirectPage__c FROM FieloCMS__Component__c WHERE Id =: componentId];
         Id memberId = FieloCMSPLT_MemberService.getCurrentMemberId();
         FieloPLT__Member__c member = [SELECT Id, FieloPLT__Program__c FROM FieloPLT__Member__c WHERE Id =: memberId];
-        List<FieloELR__Module__c> modules = [SELECT FieloELR__Course__r.Id, FieloELR__Course__r.FieloELR__SubscriptionMode__c, FieloELR__Course__r.FieloELR__Status__c From FieloELR__Module__c Where Id in :moduleIds];
+        List<FieloELR__Module__c> modules = [SELECT FieloELR__Course__r.Id, FieloELR__Course__r.FieloELR__SubscriptionMode__c, FieloELR__Course__r.FieloELR__Status__c, FieloELR__IsActive__c From FieloELR__Module__c Where Id in :moduleIds];
         Set<Id> courseIds = new Set<Id>();
 
         for(FieloELR__Module__c module: modules) {
