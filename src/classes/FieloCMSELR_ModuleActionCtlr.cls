@@ -107,7 +107,7 @@ global class FieloCMSELR_ModuleActionCtlr implements FieloCMS.ViewSubComponentIn
                                     if (moduleWrapper.allowedForDependency) {
                                         moduleActions.put(moduleWrapper.module.Id,
                                             (Object) new Map<String,Object>{
-                                                'Actions' => (Object) new List<String>{'Take'}
+                                                'Actions' => (Object) new List<String>{ moduleWrapper.module.FieloELR__IsActive__c ? 'Take' : 'Hide'}
                                             }
                                         );
                                     } else {
@@ -136,7 +136,7 @@ global class FieloCMSELR_ModuleActionCtlr implements FieloCMS.ViewSubComponentIn
                                 if (moduleWrapper.allowedForDependency) {
                                     moduleActions.put(moduleWrapper.module.Id,
                                         (Object) new Map<String,Object>{
-                                            'Actions' => (Object) new List<String>{'Take'}
+                                            'Actions' => (Object) new List<String>{ moduleWrapper.module.FieloELR__IsActive__c ? 'Take' : 'Hide'}
                                         }
                                     );
                                 } else {
