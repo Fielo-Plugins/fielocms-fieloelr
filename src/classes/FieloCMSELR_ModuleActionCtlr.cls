@@ -26,8 +26,8 @@ global class FieloCMSELR_ModuleActionCtlr implements FieloCMS.ViewSubComponentIn
         
         coursesMap = FieloELR.CourseService.getCoursesMap(
             new Set<String>{'Id','FieloELR__SubscriptionMode__c','FieloELR__Status__c'},
-            null,
-            new Set<String>{'Id', 'FieloELR__AttemptsAllowed__c'},
+            new Set<String>{'Id','Name'},
+            new Set<String>{'Id', 'FieloELR__AttemptsAllowed__c','FieloELR__IsActive__c'},
             null,
             courseIds,
             member.FieloPLT__Program__c,
@@ -49,9 +49,17 @@ global class FieloCMSELR_ModuleActionCtlr implements FieloCMS.ViewSubComponentIn
                     moduleActions.put(module.Id,(Object) new Map<String,Object>{'Actions' => (Object) new List<String>{'Hide'}});
                 } else {
                     if (module.FieloELR__Course__r.FieloELR__Status__c != 'Active') {
-                        moduleActions.put(module.Id,(Object) new Map<String,Object>{'Actions' => (Object) new List<String>{'Hide'}});
+                        moduleActions.put(module.Id,
+                            (Object) new Map<String,Object>{
+                                'Actions' => (Object) new List<String>{'Hide'}
+                            }
+                        );
                     } else {
-                        moduleActions.put(module.Id,(Object) new Map<String,Object>{'Actions' => (Object) new List<String>{'Take'}});
+                        moduleActions.put(module.Id,
+                            (Object) new Map<String,Object>{
+                                'Actions' => (Object) new List<String>{ module.FieloELR__IsActive__c ? 'Take' : 'Hide'}
+                            }
+                        );
                     }
                 }
             }
@@ -97,7 +105,11 @@ global class FieloCMSELR_ModuleActionCtlr implements FieloCMS.ViewSubComponentIn
                             if (moduleWrapper.moduleResponses != null) {
                                 if(moduleWrapper.moduleResponses.isEmpty()){
                                     if (moduleWrapper.allowedForDependency) {
-                                        moduleActions.put(moduleWrapper.module.Id,(Object) new Map<String,Object>{'Actions' => (Object) new List<String>{'Take'}});
+                                        moduleActions.put(moduleWrapper.module.Id,
+                                            (Object) new Map<String,Object>{
+                                                'Actions' => (Object) new List<String>{'Take'}
+                                            }
+                                        );
                                     } else {
                                         moduleActions.put(moduleWrapper.module.Id,(Object) new Map<String,Object>{'Actions' => (Object) new List<String>{'Hide'}});
                                     }
