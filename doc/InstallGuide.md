@@ -75,10 +75,7 @@ _**FieloPRP**_
 
 ## 3. Libraries
 
-After you followed all the steps from the Official Document and the notes and the tips of this tutorial, you can activate the Libraries of the Packages.
-To do so, just go to:
-
-> **Fielo Platform** App > **Libraries** Tab > In Each Library > _Activate_
+After you followed all the steps from the Official Document and the notes and the tips of this tutorial, you can activate the Libraries of the Packages.  
 
 **NOTE**: The FieloELR library has an issue. It uses Models in order to make easier for the users to create Courses from pre-defined templates. So, before you activate it, go to the Models Object
 
@@ -86,7 +83,11 @@ To do so, just go to:
 
 Add the value **Course** to the picklist values.
 
-That should make you able to activate the FieloELR Library.
+That should make you able to activate the FieloELR Library.  
+
+To activate the libraries, just go to:
+
+> **Fielo Platform** App > **Libraries** Tab > In Each Library > _Activate_
 
 ## 4. Plugins
 
