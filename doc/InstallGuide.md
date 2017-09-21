@@ -24,7 +24,7 @@ When you finish the installation of them all, you will be ready to go to the nex
 
 Deploy the tags from the latest releases of the following repositories into your org.
 
-![Add Image](Source/ScreenHunter_01 Sep. 21 18.27.gif.png?raw=true) <!-- .element height="50%" width="50%" -->
+![Add Image](Source/ScreenHunter_01%20Sep.%2021%2018.27.gif?raw=true) <!-- .element height="50%" width="50%" -->
 
 | Repository |
 | --- |
