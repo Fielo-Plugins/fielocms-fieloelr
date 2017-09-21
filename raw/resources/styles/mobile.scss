@@ -1,12 +1,8 @@
 // Breakpoints and stuff
 @import '_variables';
 
-
 // Importa Componentes
-@import 'mobile/components/_approvedIcon';
-@import 'mobile/components/_notapprovedIcon';
-@import 'mobile/components/_neutralIcon';
-
+@import 'mobile/components/_icons';
 
 @media #{$bp-mobile-1} {}
 @media #{$bp-mobile-2} {}

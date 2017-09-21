@@ -8,16 +8,11 @@
 			<thead class="fielo-table__head">
 				<tr class="fielo-record"  data-order-by-type="list">
                     <th class="fielo-field fielo-field--is-FieloELR__Question__c mdl-data-table__cell--non-numeric">
-						<span class="{!IF(config['FieloCMS__orderBy__c'] == '' , '', 'fielo-order-by__item')} {!IF(config['FieloCMS__orderBy__c']=='DESC', 'fielo-order-by__item--is-desc active','')} {!IF(config['FieloCMS__orderBy__c']=='ASC', 'fielo-order-by__item--is-asc active','')}" data-order-value="FieloELR__Question__c">{!$ObjectType.FieloELR__QuestionResponse__c.fields.FieloELR__Question__c.label}</span>
+						<span class="{!IF(config['FieloCMS__orderBy__c'] == '' , '', 'fielo-order-by__item')} {!IF(config['FieloCMS__orderBy__c']=='DESC', 'fielo-order-by__item--is-desc active','')} {!IF(config['FieloCMS__orderBy__c']=='ASC', 'fielo-order-by__item--is-asc active','')}" data-order-value="FieloELR__Question__c">{!$ObjectType.FieloELR__Question__c.fields.FieloELR__QuestionText__c.label}</span>
                     </th>
                     <th class="fielo-field fielo-field--is-FieloELR__Question__c mdl-data-table__cell--non-numeric">
 						<span class="{!IF(config['FieloCMS__orderBy__c'] == '' , '', 'fielo-order-by__item')} {!IF(config['FieloCMS__orderBy__c']=='DESC', 'fielo-order-by__item--is-desc active','')} {!IF(config['FieloCMS__orderBy__c']=='ASC', 'fielo-order-by__item--is-asc active','')}" data-order-value="FieloELR__Question__c">{!$ObjectType.FieloELR__QuestionResponse__c.fields.FieloELR__IsCorrect__c.label}</span>
                     </th>
-                    <!--
-                    <th class="fielo-field fielo-field--is-FieloELR__Question__c mdl-data-table__cell--non-numeric">
-						<span class="{!IF(config['FieloCMS__orderBy__c'] == '' , '', 'fielo-order-by__item')} {!IF(config['FieloCMS__orderBy__c']=='DESC', 'fielo-order-by__item--is-desc active','')} {!IF(config['FieloCMS__orderBy__c']=='ASC', 'fielo-order-by__item--is-asc active','')}" data-order-value="FieloELR__Question__c">{!$ObjectType.FieloELR__QuestionResponse__c.fields.FieloELR__NumberOfAttempt__c.label}</span>
-                    </th>
-                    -->
                     <th class="fielo-field fielo-field--is-FieloELR__Question__c mdl-data-table__cell--non-numeric">
 						<span class="{!IF(config['FieloCMS__orderBy__c'] == '' , '', 'fielo-order-by__item')} {!IF(config['FieloCMS__orderBy__c']=='DESC', 'fielo-order-by__item--is-desc active','')} {!IF(config['FieloCMS__orderBy__c']=='ASC', 'fielo-order-by__item--is-asc active','')}" data-order-value="FieloELR__Question__c">{!$ObjectType.FieloELR__QuestionResponse__c.fields.FieloELR__PartialGradeValue__c.label}</span>
                     </th>
@@ -26,9 +21,11 @@
 	        <tbody class="fielo-record-set__data">
 	        	<apex:repeat value="{!moduleResponseResult.questions}" var="qWrapper">
 	                <tr class="fielo-record fielo-record-set__template">
-	            		<td class="fielo-field fielo-field--is-FieloELR__Question__c mdl-data-table__cell--non-numeric" data-th="Question">
+				    	<td class="fielo-field fielo-field--is-FieloELR__Question__c mdl-data-table__cell--non-numeric" data-th="Question">
 				      		<span class="fielo-field__value">
-				      			<c:FieloCMSELR_OutputField sObject="FieloELR__QuestionResponse__c" field="FieloELR__Question__c" record="{!qWrapper.questionResponse}"/>
+				      			<a class="fielo-output" href="#" data-value="{!qWrapper.questionResponse.FieloELR__Question__c}">
+				      				<apex:outputText value="{!qWrapper.question.FieloELR__QuestionText__c}" escape="false"/>
+				      			</a>
 				      		</span>
 				    	</td>
 				    	<td class="fielo-field fielo-field--is-FieloELR__IsCorrect__c mdl-data-table__cell--non-numeric" data-th="Question">
@@ -36,13 +33,6 @@
 				      			<c:FieloCMSELR_OutputField sObject="FieloELR__QuestionResponse__c" field="FieloELR__IsCorrect__c" record="{!qWrapper.questionResponse}"/>
 				      		</span>
 				    	</td>
-				    	<!--
-				    	<td class="fielo-field fielo-field--is-FieloELR__NumberOfAttempt__c mdl-data-table__cell--non-numeric" data-th="Question">
-				      		<span class="fielo-field__value">
-				      			<c:FieloCMSELR_OutputField sObject="FieloELR__QuestionResponse__c" field="FieloELR__NumberOfAttempt__c" record="{!qWrapper.questionResponse}"/>
-				      		</span>
-				    	</td>
-				    	-->
 				    	<td class="fielo-field fielo-field--is-FieloELR__PartialGradeValue__c mdl-data-table__cell--non-numeric" data-th="Question">
 				      		<span class="fielo-field__value">
 				      			<c:FieloCMSELR_OutputField sObject="FieloELR__QuestionResponse__c" field="FieloELR__PartialGradeValue__c" record="{!qWrapper.questionResponse}"/>
@@ -72,6 +62,9 @@
 			                	<th class="fielo-field fielo-field--is-CorrectAnswers__c mdl-data-table__cell--non-numeric">
 									<span class="{!IF(config['FieloCMS__orderBy__c'] == '' , '', 'fielo-order-by__item')} {!IF(config['FieloCMS__orderBy__c']=='DESC', 'fielo-order-by__item--is-desc active','')} {!IF(config['FieloCMS__orderBy__c']=='ASC', 'fielo-order-by__item--is-asc active','')}" data-order-value="CorrectAnswers__c">Corrected Answers</span>
 			                    </th>
+		                    	<th class="fielo-field fielo-field--is-Answers__c mdl-data-table__cell--non-numeric">
+									<span class="{!IF(config['FieloCMS__orderBy__c'] == '' , '', 'fielo-order-by__item')} {!IF(config['FieloCMS__orderBy__c']=='DESC', 'fielo-order-by__item--is-desc active','')} {!IF(config['FieloCMS__orderBy__c']=='ASC', 'fielo-order-by__item--is-asc active','')}" data-order-value="CorrectAnswers__c">Your Answer</span>
+			                    </th>
 			                </apex:panelGroup>
 			            </tr>
 			        </thead>
@@ -86,7 +79,9 @@
 							    	</td>
 							    	<td class="fielo-field fielo-field--is-Status__c mdl-data-table__cell--non-numeric" data-th="Question">
 							      		<span class="fielo-field__value">
-							      			<div class="{!CASE(aWrapper.answerStatus,'Neutral','cms-elr-icon__neutral','Correct','cms-elr-icon__approved','Incorrect','cms-elr-icon__notapproved','cms-elr-icon__neutral')}" title="{!aWrapper.answerStatus}"/>
+							      			<apex:panelGroup rendered="{! aWrapper.answerStatus != 'Neutral' }" layout="none" >
+							      				<div class="{!CASE(aWrapper.answerStatus,'Missing','cms-elr-icon__approved--red','Correct','cms-elr-icon__approved','Incorrect','cms-elr-icon__notapproved','cms-elr-icon__neutral')}" title="{!aWrapper.answerStatus}"/>
+							      			</apex:panelGroup>
 							      		</span>
 							    	</td>
 				                </tr>
@@ -99,6 +94,11 @@
 						      			<apex:outputText value="{!qWrapper.correctedAnswers}" escape="false"></apex:outputText>
 						      		</span>
 						    	</td>
+		                    	<td class="fielo-field fielo-field--is-Answers__c mdl-data-table__cell--non-numeric">
+									<span class="fielo-field__value">
+										<apex:outputText value="{!qWrapper.questionResponse.FieloELR__TextValue__c}" escape="false"></apex:outputText>
+									</span>
+		                    	</td>
 			                </tr>
 			            </apex:panelGroup>
 			        </tbody>
