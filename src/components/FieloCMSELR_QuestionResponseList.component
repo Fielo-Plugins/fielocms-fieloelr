@@ -86,7 +86,7 @@
 							    	</td>
 							    	<td class="fielo-field fielo-field--is-Status__c mdl-data-table__cell--non-numeric" data-th="Question">
 							      		<span class="fielo-field__value">
-							      			<apex:outputText value="{!aWrapper.answerStatus}" escape="false"></apex:outputText>
+							      			<div class="{!CASE(aWrapper.answerStatus,'Neutral','cms-elr-icon__neutral','Correct','cms-elr-icon__approved','Incorrect','cms-elr-icon__notapproved','cms-elr-icon__neutral')}" />
 							      		</span>
 							    	</td>
 				                </tr>
