@@ -24,6 +24,8 @@ When you finish the installation of them all, you will be ready to go to the nex
 
 Deploy the tags from the latest releases of the following repositories into your org.
 
+**_TIP_**: To access the latest release tag click on the tag link right below the Latest Release Button.
+
 ![Add Image](Source/ScreenHunter_01%20Sep.%2021%2018.27.gif?raw=true) <!-- .element height="50%" width="50%" -->
 
 | Repository |
