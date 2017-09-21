@@ -22,13 +22,13 @@ When you finish the installation of them all, you will be ready to go to the nex
 
 ## 2. Plugins Installation
 
-Use the following combination of repositories/branches to configure your environment:
+Deploy the tags from the latest releases of the following repositories into your org.
 
-| Repository | Branch |
-| --- | --- |
-|[FieloCMS-FieloPLT](https://github.com/Fielo-Plugins/fielocms-fieloplt)| tag: v2.0.3 |
-|[FieloCMS-FieloELR](https://github.com/Fielo-Plugins/fielocms-fieloelr/releases/latest)| Latest Release |
-|[FieloCMS-FieloPRP](https://github.com/Fielo-Plugins/fielocms-fieloprp/releases/latest)| Latest Release |
+| Repository |
+| --- |
+|[FieloCMS-FieloPLT](https://github.com/Fielo-Plugins/fielocms-fieloplt/releases/latest)|
+|[FieloCMS-FieloELR](https://github.com/Fielo-Plugins/fielocms-fieloelr/releases/latest)|
+|[FieloCMS-FieloPRP](https://github.com/Fielo-Plugins/fielocms-fieloprp/releases/latest)|
 
 Deploy them in the following order:
 
