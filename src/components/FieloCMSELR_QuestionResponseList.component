@@ -86,7 +86,7 @@
 							    	</td>
 							    	<td class="fielo-field fielo-field--is-Status__c mdl-data-table__cell--non-numeric" data-th="Question">
 							      		<span class="fielo-field__value">
-							      			<div class="{!CASE(aWrapper.answerStatus,'Neutral','cms-elr-icon__neutral','Correct','cms-elr-icon__approved','Incorrect','cms-elr-icon__notapproved','cms-elr-icon__neutral')}" />
+							      			<div class="{!CASE(aWrapper.answerStatus,'Neutral','cms-elr-icon__neutral','Correct','cms-elr-icon__approved','Incorrect','cms-elr-icon__notapproved','cms-elr-icon__neutral')}" title="{!aWrapper.answerStatus}"/>
 							      		</span>
 							    	</td>
 				                </tr>
