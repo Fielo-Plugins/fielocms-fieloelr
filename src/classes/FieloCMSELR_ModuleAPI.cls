@@ -11,7 +11,10 @@ global with sharing class FieloCMSELR_ModuleAPI implements FieloCMS.DataInterfac
             if(c.FieloCMS__ComponentLibrary__r.Name == 'Modules'){
                 String recordId = ApexPages.CurrentPage().getParameters().get( c.FieloCMSELR_CustomDetailParameter__c );
                 FieloPLT__Member__c member = [SELECT Id, FieloPLT__Program__c FROM FieloPLT__Member__c WHERE Id =: memberId];
-                
+                Set<String> fields = FieloCMSPLT_OrganizationUtil.getFieldSet(c.FieloCMS__FieldSet__c);
+                if (!fields.contains('FieloELR__IsActive__c')) {
+                    fields.add('FieloELR__IsActive__c')
+                }
                 List<FieloELR__Course__c> courses = FieloELR.CourseService.getCourses(
                     new Set<String>{'Id','Name'},
                     null,
@@ -33,7 +36,7 @@ global with sharing class FieloCMSELR_ModuleAPI implements FieloCMS.DataInterfac
                 if (c.FieloCMS__Limit__c > courses[0].FieloELR__Modules__r.size()) {
                     records.addAll((List<sObject>)courses[0].FieloELR__Modules__r);
                 } else {
-                    for (Integer index=0; index < c.FieloCMS__Limit__c;index++) {
+                    for (Integer index=0; index < c.FieloCMS__Limit__c; index++) {
                         records.add(courses[0].FieloELR__Modules__r[index]);
                     }
                 }

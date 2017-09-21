@@ -7,7 +7,7 @@ public class FieloCMSELR_QuestionResponseListCtlr {
             moduleResponseResult = FieloELR.ModuleService.getModuleResponse(
                 moduleResponseId,
                 new Set<String> {'Name','FieloELR__Module__r.FieloELR__Course__c'},
-                new Set<String> {'Name','FieloELR__Type__c','FieloELR__Module__r.FieloELR__Course__c'},
+                new Set<String> {'Name','FieloELR__Type__c','FieloELR__Module__r.FieloELR__Course__c','FieloELR__QuestionText__c'},
                 new Set<String> {'FieloELR__Question__c','FieloELR__AnswerOptionText__c','FieloELR__MatchingText__c'}
             );
         }
