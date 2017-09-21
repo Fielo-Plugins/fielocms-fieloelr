@@ -24,6 +24,8 @@ When you finish the installation of them all, you will be ready to go to the nex
 
 Deploy the tags from the latest releases of the following repositories into your org.
 
+![Add Image](Source/ScreenHunter_01 Sep. 21 18.27.gif.png?raw=true) <!-- .element height="50%" width="50%" -->
+
 | Repository |
 | --- |
 |[FieloCMS-FieloPLT](https://github.com/Fielo-Plugins/fielocms-fieloplt/releases/latest)|
