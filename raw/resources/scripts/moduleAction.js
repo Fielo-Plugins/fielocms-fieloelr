@@ -124,12 +124,12 @@
           }, this);
           if (results[moduleId].Approved) {
             this.addStatusField(this.records[moduleId],
-              FrontEndJSSettings.LABELS.Approved, // eslint-disable-line no-undef
+              FrontEndJSSettings.LABELS.Passed, // eslint-disable-line no-undef
               'cms-elr-icon__approved'
             );
           } else {
             this.addStatusField(this.records[moduleId],
-              FrontEndJSSettings.LABELS.NotApproved, // eslint-disable-line no-undef
+              FrontEndJSSettings.LABELS.NotPassed, // eslint-disable-line no-undef
               'cms-elr-icon__notapproved');
           }
         }
@@ -153,7 +153,7 @@
       }
 
       newFieldLabel.innerHTML =
-            FrontEndJSSettings.LABELS.ApprovedLabel; // eslint-disable-line no-undef
+            FrontEndJSSettings.LABELS.Passed; // eslint-disable-line no-undef
 
       var newFieldValue = newField
         .querySelector('.' + this.CssClasses_.FIELD_VALUE);
@@ -179,7 +179,7 @@
         th.parentNode.insertBefore(newTh, th);
         this.hasApprovedHeader = true;
         newTh.innerHTML =
-          FrontEndJSSettings.LABELS.ApprovedLabel; // eslint-disable-line no-undef
+          FrontEndJSSettings.LABELS.Passed; // eslint-disable-line no-undef
       }
       td.parentNode.insertBefore(newTd, td);
 

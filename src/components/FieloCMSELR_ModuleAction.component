@@ -25,9 +25,7 @@
 	if(typeof FrontEndJSSettings.LABELS == 'undefined') {
 	 	FrontEndJSSettings.LABELS = {};
 	}
-	FrontEndJSSettings.LABELS.ApprovedLabel = 
-		'{!$ObjectType.FieloELR__ModuleResponse__c.fields.FieloELR__IsApproved__c.label}';
-	FrontEndJSSettings.LABELS.Approved = '{!$Label.FieloCMSELR_Approved}';
-	FrontEndJSSettings.LABELS.NotApproved = '{!$Label.FieloCMSELR_NotApproved}';
+	FrontEndJSSettings.LABELS.Passed = '{!$Label.FieloCMSELR_Passed}';
+	FrontEndJSSettings.LABELS.NotPassed = '{!$Label.FieloCMSELR_NotPassed}';
 	</script>
 </apex:component>
