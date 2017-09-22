@@ -17,6 +17,14 @@
         <value>Continue</value>
     </labels>
     <labels>
+        <fullName>FieloCMSELR_CorrectAnswers</fullName>
+        <categories>FieloCMSELR_QuestionResponseList.component</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>CorrectAnswers</shortDescription>
+        <value>Correct Answers</value>
+    </labels>
+    <labels>
         <fullName>FieloCMSELR_Join</fullName>
         <categories>courseAction.js</categories>
         <language>en_US</language>
@@ -49,6 +57,22 @@
         <value>Not Approved</value>
     </labels>
     <labels>
+        <fullName>FieloCMSELR_NotPassed</fullName>
+        <categories>moduleAction.js</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>NotPassed</shortDescription>
+        <value>Not passed</value>
+    </labels>
+    <labels>
+        <fullName>FieloCMSELR_Passed</fullName>
+        <categories>moduleAction.js</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Passed</shortDescription>
+        <value>Passed</value>
+    </labels>
+    <labels>
         <fullName>FieloCMSELR_Retake</fullName>
         <categories>moduleAction.js</categories>
         <language>en_US</language>
@@ -79,5 +103,13 @@
         <protected>true</protected>
         <shortDescription>WrongAnswer</shortDescription>
         <value>Incorrect Answer.</value>
+    </labels>
+    <labels>
+        <fullName>FieloCMSELR_YourAnswer</fullName>
+        <categories>FieloCMSELR_QuestionResponseList.component</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>YourAnswer</shortDescription>
+        <value>Your Answer</value>
     </labels>
 </CustomLabels>
