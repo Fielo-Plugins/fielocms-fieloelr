@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata">
-        <labels>
+    <labels>
         <fullName>FieloCMSELR_Approved</fullName>
         <categories>moduleAction.js</categories>
         <language>en_US</language>
@@ -15,6 +15,14 @@
         <protected>true</protected>
         <shortDescription>Continue</shortDescription>
         <value>Continue</value>
+    </labels>
+    <labels>
+        <fullName>FieloCMSELR_CorrectAnswers</fullName>
+        <categories>FieloCMSELR_QuestionResponseList.component</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>CorrectAnswers</shortDescription>
+        <value>Correct Answers</value>
     </labels>
     <labels>
         <fullName>FieloCMSELR_Join</fullName>
@@ -95,5 +103,13 @@
         <protected>true</protected>
         <shortDescription>WrongAnswer</shortDescription>
         <value>Incorrect Answer.</value>
+    </labels>
+    <labels>
+        <fullName>FieloCMSELR_YourAnswer</fullName>
+        <categories>FieloCMSELR_QuestionResponseList.component</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>YourAnswer</shortDescription>
+        <value>Your Answer</value>
     </labels>
 </CustomLabels>
