@@ -16,8 +16,11 @@
 		<members>FieloCMS__Component__c</members>
 		<members>FieloELR__CourseStatus__c</members>
 		<members>FieloELR__Course__c</members>
-		<members>FieloELR__Module__c</members>
 		<name>CustomObject</name>
+	</types>
+	<types>
+		<members>FieloELR__Module__c.FieloCMSELR_ContentCategory__c</members>
+		<name>CustomField</name>
 	</types>
 	<types>
 		<members>FieloCms_Elr_Components</members>
