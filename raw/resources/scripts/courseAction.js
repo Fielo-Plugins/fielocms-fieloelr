@@ -46,7 +46,7 @@
     RECORD: 'fielo-record',
     PAGINATOR: 'fielo-paginator',
     LINK_DETAIL: 'fielo-link__to-detail--is-InternalPage',
-    DISABLED_RECORD: 'cms-elr-record__disabled'
+    DISABLED: 'disabled'
   };
 
   FieloCourseAction.prototype.getRecordIds = function() {
@@ -86,7 +86,7 @@
               .style.display = 'none';
           this.addClass(
                   this.records[courseId]
-                    , this.CssClasses_.DISABLED_RECORD);
+                    , this.CssClasses_.DISABLED);
         } else {
           this.records[courseId]
             .querySelector('.' + this.CssClasses_.ACTION)

@@ -61,26 +61,17 @@ global class FieloCMSELR_CourseActionCtlr implements FieloCMS.ViewSubComponentIn
             redirectPage = '/FieloCMS__Page?pageId=' + component.FieloCMSPLT_RedirectPage__c + 
                 '&' + component.FieloCMSELR_CustomDetailParameter__c + '=' + course.Id;
             if (!joinedCourses.containsKey(course.Id)) {
-                if (allowedForDependency) {
-                    courseActionMap.put(course.Id,
-                        (Object) new Map<String,Object>{
-                            'Action' => course.FieloELR__SubscriptionMode__c =='Manual' ? 'Join' : 'View',
-                            'Page' => redirectPage
-                        }
-                    );
-                } else {
-                    courseActionMap.put(course.Id,
-                        (Object) new Map<String,Object>{
-                            'Action' => 'Hide',
-                            'Page' => redirectPage
-                        }
-                    );
-                }
+                courseActionMap.put(course.Id,
+                    (Object) new Map<String,Object>{
+                        'Action' => allowedForDependency ? course.FieloELR__SubscriptionMode__c =='Manual' ? 'Join' : 'View' : 'Hide',
+                        'Page' => redirectPage
+                    }
+                );
             } else {
                 if(courseStatusMap.get(joinedCourses.get(course.Id)).FieloELR__Progress__c == null) {
                     courseActionMap.put(course.Id,
                         (Object) new Map<String,Object>{
-                            'Action' => 'Continue',
+                            'Action' => allowedForDependency ? 'Continue' : 'Hide',
                             'Page' => redirectPage
                         }
                     );
@@ -90,14 +81,14 @@ global class FieloCMSELR_CourseActionCtlr implements FieloCMS.ViewSubComponentIn
                         course.FieloELR__Status__c == 'Active') {
                         courseActionMap.put(course.Id,
                             (Object) new Map<String,Object>{
-                                'Action' => 'Continue',
+                                'Action' => allowedForDependency ? 'Continue' : 'Hide',
                                 'Page' => redirectPage
                             }
                         );
                     } else {
                         courseActionMap.put(course.Id,
                             (Object) new Map<String,Object>{
-                                'Action' => 'View',
+                                'Action' => allowedForDependency ? 'View' : 'Hide',
                                 'Page' => redirectPage
                             }
                         );

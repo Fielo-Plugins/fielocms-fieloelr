@@ -45,7 +45,7 @@
     PAGINATOR: 'fielo-paginator',
     FIELD_LABEL: 'fielo-field__label',
     FIELD_VALUE: 'fielo-field__value',
-    DISABLED_RECORD: 'cms-elr-record__disabled'
+    DISABLED: 'disabled'
   };
 
   FieloModuleAction.prototype.getRecordIds = function() {
@@ -104,7 +104,7 @@
                 button.style.visibility = 'hidden';
                 this.addClass(
                   button.closest('.' + this.CssClasses_.RECORD)
-                    , this.CssClasses_.DISABLED_RECORD);
+                    , this.CssClasses_.DISABLED);
               }, this);
             } else {
               buttons[actions.indexOf(action)]
