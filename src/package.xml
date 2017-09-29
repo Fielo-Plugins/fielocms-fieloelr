@@ -1,35 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
 	<types>
-		<members>*</members>
+		<members>FieloCMSELR_ModuleCategoryButton</members>
+		<members>FieloCMSELR_CourseCategoryButton</members>
 		<name>ApexClass</name>
-	</types>
-	<types>
-		<members>*</members>
-		<name>ApexComponent</name>
-	</types>
-	<types>
-		<members>*</members>
-		<name>CustomLabels</name>
-	</types>
-	<types>
-		<members>FieloCMS__Component__c</members>
-		<members>FieloELR__CourseStatus__c</members>
-		<members>FieloELR__Course__c</members>
-		<name>CustomObject</name>
-	</types>
-	<types>
-		<members>FieloELR__Module__c.FieloCMSELR_ContentCategory__c</members>
-		<name>CustomField</name>
-	</types>
-	<types>
-		<members>FieloCms_Elr_Components</members>
-		<members>FieloPlugin_ElrPlugin</members>
-		<name>StaticResource</name>
-	</types>
-	<types>
-		<members>*</members>
-		<name>ApexTrigger</name>
 	</types>
 	<version>36.0</version>
 </Package>
