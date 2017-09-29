@@ -1,32 +1,35 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<Package xmlns="http://soap.sforce.com/2006/04/metadata">
-	<types>
-		<members>*</members>
-		<name>ApexClass</name>
-	</types>
-	<types>
-		<members>*</members>
-		<name>ApexComponent</name>
-	</types>
-	<types>
-		<members>*</members>
-		<name>CustomLabels</name>
-	</types>
-	<types>
-		<members>FieloCMS__Component__c</members>
-		<members>FieloELR__CourseStatus__c</members>
-		<members>FieloELR__Course__c</members>
-		<members>FieloELR__Module__c</members>
-		<name>CustomObject</name>
-	</types>
-	<types>
-		<members>FieloCms_Elr_Components</members>
-		<members>FieloPlugin_ElrPlugin</members>
-		<name>StaticResource</name>
-	</types>
-	<types>
-		<members>*</members>
-		<name>ApexTrigger</name>
-	</types>
-	<version>36.0</version>
-</Package>
+<?xml version="1.0" encoding="UTF8"?>
+  <Package xmlns="http://soap.sforce.com/2006/04/metadata">
+  	<types>
+ 		<members>*</members>
+  		<name>ApexClass</name>
+  	</types>
+ 	<types>
+ 		<members>*</members>
+ 		<name>ApexComponent</name>
+ 	</types>
+ 	<types>
+ 		<members>*</members>
+ 		<name>CustomLabels</name>
+ 	</types>
+ 	<types>
+ 		<members>FieloCMS__Component__c.FieloCMSELR_CustomDetailParameter__c</members>
+ 		<members>FieloCMS__Component__c.FieloCMSELR_FilterByDependency__c</members>
+ 		<members>FieloCMS__Component__c.FieloCMSELR_FilterByNotTaken__c</members>
+ 		<members>FieloCMS__Component__c.FieloCMSELR_FilterBySegment__c</members>
+ 		<members>FieloELR__Course__c.FieloCMSELR_ContentCategory__c</members>
+ 		<members>FieloELR__Course__c.FieloCMSELR_Category__c</members>
+ 		<members>FieloELR__Module__c.FieloCMSELR_ContentCategory__c</members>
+ 		<name>CustomField</name>
+ 	</types>
+ 	<types>
+ 		<members>FieloCms_Elr_Components</members>
+ 		<members>FieloPlugin_ElrPlugin</members>
+ 		<name>StaticResource</name>
+ 	</types>
+ 	<types>
+ 		<members>*</members>
+ 		<name>ApexTrigger</name>
+ 	</types>
+  	<version>36.0</version>
+</Package> 
