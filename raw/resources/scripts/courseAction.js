@@ -45,7 +45,8 @@
     RECORD_TEMPLATE: 'fielo-record-set__template',
     RECORD: 'fielo-record',
     PAGINATOR: 'fielo-paginator',
-    LINK_DETAIL: 'fielo-link__to-detail--is-InternalPage'
+    LINK_DETAIL: 'fielo-link__to-detail--is-InternalPage',
+    DISABLED_RECORD: 'cms-elr-record__disabled'
   };
 
   FieloCourseAction.prototype.getRecordIds = function() {
@@ -83,6 +84,9 @@
           this.records[courseId]
             .querySelector('.' + this.CssClasses_.ACTION)
               .style.display = 'none';
+          this.addClass(
+                  this.records[courseId]
+                    , this.CssClasses_.DISABLED_RECORD);
         } else {
           this.records[courseId]
             .querySelector('.' + this.CssClasses_.ACTION)
@@ -215,6 +219,12 @@
     if (p) {
       p.FieloPaginator.callback(this.courseActionPaginatorCb.bind(this));
     }
+  };
+
+  FieloCourseAction.prototype.addClass = function(element, className) {
+    var classString = element.className;
+    var newClass = classString.concat(' ' + className);
+    element.className = newClass;
   };
 
   /**

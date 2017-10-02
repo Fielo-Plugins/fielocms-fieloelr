@@ -44,7 +44,8 @@
     IS_ACTION: 'fielo-field--is-ModuleAction',
     PAGINATOR: 'fielo-paginator',
     FIELD_LABEL: 'fielo-field__label',
-    FIELD_VALUE: 'fielo-field__value'
+    FIELD_VALUE: 'fielo-field__value',
+    DISABLED_RECORD: 'cms-elr-record__disabled'
   };
 
   FieloModuleAction.prototype.getRecordIds = function() {
@@ -101,6 +102,9 @@
             } else if (action === 'Hide') {
               [].forEach.call(buttons, function(button) {
                 button.style.visibility = 'hidden';
+                this.addClass(
+                  button.closest('.' + this.CssClasses_.RECORD)
+                    , this.CssClasses_.DISABLED_RECORD);
               }, this);
             } else {
               buttons[actions.indexOf(action)]
