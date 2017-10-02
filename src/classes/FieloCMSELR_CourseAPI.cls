@@ -1,31 +1,5 @@
 global class FieloCMSELR_CourseAPI implements FieloCMS.DataInterface{
     
-    private class FilterWrapper{
-        public String field;
-        public String operator;
-        public String value;
-        public String andOrOperator;
-        public SubQueryFilter subQueryFilter;
-
-        public FilterWrapper(String field, String operator, String value){
-            this.field = field;
-            this.operator = operator;
-            this.value = value;
-        }
-    }
-
-    private class SubQueryFilter{
-        public String field;
-        public String objectName;
-        public List<FilterWrapper> filters;
-
-        public SubQueryFilter(String field, String objectName, List<FilterWrapper> filters){
-            this.field = field;
-            this.objectName = objectName;
-            this.filters = filters;
-        }
-    }
-
     public Map<Id, Object> getBulkData(List<FieloCMS__Component__c> components){
         Map<Id,Object> newMapData = new Map<Id,Object>();
         Id memberId = FieloCMSPLT_MemberService.getCurrentMemberId();
@@ -37,17 +11,13 @@ global class FieloCMSELR_CourseAPI implements FieloCMS.DataInterface{
             if(c.FieloCMS__ComponentLibrary__r.Name == 'Courses'){
                 FieloPLT__Member__c member = [SELECT Id, FieloPLT__Program__c FROM FieloPLT__Member__c WHERE Id =: memberId];
                 
-                List<FilterWrapper> dynamicFilters = new List<FilterWrapper>();
+                List<FieloCMSPLT_FilterService.FilterWrapper> dynamicFilters = new List<FieloCMSPLT_FilterService.FilterWrapper>();
                 if(c.FieloCMS__Category__c != null){
-                    dynamicFilters.add(new FilterWrapper('Category__c', 'eq', c.FieloCMS__Category__c));
+                    dynamicFilters.add(new FieloCMSPLT_FilterService.FilterWrapper(null,null,'FieloCMSELR_Category__c', 'equals', c.FieloCMS__Category__c, null));
                 }
                 if(c.FieloCMS__Tag__c != null){
-                    FilterWrapper filter = new FilterWrapper('Id', 'in', null);
-                    if(c.FieloCMS__Category__c != null){
-                        filter.andOrOperator = 'and';
-                    }
-                    filter.subQueryFilter = new SubQueryFilter('Course__c', 'FieloCMS__TagItem__c', new List<FilterWrapper>{new FilterWrapper('FieloCMS__Tag__c','eq',c.FieloCMS__Tag__c)});
-                    dynamicFilters.add(filter);
+                    FieloCMSPLT_FilterService.SubQueryFilter sqf = new FieloCMSPLT_FilterService.SubQueryFilter('FieloCMSELR_Course__c','FieloCMS__TagItem__c',new List<FieloCMSPLT_FilterService.FilterWrapper>{new FieloCMSPLT_FilterService.FilterWrapper(null,null,'FieloCMS__Tag__c','equals',c.FieloCMS__Tag__c,null)});
+                    dynamicFilters.add(new FieloCMSPLT_FilterService.FilterWrapper('and',null,'Id',sqf,null));
                 }
 
                 List<FieloELR__Course__c> courses = FieloELR.CourseService.getCourses(
@@ -65,7 +35,6 @@ global class FieloCMSELR_CourseAPI implements FieloCMS.DataInterface{
                     'FieloELR__Order__c',
                     dynamicFilters.isEmpty() ? null : JSON.serialize(dynamicFilters)
                 );
-                system.debug('Records: ' + courses);
                 newMapData.put(c.Id, (List<Object>)courses);
             }
             if(c.FieloCMS__ComponentLibrary__r.Name == 'Course Detail'){
@@ -94,30 +63,39 @@ global class FieloCMSELR_CourseAPI implements FieloCMS.DataInterface{
     }
 
     public List<sObject> getData(FieloCMS__Component__c component, Integer pageNumber, String orderBy, String filters){
+        
+        List<FieloCMSPLT_FilterService.FilterWrapper> filtersList = new List<FieloCMSPLT_FilterService.FilterWrapper>();
+        if(String.isNotBlank(filters)){
+            //List<FilterService.FilterWrapper> filtersList = (List<FilterService.FilterWrapper>) JSON.deserialize(filters, List<FilterService.FilterWrapper>.class);
+            filtersList.addAll((List<FieloCMSPLT_FilterService.FilterWrapper>) JSON.deserialize(filters, List<FieloCMSPLT_FilterService.FilterWrapper>.class));
+            if(!filtersList.isEmpty()){
+                for(Integer i = filtersList.size() - 1; i > 0; i--){
+                    if(filtersList[i].field == 'FieloCMS_Category__c' || filtersList[i].field == 'FieloCMS__Tag__c'){
+                        if(filtersList[i].value != null){
+                            component.put(filtersList[i].field, filtersList[i].value);
+                        }
+                        filtersList.remove(i);
+                    }else if(String.isBlank(filtersList[i].value)){
+                        filtersList.remove(i);
+                    }
+                }
+            }
+        }
+
+        FieloPLT__Program__c program = FieloCMSPLT_ProgramService.getCurrentProgram();                
         if(component.FieloCMS__Limit__c == null)
             component.FieloCMS__Limit__c = 5;
 
-        //Member Id
-        Id memberId = FieloCMSPLT_MemberService.getCurrentMemberId();
-
-        //Member Data
-        FieloPLT__Member__c member = [SELECT Id, FieloPLT__Program__c FROM FieloPLT__Member__c WHERE Id =: memberId];
+        if(component.FieloCMS__Category__c != null){
+            filtersList.add(new FieloCMSPLT_FilterService.FilterWrapper(null,null,'FieloCMSELR_Category__c', 'eq', component.FieloCMS__Category__c, null));
+        }
+        if(component.FieloCMS__Tag__c != null){
+            FieloCMSPLT_FilterService.SubQueryFilter sqf = new FieloCMSPLT_FilterService.SubQueryFilter('FieloCMSELR_Course__c','FieloCMS__TagItem__c',new List<FieloCMSPLT_FilterService.FilterWrapper>{new FieloCMSPLT_FilterService.FilterWrapper(null,null,'FieloCMS__Tag__c','equals',component.FieloCMS__Tag__c,null)});
+            filtersList.add(new FieloCMSPLT_FilterService.FilterWrapper('and',null,'Id',sqf,null));
+        }   
 
         //Calculate the offset from the Page Number
         Integer offset = Integer.valueOf(component.FieloCMS__Limit__c * (pageNumber - 1));
-
-        List<FilterWrapper> dynamicFilters = new List<FilterWrapper>();
-        if(component.FieloCMS__Category__c != null){
-            dynamicFilters.add(new FilterWrapper('Category__c', 'eq', component.FieloCMS__Category__c));
-        }
-        if(component.FieloCMS__Tag__c != null){
-            FilterWrapper filter = new FilterWrapper('Id', 'in', null);
-            if(component.FieloCMS__Category__c != null){
-                filter.andOrOperator = 'and';
-            }
-            filter.subQueryFilter = new SubQueryFilter('Course__c', 'FieloCMS__TagItem__c', new List<FilterWrapper>{new FilterWrapper('FieloCMS__Tag__c','eq',component.FieloCMS__Tag__c)});
-            dynamicFilters.add(filter);
-        }
 
         if (component.FieloCMS__ComponentLibrary__r.Name == 'Courses') {
             List<FieloELR__Course__c> courses = FieloELR.CourseService.getCourses(
@@ -125,15 +103,15 @@ global class FieloCMSELR_CourseAPI implements FieloCMS.DataInterface{
                 null,
                 null,
                 null,
-                member.FieloPLT__Program__c,
-                member.Id,
+                program.Id,
+                FieloCMSPLT_MemberService.getCurrentMemberId(),
                 component.FieloCMSELR_FilterByDependency__c,
                 component.FieloCMSELR_FilterBySegment__c,
                 component.FieloCMSELR_FilterByNotTaken__c,
                 Integer.valueof(component.FieloCMS__Limit__c),
                 offset,
                 'FieloELR__Order__c',
-                dynamicFilters.isEmpty() ? null : JSON.serialize(dynamicFilters)
+                filtersList.isEmpty() ? null : JSON.serialize(filtersList)
             );
             return (List<sObject>) courses;
         }
