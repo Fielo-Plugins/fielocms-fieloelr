@@ -156,7 +156,7 @@ global class FieloCMSELR_ModuleActionCtlr implements FieloCMS.ViewSubComponentIn
     }
 
     @RemoteAction
-    public static FieloELR.ModuleService.ModuleWrapper takeModule(String moduleId) {
+    global static FieloELR.ModuleService.ModuleWrapper takeModule(String moduleId) {
         Id memberId = FieloCMSPLT_MemberService.getCurrentMemberId();
         FieloPLT__Member__c member = [SELECT Id, FieloPLT__Program__c FROM FieloPLT__Member__c WHERE Id =: memberId];
         FieloELR.ModuleService.ModuleWrapper moduleWrapper = FieloELR.ModuleService.takeModule(
