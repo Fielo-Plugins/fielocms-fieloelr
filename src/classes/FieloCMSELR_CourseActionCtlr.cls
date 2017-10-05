@@ -64,7 +64,7 @@ global class FieloCMSELR_CourseActionCtlr implements FieloCMS.ViewSubComponentIn
                 if (allowedForDependency) {
                     courseActionMap.put(course.Id,
                         (Object) new Map<String,Object>{
-                            'Action' => course.FieloELR__SubscriptionMode__c =='Manual' ? 'Join' : 'View',
+                            'Action' => course.FieloELR__SubscriptionMode__c =='Manual' ? 'Join' : 'Hide',
                             'Page' => redirectPage
                         }
                     );
@@ -77,32 +77,12 @@ global class FieloCMSELR_CourseActionCtlr implements FieloCMS.ViewSubComponentIn
                     );
                 }
             } else {
-                if(courseStatusMap.get(joinedCourses.get(course.Id)).FieloELR__Progress__c == null) {
-                    courseActionMap.put(course.Id,
-                        (Object) new Map<String,Object>{
-                            'Action' => 'Continue',
-                            'Page' => redirectPage
-                        }
-                    );
-                } else {
-                    if (courseStatusMap.get(joinedCourses.get(course.Id)).FieloELR__Progress__c >= 0 && 
-                        courseStatusMap.get(joinedCourses.get(course.Id)).FieloELR__Progress__c < 100 &&
-                        course.FieloELR__Status__c == 'Active') {
-                        courseActionMap.put(course.Id,
-                            (Object) new Map<String,Object>{
-                                'Action' => 'Continue',
-                                'Page' => redirectPage
-                            }
-                        );
-                    } else {
-                        courseActionMap.put(course.Id,
-                            (Object) new Map<String,Object>{
-                                'Action' => 'View',
-                                'Page' => redirectPage
-                            }
-                        );
+                courseActionMap.put(course.Id,
+                    (Object) new Map<String,Object>{
+                        'Action' => 'Hide',
+                        'Page' => redirectPage
                     }
-                }
+                );
             }
         }
         return courseActionMap;
