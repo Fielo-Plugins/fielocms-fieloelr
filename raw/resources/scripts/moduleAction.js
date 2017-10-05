@@ -121,9 +121,8 @@
                     results[moduleId].ModuleResponseId);
                 if (results[moduleId].PageId) {
                   buttons[actions.indexOf(action)]
-                    .href = 'FieloCMS__Page?pageId=' +
-                      results[moduleId].PageId +
-                        '&id=' + results[moduleId].ModuleResponseId;
+                    .href = this.recordHrefs[moduleId].viewHref +
+                      results[moduleId].ModuleResponseId;
                 }
               }
             }
@@ -222,9 +221,9 @@
       localStorage.clear();
       this.storeData(result.moduleResponse.Id, result);
       window.location.href =
-        this.records[result.module.Id]
-          .FieloRecord.link_ + '#' +
-          result.moduleResponse.Id;
+        this.recordHrefs[result.module.Id].takeHref +
+          '#' + result.moduleResponse.Id;
+      window.location.reload();
     }
   };
 
@@ -256,6 +255,26 @@
     }
   };
 
+  FieloModuleAction.prototype.getURLs = function() {
+    var action;
+    this.recordHrefs = {};
+    [].forEach.call(Object.keys(this.records), function(recordId) {
+      action = this.records[recordId]
+        .querySelector('.' + this.CssClasses_.ACTION);
+      this.recordHrefs[recordId] = {};
+      this.recordHrefs[recordId].takeHref =
+        '/FieloCMS__Page?pageId=' +
+          action.getAttribute('data-take-redirect-page') +
+            '&' + action.getAttribute('data-take-parameter') +
+              '=' + action.getAttribute('data-record-id');
+      this.recordHrefs[recordId].viewHref =
+        '/FieloCMS__Page?pageId=' +
+          action.getAttribute('data-view-redirect-page') +
+            '&' + action.getAttribute('data-view-parameter') +
+              '=';
+    }, this);
+  };
+
   /**
    * Inicializa el elemento
    */
@@ -267,6 +286,7 @@
       if (this.recordIds) {
         if (this.recordIds.length > 0) {
           this.getComponentId();
+          this.getURLs();
           this.getActions();
         }
       }

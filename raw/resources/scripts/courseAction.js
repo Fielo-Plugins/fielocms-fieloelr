@@ -228,10 +228,10 @@
 
   FieloCourseAction.prototype.getURLs = function() {
     var action;
+    this.recordHrefs = {};
     [].forEach.call(Object.keys(this.records), function(recordId) {
       action = this.records[recordId]
         .querySelector('.' + this.CssClasses_.ACTION);
-      this.recordHrefs = {};
       this.recordHrefs[recordId] = {};
       this.recordHrefs[recordId].joinHref =
         '/FieloCMS__Page?pageId=' +
@@ -258,8 +258,8 @@
       this.getRecordIds();
       if (this.recordIds) {
         if (this.recordIds.length > 0) {
-          this.getComponentId();
           this.getURLs();
+          this.getComponentId();
           this.getActions();
 
           if (!this.callbackRegistered) {

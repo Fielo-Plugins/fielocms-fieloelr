@@ -87,7 +87,7 @@
               buttons[actions.indexOf(action)].href = '#';
               buttons[actions.indexOf(action)]
                   .addEventListener('click', this.takeModule.bind(this));
-            } else if (action === 'Hide') {
+            } else if (action === 'Hide' || action === 'View') {
               [].forEach.call(buttons, function(button) {
                 button.style.visibility = 'hidden';
                 this.addClass(
@@ -99,17 +99,6 @@
                 .innerHTML = action;
               buttons[actions.indexOf(action)]
                 .href = this.records[moduleId].FieloRecord.link_;
-            }
-            if (action === 'View') {
-              if (results[moduleId].ModuleResponseId) {
-                buttons[actions.indexOf(action)]
-                  .setAttribute('data-module-response-id',
-                    results[moduleId].ModuleResponseId);
-                if (results[moduleId].PageId) {
-                  buttons[actions.indexOf(action)]
-                    .href = this.recordHrefs[moduleId].viewHref;
-                }
-              }
             }
           }, this);
           if (results[moduleId].Approved) {
@@ -214,10 +203,10 @@
 
   FieloModuleFormAction.prototype.getURLs = function() {
     var action;
+    this.recordHrefs = {};
     [].forEach.call(Object.keys(this.records), function(recordId) {
       action = this.records[recordId]
         .querySelector('.' + this.CssClasses_.ACTION);
-      this.recordHrefs = {};
       this.recordHrefs[recordId] = {};
       this.recordHrefs[recordId].takeHref =
         '/FieloCMS__Page?pageId=' +

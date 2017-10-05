@@ -110,10 +110,10 @@
 
   FieloCourseFormAction.prototype.getURLs = function() {
     var action;
+    this.recordHrefs = {};
     [].forEach.call(Object.keys(this.records), function(recordId) {
       action = this.records[recordId]
         .querySelector('.' + this.CssClasses_.ACTION);
-      this.recordHrefs = {};
       this.recordHrefs[recordId] = {};
       this.recordHrefs[recordId].joinHref =
         '/FieloCMS__Page?pageId=' +
