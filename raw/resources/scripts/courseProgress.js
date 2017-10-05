@@ -59,12 +59,14 @@
     this.records = {};
     var recordId;
     [].forEach.call(records, function(record) {
-      recordId = record
-        .querySelector('.' + this.CssClasses_.PROGRESS_BAR)
-          .getAttribute('data-record-id');
-      this.recordIds.push(recordId);
-      this.records[recordId] =
-        record;
+      if (record.querySelector('.' + this.CssClasses_.PROGRESS_BAR)) {
+        recordId = record
+          .querySelector('.' + this.CssClasses_.PROGRESS_BAR)
+            .getAttribute('data-record-id');
+        this.recordIds.push(recordId);
+        this.records[recordId] =
+          record;
+      }
     }, this);
 
     if (this.records[this.recordIds[0]]) {
@@ -182,18 +184,25 @@
         this.element_.getAttribute('data-layout');
 
       if (this.dataLayout === 'table') {
-        this.header = this.element_
-          .querySelector('.' + this.CssClasses_.PROGRESS_FIELD);
-        this.header.innerHTML = this.Constant_.LABEL;
+        if (this.element_
+          .querySelector('.' + this.CssClasses_.PROGRESS_FIELD)) {
+          this.header = this.element_
+            .querySelector('.' + this.CssClasses_.PROGRESS_FIELD);
+          this.header.innerHTML = this.Constant_.LABEL;
+        }
       }
 
       this.getRecordIds();
 
-      this.getProgress();
+      if (this.recordIds) {
+        if (this.recordIds.length > 0) {
+          this.getProgress();
 
-      if (!this.callbackRegistered) {
-        this.registerCallback();
-        this.callbackRegistered = true;
+          if (!this.callbackRegistered) {
+            this.registerCallback();
+            this.callbackRegistered = true;
+          }
+        }
       }
     }
   };

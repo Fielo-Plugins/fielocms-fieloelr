@@ -3,7 +3,7 @@
 
   /**
    * @description Constructor for the login form
-   * FieloModuleAction Implements design patterns defined by MDL at
+   * FieloModuleFormAction Implements design patterns defined by MDL at
    * {@link https://github.com/jasonmayes/mdl-component-design-pattern}
    *
    * @version 1
@@ -12,13 +12,13 @@
    * @param {HTMLElement} element - Element to be upgraded
    * @constructor
    */
-  var FieloModuleAction = function FieloModuleAction(element) {
+  var FieloModuleFormAction = function FieloModuleFormAction(element) {
     this.element_ = element;
 
     // Initialize instance.
     this.init();
   };
-  window.FieloModuleAction = FieloModuleAction;
+  window.FieloModuleFormAction = FieloModuleFormAction;
 
   // Properties
   /**
@@ -26,7 +26,7 @@
    * @enum {string | number}
    * @private
    */
-  FieloModuleAction.prototype.Constant_ = {
+  FieloModuleFormAction.prototype.Constant_ = {
     GET_ACTIONS: 'FieloCMSELR_ModuleActionCtlr.getModuleActions',
     TAKE_MODULE: 'FieloCMSELR_ModuleActionCtlr.takeModule'
   };
@@ -37,7 +37,7 @@
    * @enum {string}
    * @private
    */
-  FieloModuleAction.prototype.CssClasses_ = {
+  FieloModuleFormAction.prototype.CssClasses_ = {
     ACTION: 'cms-elr-record-action',
     RECORD_TEMPLATE: 'fielo-record-set__template',
     RECORD: 'fielo-record',
@@ -48,28 +48,19 @@
     DISABLED_RECORD: 'cms-elr-record__disabled'
   };
 
-  FieloModuleAction.prototype.getRecordIds = function() {
-    var records = this.dataLayout === 'grid' ?
-      this.element_
-        .querySelectorAll('.' + this.CssClasses_.RECORD) :
-        this.element_
-        .querySelectorAll('.' + this.CssClasses_.RECORD_TEMPLATE);
+  FieloModuleFormAction.prototype.getRecordIds = function() {
     this.recordIds = [];
     this.records = {};
-    var recordId;
-    [].forEach.call(records, function(record) {
-      if (record.querySelector('.' + this.CssClasses_.ACTION)) {
-        recordId = record
-          .querySelector('.' + this.CssClasses_.ACTION)
-            .getAttribute('data-record-id');
-        this.recordIds.push(recordId);
-        this.records[recordId] =
-          record;
-      }
-    }, this);
+    if (this.element_.querySelector('.' + this.CssClasses_.ACTION)) {
+      var recordId = this.element_
+        .querySelector('.' + this.CssClasses_.ACTION)
+          .getAttribute('data-record-id');
+      this.recordIds.push(recordId);
+      this.records[recordId] = this.element_;
+    }
   };
 
-  FieloModuleAction.prototype.updateAction = function(results) {
+  FieloModuleFormAction.prototype.updateAction = function(results) {
     var actions;
     var model;
     var newButton;
@@ -143,70 +134,42 @@
     }
   };
 
-  FieloModuleAction.prototype.addStatusField = function(record, label, statusCss) { // eslint-disable-line max-len
+  FieloModuleFormAction.prototype.addStatusField = function(record, label, statusCss) { // eslint-disable-line max-len
     var newButton;
-    if (this.dataLayout === 'grid') {
-      var field = record
-        .querySelector('.' + this.CssClasses_.IS_ACTION);
-      var newField = field.cloneNode(true);
-      var newFieldLabel = newField
-        .querySelector('.' + this.CssClasses_.FIELD_LABEL);
+    var field = record
+      .querySelector('.' + this.CssClasses_.IS_ACTION);
+    var newField = field.cloneNode(true);
+    var newFieldLabel = newField
+      .querySelector('.' + this.CssClasses_.FIELD_LABEL);
 
-      if (!newFieldLabel) {
-        newFieldLabel = document.createElement('span');
-        this.addClass(newFieldLabel, this.CssClasses_.FIELD_LABEL);
-        newField.insertBefore(newFieldLabel, newField.firstChild);
-      }
-
-      newFieldLabel.innerHTML =
-            FrontEndJSSettings.LABELS.Passed; // eslint-disable-line no-undef
-
-      var newFieldValue = newField
-        .querySelector('.' + this.CssClasses_.FIELD_VALUE);
-      while (newFieldValue.firstChild) {
-        newFieldValue.removeChild(newFieldValue.firstChild);
-      }
-      newButton = document.createElement('div');
-      newButton.setAttribute('title', label);
-      this.addClass(newButton, statusCss);
-      newFieldValue.appendChild(newButton);
-      field.parentNode.insertBefore(newField, field);
-    } else {
-      var td = record
-        .querySelector('.' + this.CssClasses_.IS_ACTION);
-      var newTd = td.cloneNode(true);
-      var tdIndex = [].indexOf.call(td.parentNode.cells, td);
-      var th = td.closest('table')
-        .querySelector('thead')
-          .querySelector('tr').cells[tdIndex];
-      var newTh = th.cloneNode(true);
-
-      if (!this.hasApprovedHeader) {
-        th.parentNode.insertBefore(newTh, th);
-        this.hasApprovedHeader = true;
-        newTh.innerHTML =
-          FrontEndJSSettings.LABELS.Passed; // eslint-disable-line no-undef
-      }
-      td.parentNode.insertBefore(newTd, td);
-
-      while (newTd.firstChild) {
-        newTd.removeChild(newTd.firstChild);
-      }
-
-      newButton = document.createElement('div');
-      newButton.setAttribute('title', label);
-      this.addClass(newButton, statusCss);
-      newTd.appendChild(newButton);
+    if (!newFieldLabel) {
+      newFieldLabel = document.createElement('span');
+      this.addClass(newFieldLabel, this.CssClasses_.FIELD_LABEL);
+      newField.insertBefore(newFieldLabel, newField.firstChild);
     }
+
+    newFieldLabel.innerHTML =
+          FrontEndJSSettings.LABELS.Passed; // eslint-disable-line no-undef
+
+    var newFieldValue = newField
+      .querySelector('.' + this.CssClasses_.FIELD_VALUE);
+    while (newFieldValue.firstChild) {
+      newFieldValue.removeChild(newFieldValue.firstChild);
+    }
+    newButton = document.createElement('div');
+    newButton.setAttribute('title', label);
+    this.addClass(newButton, statusCss);
+    newFieldValue.appendChild(newButton);
+    field.parentNode.insertBefore(newField, field);
   };
 
-  FieloModuleAction.prototype.addClass = function(element, className) {
+  FieloModuleFormAction.prototype.addClass = function(element, className) {
     var classString = element.className;
     var newClass = classString.concat(' ' + className);
     element.className = newClass;
   };
 
-  FieloModuleAction.prototype.takeModule = function(event) {
+  FieloModuleFormAction.prototype.takeModule = function(event) {
     Visualforce.remoting.Manager.invokeAction( // eslint-disable-line no-undef
       this.Constant_.TAKE_MODULE,
       event.srcElement.getAttribute('data-record-id'),
@@ -217,22 +180,21 @@
     );
   };
 
-  FieloModuleAction.prototype.takeCallback = function(result) {
+  FieloModuleFormAction.prototype.takeCallback = function(result) {
     if (result) {
       localStorage.clear();
       this.storeData(result.moduleResponse.Id, result);
       window.location.href =
-        this.records[result.module.Id]
-          .FieloRecord.link_ + '#' +
+        window.location.href + '#' +
           result.moduleResponse.Id;
     }
   };
 
-  FieloModuleAction.prototype.storeData = function(name, value) {
+  FieloModuleFormAction.prototype.storeData = function(name, value) {
     localStorage.setItem(name, JSON.stringify(value));
   };
 
-  FieloModuleAction.prototype.getActions = function() {
+  FieloModuleFormAction.prototype.getActions = function() {
     Visualforce.remoting.Manager.invokeAction( // eslint-disable-line no-undef
       this.Constant_.GET_ACTIONS,
       this.componentId,
@@ -244,7 +206,7 @@
     );
   };
 
-  FieloModuleAction.prototype.getComponentId = function() {
+  FieloModuleFormAction.prototype.getComponentId = function() {
     if (this.dataLayout === 'grid') {
       this.componentId =
         this.element_
@@ -259,10 +221,8 @@
   /**
    * Inicializa el elemento
    */
-  FieloModuleAction.prototype.init = function() {
+  FieloModuleFormAction.prototype.init = function() {
     if (this.element_) {
-      this.dataLayout =
-        this.element_.getAttribute('data-layout');
       this.getRecordIds();
       if (this.recordIds) {
         if (this.recordIds.length > 0) {
@@ -276,9 +236,9 @@
   // El componente se registra por si solo.
   // Asume que el componentHandler esta habilitado en el scope global
   componentHandler.register({ // eslint-disable-line no-undef
-    constructor: FieloModuleAction,
-    classAsString: 'FieloModuleAction',
-    cssClass: 'cms-elr-module-list-action',
+    constructor: FieloModuleFormAction,
+    classAsString: 'FieloModuleFormAction',
+    cssClass: 'cms-elr-form-action--module',
     widget: true
   });
 })();

@@ -45,11 +45,13 @@
   FieloCourseAction.prototype.getRecordIds = function() {
     this.recordIds = [];
     this.records = {};
-    var recordId = this.element_
-      .querySelector('.' + this.CssClasses_.ACTION)
-        .getAttribute('data-record-id');
-    this.recordIds.push(recordId);
-    this.records[recordId] = this.element_;
+    if (this.element_.querySelector('.' + this.CssClasses_.ACTION)) {
+      var recordId = this.element_
+        .querySelector('.' + this.CssClasses_.ACTION)
+          .getAttribute('data-record-id');
+      this.recordIds.push(recordId);
+      this.records[recordId] = this.element_;
+    }
   };
 
   FieloCourseAction.prototype.updateAction = function(results) {
@@ -112,7 +114,11 @@
     if (this.element_) {
       this.getRecordIds();
 
-      this.getActions();
+      if (this.recordIds) {
+        if (this.recordIds.length > 0) {
+          this.getActions();
+        }
+      }
     }
   };
 
@@ -121,7 +127,7 @@
   componentHandler.register({ // eslint-disable-line no-undef
     constructor: FieloCourseAction,
     classAsString: 'FieloCourseFormAction',
-    cssClass: 'cms-elr-form-action',
+    cssClass: 'cms-elr-form-action--course',
     widget: true
   });
 })();

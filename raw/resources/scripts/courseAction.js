@@ -59,11 +59,13 @@
     this.records = {};
     var recordId;
     [].forEach.call(records, function(record) {
-      recordId = record
-        .querySelector('.' + this.CssClasses_.ACTION)
-          .getAttribute('data-record-id');
-      this.recordIds.push(recordId);
-      this.records[recordId] = record;
+      if (record.querySelector('.' + this.CssClasses_.ACTION)) {
+        recordId = record
+          .querySelector('.' + this.CssClasses_.ACTION)
+            .getAttribute('data-record-id');
+        this.recordIds.push(recordId);
+        this.records[recordId] = record;
+      }
     }, this);
   };
 
@@ -237,12 +239,16 @@
       this.componentName =
         this.element_.getAttribute(this.Constant_.COMPONENT_NAME);
       this.getRecordIds();
-      this.getComponentId();
-      this.getActions();
+      if (this.recordIds) {
+        if (this.recordIds.length > 0) {
+          this.getComponentId();
+          this.getActions();
 
-      if (!this.callbackRegistered) {
-        this.registerCallback();
-        this.callbackRegistered = true;
+          if (!this.callbackRegistered) {
+            this.registerCallback();
+            this.callbackRegistered = true;
+          }
+        }
       }
     }
   };

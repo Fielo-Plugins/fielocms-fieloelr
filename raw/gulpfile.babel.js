@@ -74,6 +74,7 @@ var cmsThemeJs = [
       'resources/scripts/questionResponseList.js',
       'resources/scripts/quiz.js',
       'resources/scripts/courseAction.js',
+      'resources/scripts/moduleFormAction.js',
       'resources/scripts/courseFormAction.js'
       ],
     name: 'mobile.min.js',
@@ -89,6 +90,7 @@ var cmsThemeJs = [
       'resources/scripts/questionResponseList.js',
       'resources/scripts/quiz.js',
       'resources/scripts/courseAction.js',
+      'resources/scripts/moduleFormAction.js',
       'resources/scripts/courseFormAction.js'
     ],
     name: 'tablet.min.js',
@@ -104,6 +106,7 @@ var cmsThemeJs = [
       'resources/scripts/questionResponseList.js',
       'resources/scripts/quiz.js',
       'resources/scripts/courseAction.js',
+      'resources/scripts/moduleFormAction.js',
       'resources/scripts/courseFormAction.js'
     ],
     name: 'desktop.min.js',
