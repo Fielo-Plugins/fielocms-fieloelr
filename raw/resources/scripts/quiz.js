@@ -498,7 +498,7 @@
       this.detailParameter :
       'id';
     this.redirectURL =
-      'FieloCMS__Page?pageId=' +
+      '/FieloCMS__Page?pageId=' +
         this.element_.getAttribute('data-redirect-page') +
           '&' + this.detailParameter + '=' + this.moduleResponseId;
   };
@@ -513,11 +513,17 @@
       if (this.moduleResponseId !== '' &&
         this.moduleResponseId !== undefined &&
         this.moduleResponseId !== null) {
-        this.widgetLabel
-          .style.display = null;
         this.getData(this.moduleResponseId);
-        this.currentQuestionNumber = 0;
-        this.loadQuestion(this.currentQuestionNumber);
+        if (this.dataStructure) {
+          if (this.dataStructure.questions) {
+            if (this.dataStructure.questions.length > 0) {
+              this.widgetLabel
+                .style.display = null;
+              this.currentQuestionNumber = 0;
+              this.loadQuestion(this.currentQuestionNumber);
+            }
+          }
+        }
       }
     }
   };

@@ -98,7 +98,11 @@ global class FieloCMSELR_ModuleActionCtlr implements FieloCMS.ViewSubComponentIn
                 } else {
                     if (courseMap.course.FieloELR__SubscriptionMode__c == 'Manual' && courseMap.courseStatus == null) {
                         for (FieloELR.CourseService.ModuleWrapper moduleWrapper: courseMap.modules){
-                            moduleActions.put(moduleWrapper.module.Id,(Object) new Map<String,Object>{'Actions' => (Object) new List<String>{'View'}});
+                            moduleActions.put(moduleWrapper.module.Id,
+                                (Object) new Map<String,Object>{
+                                    'Actions' => (Object) new List<String>{'Hide'}
+                                }
+                            );
                         }
                     } else {
                         for (FieloELR.CourseService.ModuleWrapper moduleWrapper: courseMap.modules){

@@ -11,7 +11,11 @@
 	data-redirect-page="{!config['FieloCMSPLT_RedirectPage__c']}"
 	type="button" 
 	data-record-id="{!record[field.attributes['fieldName']]}"
-	href="{!IF(useFieldAsSource, href, '')}">{!IF(calculateAction, action, 'Loading...')}</a>
+	href="{!IF(useFieldAsSource, href, '')}"
+	data-join-redirect-page="{!field.attributes['joinRedirectPage']}"
+	data-join-parameter="{!field.attributes['joinParameter']}"
+	data-continue-redirect-page="{!field.attributes['continueRedirectPage']}"
+	data-continue-parameter="{!field.attributes['continueParameter']}">{!IF(calculateAction, action, 'Loading...')}</a>
 	<script>
 	/* For IE Compatibility */
 	if (window.Element && !Element.prototype.closest) {

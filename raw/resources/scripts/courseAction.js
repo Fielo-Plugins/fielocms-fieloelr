@@ -79,9 +79,7 @@
           results[courseId].Action === 'Continue') {
           this.records[courseId]
             .querySelector('.' + this.CssClasses_.ACTION)
-              .href = this.records[courseId].FieloRecord.link_ ?
-                this.records[courseId].FieloRecord.link_ :
-                results[courseId].Page;
+              .href = this.recordHrefs[courseId].joinHref;
         } else if (results[courseId].Action === 'Hide') {
           this.records[courseId]
             .querySelector('.' + this.CssClasses_.ACTION)
@@ -115,8 +113,7 @@
   FieloCourseAction.prototype.joinCallback = function(result) {
     if (result) {
       window.location.href =
-        this.records[result.FieloELR__Course__c]
-          .FieloRecord.link_;
+        this.recordHrefs[result.FieloELR__Course__c].joinHref;
     }
   };
 
@@ -229,6 +226,26 @@
     element.className = newClass;
   };
 
+  FieloCourseAction.prototype.getURLs = function() {
+    var action;
+    [].forEach.call(Object.keys(this.records), function(recordId) {
+      action = this.records[recordId]
+        .querySelector('.' + this.CssClasses_.ACTION);
+      this.recordHrefs = {};
+      this.recordHrefs[recordId] = {};
+      this.recordHrefs[recordId].joinHref =
+        '/FieloCMS__Page?pageId=' +
+          action.getAttribute('data-join-redirect-page') +
+            '&' + action.getAttribute('data-join-parameter') +
+              '=' + action.getAttribute('data-record-id');
+      this.recordHrefs[recordId].continueHref =
+        '/FieloCMS__Page?pageId=' +
+          action.getAttribute('data-continue-redirect-page') +
+            '&' + action.getAttribute('data-continue-parameter') +
+              '=' + action.getAttribute('data-record-id');
+    }, this);
+  };
+
   /**
    * Inicializa el elemento
    */
@@ -242,6 +259,7 @@
       if (this.recordIds) {
         if (this.recordIds.length > 0) {
           this.getComponentId();
+          this.getURLs();
           this.getActions();
 
           if (!this.callbackRegistered) {
