@@ -118,11 +118,9 @@
                 buttons[actions.indexOf(action)]
                   .setAttribute('data-module-response-id',
                     results[moduleId].ModuleResponseId);
-                if (results[moduleId].PageId) {
-                  buttons[actions.indexOf(action)]
-                    .href = this.recordHrefs[moduleId].viewHref +
-                      results[moduleId].ModuleResponseId;
-                }
+                buttons[actions.indexOf(action)]
+                  .href = this.recordHrefs[moduleId].viewHref +
+                    results[moduleId].ModuleResponseId;
               }
             }
           }, this);

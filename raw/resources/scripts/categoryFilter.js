@@ -89,8 +89,12 @@
   FieloCategoryFilter.prototype.init = function() {
     if (this.element_) {
       this.hideCategoryField();
-      this.getLinkToDetail();
-      this.updateLinkToDetail();
+      if (this.categoryElements) {
+        if (this.categoryElements.length > 0) {
+          this.getLinkToDetail();
+          this.updateLinkToDetail();
+        }
+      }
     }
   };
 
