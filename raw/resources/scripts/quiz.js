@@ -2,13 +2,12 @@
   'use strict';
 
   /**
-   * @description Constructor for the login form
+   * @description Constructor for quiz widget
    * FieloQuiz Implements design patterns defined by MDL at
    * {@link https://github.com/jasonmayes/mdl-component-design-pattern}
    *
    * @version 1
-   * @author Alejandro Spinelli <alejandro.spinelli@fielo.com>
-   * @author Hugo Gómez Mac Gregor <hugo.gomez@fielo.com>
+   * @author Tiago Bittencourt Leal
    * @param {HTMLElement} element - Element to be upgraded
    * @constructor
    */
@@ -498,7 +497,7 @@
       this.detailParameter :
       'id';
     this.redirectURL =
-      'FieloCMS__Page?pageId=' +
+      '/FieloCMS__Page?pageId=' +
         this.element_.getAttribute('data-redirect-page') +
           '&' + this.detailParameter + '=' + this.moduleResponseId;
   };
@@ -513,11 +512,17 @@
       if (this.moduleResponseId !== '' &&
         this.moduleResponseId !== undefined &&
         this.moduleResponseId !== null) {
-        this.widgetLabel
-          .style.display = null;
         this.getData(this.moduleResponseId);
-        this.currentQuestionNumber = 0;
-        this.loadQuestion(this.currentQuestionNumber);
+        if (this.dataStructure) {
+          if (this.dataStructure.questions) {
+            if (this.dataStructure.questions.length > 0) {
+              this.widgetLabel
+                .style.display = null;
+              this.currentQuestionNumber = 0;
+              this.loadQuestion(this.currentQuestionNumber);
+            }
+          }
+        }
       }
     }
   };

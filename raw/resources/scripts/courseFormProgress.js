@@ -2,13 +2,12 @@
   'use strict';
 
   /**
-   * @description Constructor for the login form
+   * @description Constructor for the form course progress component
    * FieloCourseFormProgress Implements design patterns defined by MDL at
    * {@link https://github.com/jasonmayes/mdl-component-design-pattern}
    *
    * @version 1
-   * @author Alejandro Spinelli <alejandro.spinelli@fielo.com>
-   * @author Hugo Gómez Mac Gregor <hugo.gomez@fielo.com>
+   * @author Tiago Bittencourt Leal
    * @param {HTMLElement} element - Element to be upgraded
    * @constructor
    */
@@ -46,11 +45,13 @@
   FieloCourseFormProgress.prototype.getRecordIds = function() {
     this.recordIds = [];
     this.records = {};
-    var recordId = this.element_
-      .querySelector('.' + this.CssClasses_.PROGRESS_BAR)
-        .getAttribute('data-record-id');
-    this.recordIds.push(recordId);
-    this.records[recordId] = this.element_;
+    if (this.element_.querySelector('.' + this.CssClasses_.PROGRESS_BAR)) {
+      var recordId = this.element_
+        .querySelector('.' + this.CssClasses_.PROGRESS_BAR)
+          .getAttribute('data-record-id');
+      this.recordIds.push(recordId);
+      this.records[recordId] = this.element_;
+    }
   };
 
   FieloCourseFormProgress.prototype.updateProgress = function(results) {
@@ -102,8 +103,11 @@
   FieloCourseFormProgress.prototype.init = function() {
     if (this.element_) {
       this.getRecordIds();
-
-      this.getProgress();
+      if (this.recordIds) {
+        if (this.recordIds.length > 0) {
+          this.getProgress();
+        }
+      }
     }
   };
 

@@ -12,6 +12,18 @@ global class FieloCMSELR_CourseAPI implements FieloCMS.DataInterface{
             this.operator = operator;
             this.value = value;
         }
+
+        public FilterWrapper(String operator, String andOrOperator, String field, SubQueryFilter subQueryFilter){
+            this.operator = operator;
+            this.andOrOperator = andOrOperator;
+            this.field = field;
+            this.subQueryFilter = subQueryFilter;
+        }
+
+        public FilterWrapper(String field, String value){
+            this.field = field;
+            this.value = value;
+        }
     }
 
     private class SubQueryFilter{
@@ -34,7 +46,43 @@ global class FieloCMSELR_CourseAPI implements FieloCMS.DataInterface{
             if(c.FieloCMS__Limit__c == null)
                 c.FieloCMS__Limit__c = 5;
 
-            if(c.FieloCMS__ComponentLibrary__r.Name == 'Courses'){
+            if (c.FieloCMS__ComponentLibrary__r.Name == 'My Courses') {
+                FieloPLT__Member__c member = [SELECT Id, FieloPLT__Program__c FROM FieloPLT__Member__c WHERE Id =: memberId];
+
+                List<FilterWrapper> dynamicFilters = new List<FilterWrapper>();
+                FilterWrapper filter = new FilterWrapper(
+                    'in',
+                    '',
+                    'Id',
+                    new SubQueryFilter(
+                        'FieloELR__Course__c',
+                        'FieloELR__CourseStatus__c',
+                        new List<FilterWrapper>{
+                            new FilterWrapper('FieloELR__Member__c',memberId)
+                        })
+                );
+                dynamicFilters.add(filter);
+
+                List<FieloELR__Course__c> courses = FieloELR.CourseService.getCourses(
+                    FieloCMSPLT_OrganizationUtil.getFieldSet(c.FieloCMS__FieldSet__c),
+                    null,
+                    null,
+                    null,
+                    member.FieloPLT__Program__c,
+                    member.Id,
+                    false,
+                    false,
+                    false,
+                    Integer.valueof(c.FieloCMS__Limit__c),
+                    0,
+                    'LastModifiedDate',
+                    dynamicFilters.isEmpty() ? null : JSON.serialize(dynamicFilters)
+                );
+
+                newMapData.put(c.Id, (List<Object>)courses);
+
+            } else if(c.FieloCMS__ComponentLibrary__r.Name == 'Courses'){
+
                 FieloPLT__Member__c member = [SELECT Id, FieloPLT__Program__c FROM FieloPLT__Member__c WHERE Id =: memberId];
                 
                 List<FilterWrapper> dynamicFilters = new List<FilterWrapper>();
@@ -67,8 +115,9 @@ global class FieloCMSELR_CourseAPI implements FieloCMS.DataInterface{
                 );
                 system.debug('Records: ' + courses);
                 newMapData.put(c.Id, (List<Object>)courses);
-            }
-            if(c.FieloCMS__ComponentLibrary__r.Name == 'Course Detail'){
+
+            } else if(c.FieloCMS__ComponentLibrary__r.Name == 'Course Detail'){
+
                 String recordId = ApexPages.CurrentPage().getParameters().get( c.FieloCMS__DetailParameter__c );
                 FieloPLT__Member__c member = [SELECT Id, FieloPLT__Program__c FROM FieloPLT__Member__c WHERE Id =: memberId];
                 List<FieloELR__Course__c> courses = FieloELR.CourseService.getCourses(
@@ -86,7 +135,6 @@ global class FieloCMSELR_CourseAPI implements FieloCMS.DataInterface{
                     'LastModifiedDate',
                     ''
                 );
-                
                 newMapData.put(c.Id, courses[0]);
             }
         }
