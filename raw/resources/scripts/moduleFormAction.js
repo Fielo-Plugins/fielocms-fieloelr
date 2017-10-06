@@ -2,13 +2,12 @@
   'use strict';
 
   /**
-   * @description Constructor for the login form
+   * @description Constructor for the form module action component
    * FieloModuleFormAction Implements design patterns defined by MDL at
    * {@link https://github.com/jasonmayes/mdl-component-design-pattern}
    *
    * @version 1
-   * @author Alejandro Spinelli <alejandro.spinelli@fielo.com>
-   * @author Hugo Gómez Mac Gregor <hugo.gomez@fielo.com>
+   * @author Tiago Bittencourt Leal
    * @param {HTMLElement} element - Element to be upgraded
    * @constructor
    */
@@ -45,7 +44,7 @@
     PAGINATOR: 'fielo-paginator',
     FIELD_LABEL: 'fielo-field__label',
     FIELD_VALUE: 'fielo-field__value',
-    DISABLED_RECORD: 'cms-elr-record__disabled'
+    DISABLED: 'disabled'
   };
 
   FieloModuleFormAction.prototype.getRecordIds = function() {
@@ -92,7 +91,7 @@
                 button.style.visibility = 'hidden';
                 this.addClass(
                   button.closest('.' + this.CssClasses_.RECORD)
-                    , this.CssClasses_.DISABLED_RECORD);
+                    , this.CssClasses_.DISABLED);
               }, this);
             } else {
               buttons[actions.indexOf(action)]

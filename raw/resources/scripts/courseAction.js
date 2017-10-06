@@ -2,13 +2,12 @@
   'use strict';
 
   /**
-   * @description Constructor for the login form
+   * @description Constructor Constructor for the course action component
    * FieloCourseAction Implements design patterns defined by MDL at
    * {@link https://github.com/jasonmayes/mdl-component-design-pattern}
    *
    * @version 1
-   * @author Alejandro Spinelli <alejandro.spinelli@fielo.com>
-   * @author Hugo Gómez Mac Gregor <hugo.gomez@fielo.com>
+   * @author Tiago Bittencourt Leal
    * @param {HTMLElement} element - Element to be upgraded
    * @constructor
    */
@@ -46,7 +45,7 @@
     RECORD: 'fielo-record',
     PAGINATOR: 'fielo-paginator',
     LINK_DETAIL: 'fielo-link__to-detail--is-InternalPage',
-    DISABLED_RECORD: 'cms-elr-record__disabled'
+    DISABLED: 'disabled'
   };
 
   FieloCourseAction.prototype.getRecordIds = function() {
@@ -79,14 +78,14 @@
           results[courseId].Action === 'Continue') {
           this.records[courseId]
             .querySelector('.' + this.CssClasses_.ACTION)
-              .href = this.recordHrefs[courseId].joinHref;
+              .style.display = 'none';
         } else if (results[courseId].Action === 'Hide') {
           this.records[courseId]
             .querySelector('.' + this.CssClasses_.ACTION)
               .style.display = 'none';
           this.addClass(
                   this.records[courseId]
-                    , this.CssClasses_.DISABLED_RECORD);
+                    , this.CssClasses_.DISABLED);
         } else {
           this.records[courseId]
             .querySelector('.' + this.CssClasses_.ACTION)

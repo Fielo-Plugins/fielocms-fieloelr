@@ -2,13 +2,12 @@
   'use strict';
 
   /**
-   * @description Constructor for the login form
+   * @description Constructor for the form course action component
    * FieloCourseFormAction Implements design patterns defined by MDL at
    * {@link https://github.com/jasonmayes/mdl-component-design-pattern}
    *
    * @version 1
-   * @author Alejandro Spinelli <alejandro.spinelli@fielo.com>
-   * @author Hugo Gómez Mac Gregor <hugo.gomez@fielo.com>
+   * @author Tiago Bittencourt Leal
    * @param {HTMLElement} element - Element to be upgraded
    * @constructor
    */
