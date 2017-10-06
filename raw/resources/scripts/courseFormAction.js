@@ -2,23 +2,22 @@
   'use strict';
 
   /**
-   * @description Constructor for the login form
-   * FieloCourseAction Implements design patterns defined by MDL at
+   * @description Constructor for the form course action component
+   * FieloCourseFormAction Implements design patterns defined by MDL at
    * {@link https://github.com/jasonmayes/mdl-component-design-pattern}
    *
    * @version 1
-   * @author Alejandro Spinelli <alejandro.spinelli@fielo.com>
-   * @author Hugo Gómez Mac Gregor <hugo.gomez@fielo.com>
+   * @author Tiago Bittencourt Leal
    * @param {HTMLElement} element - Element to be upgraded
    * @constructor
    */
-  var FieloCourseAction = function FieloCourseAction(element) {
+  var FieloCourseFormAction = function FieloCourseFormAction(element) {
     this.element_ = element;
 
     // Initialize instance.
     this.init();
   };
-  window.FieloCourseAction = FieloCourseAction;
+  window.FieloCourseFormAction = FieloCourseFormAction;
 
   // Properties
   /**
@@ -26,7 +25,7 @@
    * @enum {string | number}
    * @private
    */
-  FieloCourseAction.prototype.Constant_ = {
+  FieloCourseFormAction.prototype.Constant_ = {
     GET_ACTIONS: 'FieloCMSELR_CourseActionCtlr.getCourseActions',
     JOIN_COURSE: 'FieloCMSELR_CourseActionCtlr.joinCourse'
   };
@@ -37,22 +36,24 @@
    * @enum {string}
    * @private
    */
-  FieloCourseAction.prototype.CssClasses_ = {
+  FieloCourseFormAction.prototype.CssClasses_ = {
     ACTION: 'cms-elr-record-action',
     RECORD: 'fielo-record-set__template'
   };
 
-  FieloCourseAction.prototype.getRecordIds = function() {
+  FieloCourseFormAction.prototype.getRecordIds = function() {
     this.recordIds = [];
     this.records = {};
-    var recordId = this.element_
-      .querySelector('.' + this.CssClasses_.ACTION)
-        .getAttribute('data-record-id');
-    this.recordIds.push(recordId);
-    this.records[recordId] = this.element_;
+    if (this.element_.querySelector('.' + this.CssClasses_.ACTION)) {
+      var recordId = this.element_
+        .querySelector('.' + this.CssClasses_.ACTION)
+          .getAttribute('data-record-id');
+      this.recordIds.push(recordId);
+      this.records[recordId] = this.element_;
+    }
   };
 
-  FieloCourseAction.prototype.updateAction = function(results) {
+  FieloCourseFormAction.prototype.updateAction = function(results) {
     if (results) {
       [].forEach.call(Object.keys(results), function(courseId) {
         this.records[courseId]
@@ -76,7 +77,7 @@
     }
   };
 
-  FieloCourseAction.prototype.joinCourse = function(event) {
+  FieloCourseFormAction.prototype.joinCourse = function(event) {
     Visualforce.remoting.Manager.invokeAction( // eslint-disable-line no-undef
       this.Constant_.JOIN_COURSE,
       event.srcElement.getAttribute('data-record-id'),
@@ -87,13 +88,14 @@
     );
   };
 
-  FieloCourseAction.prototype.joinCallback = function(result) {
+  FieloCourseFormAction.prototype.joinCallback = function(result) {
     if (result) {
-      window.location.reload();
+      window.location.href =
+        this.recordHrefs[result.FieloELR__Course__c].joinHref;
     }
   };
 
-  FieloCourseAction.prototype.getActions = function() {
+  FieloCourseFormAction.prototype.getActions = function() {
     Visualforce.remoting.Manager.invokeAction( // eslint-disable-line no-undef
       this.Constant_.GET_ACTIONS,
       this.element_.getAttribute('data-componentid'),
@@ -105,23 +107,48 @@
     );
   };
 
+  FieloCourseFormAction.prototype.getURLs = function() {
+    var action;
+    this.recordHrefs = {};
+    [].forEach.call(Object.keys(this.records), function(recordId) {
+      action = this.records[recordId]
+        .querySelector('.' + this.CssClasses_.ACTION);
+      this.recordHrefs[recordId] = {};
+      this.recordHrefs[recordId].joinHref =
+        '/FieloCMS__Page?pageId=' +
+          action.getAttribute('data-join-redirect-page') +
+            '&' + action.getAttribute('data-join-parameter') +
+              '=' + action.getAttribute('data-record-id');
+      this.recordHrefs[recordId].continueHref =
+        '/FieloCMS__Page?pageId=' +
+          action.getAttribute('data-continue-redirect-page') +
+            '&' + action.getAttribute('data-continue-parameter') +
+              '=' + action.getAttribute('data-record-id');
+    }, this);
+  };
+
   /**
    * Inicializa el elemento
    */
-  FieloCourseAction.prototype.init = function() {
+  FieloCourseFormAction.prototype.init = function() {
     if (this.element_) {
       this.getRecordIds();
 
-      this.getActions();
+      if (this.recordIds) {
+        if (this.recordIds.length > 0) {
+          this.getURLs();
+          this.getActions();
+        }
+      }
     }
   };
 
   // El componente se registra por si solo.
   // Asume que el componentHandler esta habilitado en el scope global
   componentHandler.register({ // eslint-disable-line no-undef
-    constructor: FieloCourseAction,
+    constructor: FieloCourseFormAction,
     classAsString: 'FieloCourseFormAction',
-    cssClass: 'cms-elr-form-action',
+    cssClass: 'cms-elr-form-action--course',
     widget: true
   });
 })();

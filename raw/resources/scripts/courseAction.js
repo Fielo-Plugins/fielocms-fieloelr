@@ -2,13 +2,12 @@
   'use strict';
 
   /**
-   * @description Constructor for the login form
+   * @description Constructor Constructor for the course action component
    * FieloCourseAction Implements design patterns defined by MDL at
    * {@link https://github.com/jasonmayes/mdl-component-design-pattern}
    *
    * @version 1
-   * @author Alejandro Spinelli <alejandro.spinelli@fielo.com>
-   * @author Hugo Gómez Mac Gregor <hugo.gomez@fielo.com>
+   * @author Tiago Bittencourt Leal
    * @param {HTMLElement} element - Element to be upgraded
    * @constructor
    */
@@ -46,7 +45,7 @@
     RECORD: 'fielo-record',
     PAGINATOR: 'fielo-paginator',
     LINK_DETAIL: 'fielo-link__to-detail--is-InternalPage',
-    DISABLED_RECORD: 'cms-elr-record__disabled'
+    DISABLED: 'disabled'
   };
 
   FieloCourseAction.prototype.getRecordIds = function() {
@@ -59,11 +58,13 @@
     this.records = {};
     var recordId;
     [].forEach.call(records, function(record) {
-      recordId = record
-        .querySelector('.' + this.CssClasses_.ACTION)
-          .getAttribute('data-record-id');
-      this.recordIds.push(recordId);
-      this.records[recordId] = record;
+      if (record.querySelector('.' + this.CssClasses_.ACTION)) {
+        recordId = record
+          .querySelector('.' + this.CssClasses_.ACTION)
+            .getAttribute('data-record-id');
+        this.recordIds.push(recordId);
+        this.records[recordId] = record;
+      }
     }, this);
   };
 
@@ -77,16 +78,14 @@
           results[courseId].Action === 'Continue') {
           this.records[courseId]
             .querySelector('.' + this.CssClasses_.ACTION)
-              .href = this.records[courseId].FieloRecord.link_ ?
-                this.records[courseId].FieloRecord.link_ :
-                results[courseId].Page;
+              .style.display = 'none';
         } else if (results[courseId].Action === 'Hide') {
           this.records[courseId]
             .querySelector('.' + this.CssClasses_.ACTION)
               .style.display = 'none';
           this.addClass(
                   this.records[courseId]
-                    , this.CssClasses_.DISABLED_RECORD);
+                    , this.CssClasses_.DISABLED);
         } else {
           this.records[courseId]
             .querySelector('.' + this.CssClasses_.ACTION)
@@ -113,8 +112,7 @@
   FieloCourseAction.prototype.joinCallback = function(result) {
     if (result) {
       window.location.href =
-        this.records[result.FieloELR__Course__c]
-          .FieloRecord.link_;
+        this.recordHrefs[result.FieloELR__Course__c].joinHref;
     }
   };
 
@@ -227,6 +225,26 @@
     element.className = newClass;
   };
 
+  FieloCourseAction.prototype.getURLs = function() {
+    var action;
+    this.recordHrefs = {};
+    [].forEach.call(Object.keys(this.records), function(recordId) {
+      action = this.records[recordId]
+        .querySelector('.' + this.CssClasses_.ACTION);
+      this.recordHrefs[recordId] = {};
+      this.recordHrefs[recordId].joinHref =
+        '/FieloCMS__Page?pageId=' +
+          action.getAttribute('data-join-redirect-page') +
+            '&' + action.getAttribute('data-join-parameter') +
+              '=' + action.getAttribute('data-record-id');
+      this.recordHrefs[recordId].continueHref =
+        '/FieloCMS__Page?pageId=' +
+          action.getAttribute('data-continue-redirect-page') +
+            '&' + action.getAttribute('data-continue-parameter') +
+              '=' + action.getAttribute('data-record-id');
+    }, this);
+  };
+
   /**
    * Inicializa el elemento
    */
@@ -237,12 +255,17 @@
       this.componentName =
         this.element_.getAttribute(this.Constant_.COMPONENT_NAME);
       this.getRecordIds();
-      this.getComponentId();
-      this.getActions();
+      if (this.recordIds) {
+        if (this.recordIds.length > 0) {
+          this.getURLs();
+          this.getComponentId();
+          this.getActions();
 
-      if (!this.callbackRegistered) {
-        this.registerCallback();
-        this.callbackRegistered = true;
+          if (!this.callbackRegistered) {
+            this.registerCallback();
+            this.callbackRegistered = true;
+          }
+        }
       }
     }
   };
