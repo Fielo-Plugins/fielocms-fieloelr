@@ -97,7 +97,7 @@
           [].forEach.call(actions, function(action) {
             if (action === 'View') {
               buttons[actions.indexOf(action)]
-                .style.visibility = 'hidden';
+                .style.display = 'none';
             }
             if (action === 'Take' || action === 'Retake') {
               if (this.quizIsRunning) {
