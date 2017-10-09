@@ -190,10 +190,14 @@
     if (result) {
       localStorage.clear();
       this.storeData(result.moduleResponse.Id, result);
+      var reloadPage =
+        window.location.href === this.recordHrefs[result.module.Id].takeHref;
       window.location.href =
         this.recordHrefs[result.module.Id].takeHref +
           '#' + result.moduleResponse.Id;
-      window.location.reload();
+      if (reloadPage) {
+        window.location.reload();
+      }
     }
   };
 
