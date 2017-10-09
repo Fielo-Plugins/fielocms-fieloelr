@@ -44,6 +44,7 @@
     PAGINATOR: 'fielo-paginator',
     FIELD_LABEL: 'fielo-field__label',
     FIELD_VALUE: 'fielo-field__value',
+    QUIZ: 'cms-elr-quiz',
     DISABLED: 'disabled'
   };
 
@@ -56,6 +57,19 @@
           .getAttribute('data-record-id');
       this.recordIds.push(recordId);
       this.records[recordId] = this.element_;
+    }
+  };
+
+  FieloModuleFormAction.prototype.hasRunningQuiz = function() {
+    this.quizIsRunning = false;
+    var quizObject = document
+      .querySelector('.' + this.CssClasses_.QUIZ);
+    if (quizObject) {
+      if (quizObject.FieloQuiz) {
+        if (quizObject.FieloQuiz.isRunning) {
+          this.quizIsRunning = quizObject.FieloQuiz.isRunning;
+        }
+      }
     }
   };
 
@@ -81,17 +95,28 @@
               .querySelectorAll('.' + this.CssClasses_.ACTION);
           }
           [].forEach.call(actions, function(action) {
-            if (action === 'Take' || action === 'Retake') {
-              buttons[actions.indexOf(action)].innerHTML = action;
-              buttons[actions.indexOf(action)].href = '#';
+            if (action === 'View') {
               buttons[actions.indexOf(action)]
-                  .addEventListener('click', this.takeModule.bind(this));
-            } else if (action === 'Hide' || action === 'View') {
+                .style.display = 'none';
+            }
+            if (action === 'Take' || action === 'Retake') {
+              if (this.quizIsRunning) {
+                buttons[actions.indexOf(action)]
+                  .style.visibility = 'hidden';
+              } else {
+                buttons[actions.indexOf(action)].innerHTML = action;
+                buttons[actions.indexOf(action)].href = '#';
+                buttons[actions.indexOf(action)]
+                    .addEventListener('click', this.takeModule.bind(this));
+              }
+            } else if (action === 'Hide') {
               [].forEach.call(buttons, function(button) {
                 button.style.visibility = 'hidden';
-                this.addClass(
-                  button.closest('.' + this.CssClasses_.RECORD)
-                    , this.CssClasses_.DISABLED);
+                if (action === 'Hide') {
+                  this.addClass(
+                    button.closest('.' + this.CssClasses_.RECORD)
+                      , this.CssClasses_.DISABLED);
+                }
               }, this);
             } else {
               buttons[actions.indexOf(action)]
@@ -230,6 +255,7 @@
         if (this.recordIds.length > 0) {
           this.getComponentId();
           this.getURLs();
+          this.hasRunningQuiz();
           this.getActions();
         }
       }
