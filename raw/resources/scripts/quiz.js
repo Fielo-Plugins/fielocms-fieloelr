@@ -516,6 +516,7 @@
         if (this.dataStructure) {
           if (this.dataStructure.questions) {
             if (this.dataStructure.questions.length > 0) {
+              this.isRunning = true;
               this.widgetLabel
                 .style.display = null;
               this.currentQuestionNumber = 0;
