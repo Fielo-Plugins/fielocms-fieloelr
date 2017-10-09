@@ -95,6 +95,10 @@
               .querySelectorAll('.' + this.CssClasses_.ACTION);
           }
           [].forEach.call(actions, function(action) {
+            if (action === 'View') {
+              buttons[actions.indexOf(action)]
+                .style.visibility = 'hidden';
+            }
             if (action === 'Take' || action === 'Retake') {
               if (this.quizIsRunning) {
                 buttons[actions.indexOf(action)]
@@ -105,7 +109,7 @@
                 buttons[actions.indexOf(action)]
                     .addEventListener('click', this.takeModule.bind(this));
               }
-            } else if (action === 'Hide' || action === 'View') {
+            } else if (action === 'Hide') {
               [].forEach.call(buttons, function(button) {
                 button.style.visibility = 'hidden';
                 if (action === 'Hide') {
