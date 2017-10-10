@@ -124,75 +124,8 @@
               }
             }
           }, this);
-          if (results[moduleId].Approved) {
-            this.addStatusField(this.records[moduleId],
-              FrontEndJSSettings.LABELS.Passed, // eslint-disable-line no-undef
-              'cms-elr-icon__approved'
-            );
-          } else {
-            this.addStatusField(this.records[moduleId],
-              FrontEndJSSettings.LABELS.NotPassed, // eslint-disable-line no-undef
-              'cms-elr-icon__notapproved');
-          }
         }
       }, this);
-    }
-  };
-
-  FieloModuleAction.prototype.addStatusField = function(record, label, statusCss) { // eslint-disable-line max-len
-    var newButton;
-    if (this.dataLayout === 'grid') {
-      var field = record
-        .querySelector('.' + this.CssClasses_.IS_ACTION);
-      var newField = field.cloneNode(true);
-      var newFieldLabel = newField
-        .querySelector('.' + this.CssClasses_.FIELD_LABEL);
-
-      if (!newFieldLabel) {
-        newFieldLabel = document.createElement('span');
-        this.addClass(newFieldLabel, this.CssClasses_.FIELD_LABEL);
-        newField.insertBefore(newFieldLabel, newField.firstChild);
-      }
-
-      newFieldLabel.innerHTML =
-            FrontEndJSSettings.LABELS.Passed; // eslint-disable-line no-undef
-
-      var newFieldValue = newField
-        .querySelector('.' + this.CssClasses_.FIELD_VALUE);
-      while (newFieldValue.firstChild) {
-        newFieldValue.removeChild(newFieldValue.firstChild);
-      }
-      newButton = document.createElement('div');
-      newButton.setAttribute('title', label);
-      this.addClass(newButton, statusCss);
-      newFieldValue.appendChild(newButton);
-      field.parentNode.insertBefore(newField, field);
-    } else {
-      var td = record
-        .querySelector('.' + this.CssClasses_.IS_ACTION);
-      var newTd = td.cloneNode(true);
-      var tdIndex = [].indexOf.call(td.parentNode.cells, td);
-      var th = td.closest('table')
-        .querySelector('thead')
-          .querySelector('tr').cells[tdIndex];
-      var newTh = th.cloneNode(true);
-
-      if (!this.hasApprovedHeader) {
-        th.parentNode.insertBefore(newTh, th);
-        this.hasApprovedHeader = true;
-        newTh.innerHTML =
-          FrontEndJSSettings.LABELS.Passed; // eslint-disable-line no-undef
-      }
-      td.parentNode.insertBefore(newTd, td);
-
-      while (newTd.firstChild) {
-        newTd.removeChild(newTd.firstChild);
-      }
-
-      newButton = document.createElement('div');
-      newButton.setAttribute('title', label);
-      this.addClass(newButton, statusCss);
-      newTd.appendChild(newButton);
     }
   };
 
