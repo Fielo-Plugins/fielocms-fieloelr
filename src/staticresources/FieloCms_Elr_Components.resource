@@ -112,7 +112,7 @@
         "recordTypeName": "Record"
       },
       {
-        "FieloCMS__AdditionalFields__c": "FieloCMSPLT_RedirectPage__c,FieloCMSELR_CustomDetailParameter__c,FieloCMSELR_FilterByDependency__c,FieloCMSELR_FilterByNotTaken__c,FieloCMSELR_FilterBySegment__c,FieloCMS__RedirectPage__c",
+        "FieloCMS__AdditionalFields__c": "",
         "FieloCMS__ControlClass__c": "FieloCMS.StandardAPI",
         "FieloCMS__CssClasses__c": "cms-elr-form-action--module",
         "FieloCMS__DataClass__c": "FieloCMS.StandardAPI",

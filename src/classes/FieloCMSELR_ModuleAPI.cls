@@ -16,7 +16,7 @@ global with sharing class FieloCMSELR_ModuleAPI implements FieloCMS.DataInterfac
                 List<FieloELR__Course__c> courses = FieloELR.CourseService.getCourses(
                     new Set<String>{'Id','Name'},
                     null,
-                    FieloCMSPLT_OrganizationUtil.getFieldSet(c.FieloCMS__FieldSet__c),
+                    fields,
                     new Set<Id>{recordId},
                     member.FieloPLT__Program__c,
                     member.Id,
