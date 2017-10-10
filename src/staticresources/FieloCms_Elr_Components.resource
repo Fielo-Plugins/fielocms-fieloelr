@@ -2,7 +2,7 @@
 {
   "plugins" : [ {
     "Name" : "ElrPlugin",
-    "FieloCMS__Version__c" : 1.0,
+    "FieloCMS__Version__c" : 1.1,
     "components" : [
       {
         "FieloCMS__AdditionalFields__c": "FieloCMSPLT_RedirectPage__c,FieloCMSELR_CustomDetailParameter__c",
@@ -15,7 +15,7 @@
         "FieloCMS__Icon__c": "fa-puzzle-piece",
         "FieloCMS__Layouts__c": "Grid;Table",
         "FieloCMS__RecordType__c": "List",
-        "FieloCMS__Subcomponents__c": "[\n\t{\"apiName\": \"ProgressBar\",\"label\": \"Progress\", \"reflectionClass\": \"FieloCMSELR_ProgressBarCtlr\", \"type\": \"Subcomponent\", \"fieldName\":\"Id\", \"useFieldValue\":\"false\"},\n\t{\"apiName\": \"CourseAction\",\"label\": \"Action\", \"reflectionClass\": \"FieloCMSELR_CourseActionCtlr\", \"type\": \"Subcomponent\", \"fieldName\":\"Id\", \"joinRedirectPage\":\"a0o1I000000Lg2TQAS\", \"joinParameter\": \"id\", \"continueRedirectPage\": \"a0o1I000000Lg2TQAS\", \"continueParameter\":\"id\"}\n]",
+        "FieloCMS__Subcomponents__c": "[\n\t{\"apiName\": \"ProgressBar\",\"label\": \"Progress\", \"reflectionClass\": \"FieloCMSELR_ProgressBarCtlr\", \"type\": \"Subcomponent\", \"fieldName\":\"Id\", \"useFieldValue\":\"false\"},\n\t{\"apiName\": \"CourseAction\",\"label\": \"Action\", \"reflectionClass\": \"FieloCMSELR_CourseActionCtlr\", \"type\": \"Subcomponent\", \"fieldName\":\"Id\", \"joinRedirectPage\":\"a0o1I000000Lg2TQAS\", \"joinParameter\": \"id\"}\n]",
         "FieloCMS__ViewClass__c": "",
         "FieloCMS__Visibility__c": "Both",
         "FieloCMS__sObject__c": "FieloELR__Course__c",
@@ -33,7 +33,7 @@
         "FieloCMS__Icon__c": "fa-puzzle-piece",
         "FieloCMS__Layouts__c": "Grid;Table",
         "FieloCMS__RecordType__c": "List",
-        "FieloCMS__Subcomponents__c": "[\n\t{\"apiName\": \"ProgressBar\",\"label\": \"Progress\", \"reflectionClass\": \"FieloCMSELR_ProgressBarCtlr\", \"type\": \"Subcomponent\", \"fieldName\":\"Id\", \"useFieldValue\":\"false\"},\n\t{\"apiName\": \"CourseAction\",\"label\": \"Action\", \"reflectionClass\": \"FieloCMSELR_CourseActionCtlr\", \"type\": \"Subcomponent\", \"fieldName\":\"Id\", \"joinRedirectPage\":\"a0o1I000000Lg2TQAS\", \"joinParameter\": \"id\", \"continueRedirectPage\": \"a0o1I000000Lg2TQAS\", \"continueParameter\":\"id\"}\n]",
+        "FieloCMS__Subcomponents__c": "[\n\t{\"apiName\": \"ProgressBar\",\"label\": \"Progress\", \"reflectionClass\": \"FieloCMSELR_ProgressBarCtlr\", \"type\": \"Subcomponent\", \"fieldName\":\"Id\", \"useFieldValue\":\"false\"},\n\t{\"apiName\": \"CourseAction\",\"label\": \"Action\", \"reflectionClass\": \"FieloCMSELR_CourseActionCtlr\", \"type\": \"Subcomponent\", \"fieldName\":\"Id\", \"joinRedirectPage\":\"a0o1I000000Lg2TQAS\", \"joinParameter\": \"id\"}\n]",
         "FieloCMS__ViewClass__c": "",
         "FieloCMS__Visibility__c": "Both",
         "FieloCMS__sObject__c": "FieloELR__Course__c",
