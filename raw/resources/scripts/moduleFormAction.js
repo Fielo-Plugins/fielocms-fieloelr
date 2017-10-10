@@ -120,6 +120,16 @@
               buttons[actions.indexOf(action)]
                 .href = this.records[moduleId].FieloRecord.link_;
             }
+            if (action === 'View') {
+              if (results[moduleId].ModuleResponseId) {
+                buttons[actions.indexOf(action)]
+                  .setAttribute('data-module-response-id',
+                    results[moduleId].ModuleResponseId);
+                buttons[actions.indexOf(action)]
+                  .href = this.recordHrefs[moduleId].viewHref +
+                    results[moduleId].ModuleResponseId;
+              }
+            }
           }, this);
         }
       }, this);
