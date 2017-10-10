@@ -10,7 +10,7 @@
 	data-componentid="{! config['Id'] }"
 	data-redirect-page="{!config['FieloCMSPLT_RedirectPage__c']}"
 	type="button" 
-	data-record-id="{!record[field.attributes['fieldName']]}"
+	data-record-id="{!record['Id']}"
 	href="{!IF(useFieldAsSource, href, '')}"
 	data-join-redirect-page="{!field.attributes['joinRedirectPage']}"
 	data-join-parameter="{!field.attributes['joinParameter']}">{!IF(calculateAction, action, 'Loading...')}</a>
