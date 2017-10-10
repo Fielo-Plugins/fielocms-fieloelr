@@ -36,7 +36,7 @@
    * @private
    */
   FieloCategoryFilter.prototype.CssClasses_ = {
-    CATEGORY_FIELD: 'fielo-field--is-FieloCMSELR_Category__c',
+    CATEGORY_FIELD: 'fielo-field--is-FieloCMSELR_ContentCategory__c',
     LINK_TO_DETAIL: 'fielo-link__to-detail',
     OUTPUT: 'fielo-output'
   };

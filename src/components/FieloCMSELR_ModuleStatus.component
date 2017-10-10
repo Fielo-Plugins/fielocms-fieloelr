@@ -1,0 +1,20 @@
+<apex:component layout="none" controller="FieloCMSELR_ModuleStatusCtrl">
+	<apex:attribute name="record" type="SObject" description="" assignTo="{!cRecord}"/>
+    <apex:attribute name="field" type="FieloCMS.Field" description="" assignTo="{!cField}"/>
+	<div 
+	class="cms-elr-module-status" 
+	style="display: none"
+	data-record-id="{!record.Id}"
+	data-subcomponent-apiname="{!field.apiName}"/>
+
+	<script>
+		if(typeof FrontEndJSSettings == 'undefined') {
+			var FrontEndJSSettings = {};
+		}
+		if(typeof FrontEndJSSettings.LABELS == 'undefined') {
+		 	FrontEndJSSettings.LABELS = {};
+		}
+		FrontEndJSSettings.LABELS.Passed = '{!$Label.FieloCMSELR_Passed}';
+		FrontEndJSSettings.LABELS.NotPassed = '{!$Label.FieloCMSELR_NotPassed}';
+	</script>
+</apex:component>

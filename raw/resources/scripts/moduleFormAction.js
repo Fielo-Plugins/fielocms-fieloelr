@@ -95,10 +95,6 @@
               .querySelectorAll('.' + this.CssClasses_.ACTION);
           }
           [].forEach.call(actions, function(action) {
-            if (action === 'View') {
-              buttons[actions.indexOf(action)]
-                .style.display = 'none';
-            }
             if (action === 'Take' || action === 'Retake') {
               if (this.quizIsRunning) {
                 buttons[actions.indexOf(action)]
@@ -124,49 +120,20 @@
               buttons[actions.indexOf(action)]
                 .href = this.records[moduleId].FieloRecord.link_;
             }
+            if (action === 'View') {
+              if (results[moduleId].ModuleResponseId) {
+                buttons[actions.indexOf(action)]
+                  .setAttribute('data-module-response-id',
+                    results[moduleId].ModuleResponseId);
+                buttons[actions.indexOf(action)]
+                  .href = this.recordHrefs[moduleId].viewHref +
+                    results[moduleId].ModuleResponseId;
+              }
+            }
           }, this);
-          if (results[moduleId].Approved) {
-            this.addStatusField(this.records[moduleId],
-              FrontEndJSSettings.LABELS.Passed, // eslint-disable-line no-undef
-              'cms-elr-icon__approved'
-            );
-          } else {
-            this.addStatusField(this.records[moduleId],
-              FrontEndJSSettings.LABELS.NotPassed, // eslint-disable-line no-undef
-              'cms-elr-icon__notapproved');
-          }
         }
       }, this);
     }
-  };
-
-  FieloModuleFormAction.prototype.addStatusField = function(record, label, statusCss) { // eslint-disable-line max-len
-    var newButton;
-    var field = record
-      .querySelector('.' + this.CssClasses_.IS_ACTION);
-    var newField = field.cloneNode(true);
-    var newFieldLabel = newField
-      .querySelector('.' + this.CssClasses_.FIELD_LABEL);
-
-    if (!newFieldLabel) {
-      newFieldLabel = document.createElement('span');
-      this.addClass(newFieldLabel, this.CssClasses_.FIELD_LABEL);
-      newField.insertBefore(newFieldLabel, newField.firstChild);
-    }
-
-    newFieldLabel.innerHTML =
-          FrontEndJSSettings.LABELS.Passed; // eslint-disable-line no-undef
-
-    var newFieldValue = newField
-      .querySelector('.' + this.CssClasses_.FIELD_VALUE);
-    while (newFieldValue.firstChild) {
-      newFieldValue.removeChild(newFieldValue.firstChild);
-    }
-    newButton = document.createElement('div');
-    newButton.setAttribute('title', label);
-    this.addClass(newButton, statusCss);
-    newFieldValue.appendChild(newButton);
-    field.parentNode.insertBefore(newField, field);
   };
 
   FieloModuleFormAction.prototype.addClass = function(element, className) {
@@ -190,10 +157,15 @@
     if (result) {
       localStorage.clear();
       this.storeData(result.moduleResponse.Id, result);
+      var reloadPage =
+        window.location.href
+          .indexOf(this.recordHrefs[result.module.Id].takeHref) !== -1;
       window.location.href =
         this.recordHrefs[result.module.Id].takeHref +
           '#' + result.moduleResponse.Id;
-      window.location.reload();
+      if (reloadPage) {
+        window.location.reload();
+      }
     }
   };
 
