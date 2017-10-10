@@ -60,7 +60,7 @@
       {
         "FieloCMS__AdditionalFields__c": "FieloCMSPLT_RedirectPage__c,FieloCMSELR_CustomDetailParameter__c",
         "FieloCMS__ControlClass__c": "FieloCMS.StandardAPI",
-        "FieloCMS__CssClasses__c": "cms-elr-category-filter",
+        "FieloCMS__CssClasses__c": "cms-elr-category-filter cms-elr-module-list-action",
         "FieloCMS__DataClass__c": "FieloCMSELR_ModuleAPI",
         "FieloCMS__DefaultFields__c": "Name,FieloELR__ApprovalGrade__c",
         "FieloCMS__DeveloperName__c": "ElrPlugin.Modules",
