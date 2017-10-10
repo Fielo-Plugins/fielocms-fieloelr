@@ -2,6 +2,7 @@
 {
   "plugins" : [ {
     "Name" : "ElrPlugin",
+    "FieloCMS__Version__c" : 1.0,
     "components" : [
       {
         "FieloCMS__AdditionalFields__c": "FieloCMSPLT_RedirectPage__c,FieloCMSELR_CustomDetailParameter__c",

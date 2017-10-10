@@ -191,7 +191,8 @@
       localStorage.clear();
       this.storeData(result.moduleResponse.Id, result);
       var reloadPage =
-        window.location.href === this.recordHrefs[result.module.Id].takeHref;
+        window.location.href
+          .indexOf(this.recordHrefs[result.module.Id].takeHref) !== -1;
       window.location.href =
         this.recordHrefs[result.module.Id].takeHref +
           '#' + result.moduleResponse.Id;
