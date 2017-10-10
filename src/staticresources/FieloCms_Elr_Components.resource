@@ -2,7 +2,7 @@
 {
   "plugins" : [ {
     "Name" : "ElrPlugin",
-    "FieloCMS__Version__c" : 1.1,
+    "FieloCMS__Version__c" : 1.2,
     "components" : [
       {
         "FieloCMS__AdditionalFields__c": "FieloCMSPLT_RedirectPage__c,FieloCMSELR_CustomDetailParameter__c",
@@ -61,7 +61,7 @@
       {
         "FieloCMS__AdditionalFields__c": "FieloCMSPLT_RedirectPage__c,FieloCMSELR_CustomDetailParameter__c",
         "FieloCMS__ControlClass__c": "FieloCMS.StandardAPI",
-        "FieloCMS__CssClasses__c": "cms-elr-category-filter cms-elr-module-list-action",
+        "FieloCMS__CssClasses__c": "cms-elr-module-list-status cms-elr-category-filter cms-elr-module-list-action",
         "FieloCMS__DataClass__c": "FieloCMSELR_ModuleAPI",
         "FieloCMS__DefaultFields__c": "Name,FieloELR__ApprovalGrade__c",
         "FieloCMS__DeveloperName__c": "ElrPlugin.Modules",
@@ -69,7 +69,7 @@
         "FieloCMS__Icon__c": "fa-puzzle-piece",
         "FieloCMS__Layouts__c": "Grid;Table",
         "FieloCMS__RecordType__c": "List",
-        "FieloCMS__Subcomponents__c": "[\n\t{\"apiName\": \"ModuleAction\",\"label\": \"Action\", \"reflectionClass\": \"FieloCMSELR_ModuleActionCtlr\", \"type\": \"Subcomponent\", \"fieldName\":\"Id\", \"takeRedirectPage\":\"a0o1I000000Lg2iQAC\", \"takeParameter\": \"id\", \"viewRedirectPage\": \"a0o1I000000Lg2nQAC\", \"viewParameter\":\"id\"}\n]",
+        "FieloCMS__Subcomponents__c": "[\n\t{\"apiName\": \"ModuleAction\",\"label\": \"Action\", \"reflectionClass\": \"FieloCMSELR_ModuleActionCtlr\", \"type\": \"Subcomponent\", \"fieldName\":\"Id\", \"takeRedirectPage\":\"a0o1I000000Lg2iQAC\", \"takeParameter\": \"id\", \"viewRedirectPage\": \"a0o1I000000Lg2nQAC\", \"viewParameter\":\"id\"},\n\t{\"apiName\": \"ModuleStatus\",\"label\": \"Passed\", \"reflectionClass\": \"FieloCMSELR_ModuleStatusCtrl\", \"type\": \"Subcomponent\", \"fieldName\":\"Id\"}\n]",
         "FieloCMS__ViewClass__c": "",
         "FieloCMS__Visibility__c": "Both",
         "FieloCMS__sObject__c": "FieloELR__Module__c",
@@ -115,7 +115,7 @@
       {
         "FieloCMS__AdditionalFields__c": "",
         "FieloCMS__ControlClass__c": "FieloCMS.StandardAPI",
-        "FieloCMS__CssClasses__c": "cms-elr-form-action--module",
+        "FieloCMS__CssClasses__c": "cms-elr-module-list-status cms-elr-form-action--module",
         "FieloCMS__DataClass__c": "FieloCMS.StandardAPI",
         "FieloCMS__DefaultFields__c": "Name",
         "FieloCMS__DeveloperName__c": "ElrPlugin.ModuleRecord",
@@ -123,7 +123,7 @@
         "FieloCMS__Icon__c": "fa-puzzle-piece",
         "FieloCMS__Layouts__c": "",
         "FieloCMS__RecordType__c": "Record",
-        "FieloCMS__Subcomponents__c": "[\n\t{\"apiName\": \"ModuleAction\",\"label\": \"Action\", \"reflectionClass\": \"FieloCMSELR_ModuleActionCtlr\", \"type\": \"Subcomponent\", \"fieldName\":\"Id\", \"takeRedirectPage\":\"a0o1I000000Lg2iQAC\", \"takeParameter\": \"id\", \"viewRedirectPage\": \"a0o1I000000Lg2nQAC\", \"viewParameter\":\"id\"}\n]",
+        "FieloCMS__Subcomponents__c": "[\n\t{\"apiName\": \"ModuleAction\",\"label\": \"Action\", \"reflectionClass\": \"FieloCMSELR_ModuleActionCtlr\", \"type\": \"Subcomponent\", \"fieldName\":\"Id\", \"takeRedirectPage\":\"a0o1I000000Lg2iQAC\", \"takeParameter\": \"id\", \"viewRedirectPage\": \"a0o1I000000Lg2nQAC\", \"viewParameter\":\"id\"},\n\t{\"apiName\": \"ModuleStatus\",\"label\": \"Passed\", \"reflectionClass\": \"FieloCMSELR_ModuleStatusCtrl\", \"type\": \"Subcomponent\", \"fieldName\":\"Id\"}\n]",
         "FieloCMS__ViewClass__c": "",
         "FieloCMS__Visibility__c": "Both",
         "FieloCMS__sObject__c": "FieloELR__Module__c",
