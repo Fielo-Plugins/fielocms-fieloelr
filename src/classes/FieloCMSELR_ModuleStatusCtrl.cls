@@ -24,21 +24,25 @@ global class FieloCMSELR_ModuleStatusCtrl implements FieloCMS.ViewSubComponentIn
 
         List<FieloELR.CourseService.CourseWrapper> coursesMap;
         
-        coursesMap = FieloELR.CourseService.getCoursesMap(
-            new Set<String>{'Id','FieloELR__SubscriptionMode__c','FieloELR__Status__c'},
-            new Set<String>{'Id','Name'},
-            new Set<String>{'Id', 'FieloELR__AttemptsAllowed__c','FieloELR__IsActive__c'},
-            null,
-            courseIds,
-            member.FieloPLT__Program__c,
-            member.Id,
-            false,
-            true,
-            100,
-            0,
-            'LastModifiedDate',
-            ''
-        );
+        try {
+            coursesMap = FieloELR.CourseService.getCoursesMap(
+                new Set<String>{'Id','FieloELR__SubscriptionMode__c','FieloELR__Status__c'},
+                new Set<String>{'Id','Name'},
+                new Set<String>{'Id', 'FieloELR__AttemptsAllowed__c','FieloELR__IsActive__c'},
+                null,
+                courseIds,
+                member.FieloPLT__Program__c,
+                member.Id,
+                false,
+                true,
+                100,
+                0,
+                'LastModifiedDate',
+                ''
+            );
+        } catch (Exception e) {
+            System.debug('error' + e);
+        }
     
 
         Map<String,Object> moduleStatus = new Map<String,Object>();
@@ -53,13 +57,17 @@ global class FieloCMSELR_ModuleStatusCtrl implements FieloCMS.ViewSubComponentIn
             for (FieloELR.CourseService.CourseWrapper courseMap :coursesMap) {
                 for (FieloELR.CourseService.ModuleWrapper moduleWrapper: courseMap.modules){
                     if (moduleIdSet.contains(moduleWrapper.module.Id)) {
-                        if (moduleWrapper.moduleResponses.isEmpty()) {
+                        if (moduleWrapper.moduleResponses == null) {
                             moduleStatus.put(moduleWrapper.module.Id, (Object) 'Not Taken');
                         } else {
-                            if (moduleWrapper.isApproved == null) {
+                            if (moduleWrapper.moduleResponses.isEmpty()) {
                                 moduleStatus.put(moduleWrapper.module.Id, (Object) 'Not Taken');
                             } else {
-                                moduleStatus.put(moduleWrapper.module.Id, (Object) (moduleWrapper.isApproved ? 'Passed' : 'Not Passed') );
+                                if (moduleWrapper.isApproved == null) {
+                                    moduleStatus.put(moduleWrapper.module.Id, (Object) 'Not Taken');
+                                } else {
+                                    moduleStatus.put(moduleWrapper.module.Id, (Object) (moduleWrapper.isApproved ? 'Passed' : 'Not Passed') );
+                                }
                             }
                         }
                     }

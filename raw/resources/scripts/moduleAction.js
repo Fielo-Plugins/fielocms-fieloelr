@@ -194,13 +194,15 @@
       this.recordHrefs[recordId].takeHref =
         '/FieloCMS__Page?pageId=' +
           action.getAttribute('data-take-redirect-page') +
-            '&' + action.getAttribute('data-take-parameter') +
-              '=' + action.getAttribute('data-record-id');
+            action.getAttribute('data-category-search') +
+              '&' + action.getAttribute('data-take-parameter') +
+                '=' + action.getAttribute('data-record-id');
       this.recordHrefs[recordId].viewHref =
         '/FieloCMS__Page?pageId=' +
           action.getAttribute('data-view-redirect-page') +
-            '&' + action.getAttribute('data-view-parameter') +
-              '=';
+            action.getAttribute('data-category-search') +
+              '&' + action.getAttribute('data-view-parameter') +
+                '=';
     }, this);
   };
 

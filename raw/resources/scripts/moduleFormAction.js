@@ -121,7 +121,10 @@
                 .href = this.records[moduleId].FieloRecord.link_;
             }
             if (action === 'View') {
-              if (results[moduleId].ModuleResponseId) {
+              if (this.quizIsRunning) {
+                buttons[actions.indexOf(action)]
+                  .style.display = 'none';
+              } else if (results[moduleId].ModuleResponseId) {
                 buttons[actions.indexOf(action)]
                   .setAttribute('data-module-response-id',
                     results[moduleId].ModuleResponseId);
@@ -207,13 +210,15 @@
       this.recordHrefs[recordId].takeHref =
         '/FieloCMS__Page?pageId=' +
           action.getAttribute('data-take-redirect-page') +
-            '&' + action.getAttribute('data-take-parameter') +
-              '=' + action.getAttribute('data-record-id');
+            action.getAttribute('data-category-search') +
+              '&' + action.getAttribute('data-take-parameter') +
+                '=' + action.getAttribute('data-record-id');
       this.recordHrefs[recordId].viewHref =
         '/FieloCMS__Page?pageId=' +
           action.getAttribute('data-view-redirect-page') +
-            '&' + action.getAttribute('data-view-parameter') +
-              '=';
+            action.getAttribute('data-category-search') +
+              '&' + action.getAttribute('data-view-parameter') +
+                '=';
     }, this);
   };
 
