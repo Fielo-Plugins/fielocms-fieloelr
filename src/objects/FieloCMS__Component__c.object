@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
     <fields>
+        <fullName>FieloCMSELR_Course__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Course</label>
+        <referenceTo>FieloELR__Course__c</referenceTo>
+        <relationshipLabel>Components</relationshipLabel>
+        <relationshipName>FieloCMSELR_Components</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
         <fullName>FieloCMSELR_CustomDetailParameter__c</fullName>
         <externalId>false</externalId>
         <label>Custom Detail Parameter</label>

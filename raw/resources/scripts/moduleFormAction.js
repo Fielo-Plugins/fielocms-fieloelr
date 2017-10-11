@@ -121,7 +121,10 @@
                 .href = this.records[moduleId].FieloRecord.link_;
             }
             if (action === 'View') {
-              if (results[moduleId].ModuleResponseId) {
+              if (this.quizIsRunning) {
+                buttons[actions.indexOf(action)]
+                  .style.display = 'none';
+              } else if (results[moduleId].ModuleResponseId) {
                 buttons[actions.indexOf(action)]
                   .setAttribute('data-module-response-id',
                     results[moduleId].ModuleResponseId);
@@ -199,21 +202,27 @@
 
   FieloModuleFormAction.prototype.getURLs = function() {
     var action;
+    var categorySearch;
     this.recordHrefs = {};
     [].forEach.call(Object.keys(this.records), function(recordId) {
       action = this.records[recordId]
         .querySelector('.' + this.CssClasses_.ACTION);
+      categorySearch = action.getAttribute('data-category-search') ?
+        action.getAttribute('data-category-search') :
+        '';
       this.recordHrefs[recordId] = {};
       this.recordHrefs[recordId].takeHref =
         '/FieloCMS__Page?pageId=' +
           action.getAttribute('data-take-redirect-page') +
-            '&' + action.getAttribute('data-take-parameter') +
-              '=' + action.getAttribute('data-record-id');
+            categorySearch +
+              '&' + action.getAttribute('data-take-parameter') +
+                '=' + action.getAttribute('data-record-id');
       this.recordHrefs[recordId].viewHref =
         '/FieloCMS__Page?pageId=' +
           action.getAttribute('data-view-redirect-page') +
-            '&' + action.getAttribute('data-view-parameter') +
-              '=';
+            categorySearch +
+              '&' + action.getAttribute('data-view-parameter') +
+                '=';
     }, this);
   };
 

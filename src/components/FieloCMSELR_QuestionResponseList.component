@@ -42,8 +42,6 @@
 	            </apex:repeat>
 	        </tbody>
 	    </table>
-		<a class="fielo-button" 
-			href="{! '/FieloCMS__Page?pageId=' + config['FieloCMSPLT_RedirectPage__c'] + '&' + IF(ISNULL(config['FieloCMSELR_CustomDetailParameter__c']), 'id', config['FieloCMSELR_CustomDetailParameter__c']) + '=' + courseId }">Back to Course</a>
 
 	    <div class="cms-elr-hidden-table" style="display: none">
 	    	<apex:repeat value="{!moduleResponseResult.questions}" var="qWrapper">

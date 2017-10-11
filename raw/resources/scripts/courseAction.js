@@ -227,21 +227,27 @@
 
   FieloCourseAction.prototype.getURLs = function() {
     var action;
+    var categorySearch;
     this.recordHrefs = {};
     [].forEach.call(Object.keys(this.records), function(recordId) {
       action = this.records[recordId]
         .querySelector('.' + this.CssClasses_.ACTION);
+      categorySearch = action.getAttribute('data-category-search') ?
+        action.getAttribute('data-category-search') :
+        '';
       this.recordHrefs[recordId] = {};
       this.recordHrefs[recordId].joinHref =
         '/FieloCMS__Page?pageId=' +
           action.getAttribute('data-join-redirect-page') +
-            '&' + action.getAttribute('data-join-parameter') +
-              '=' + action.getAttribute('data-record-id');
+            categorySearch +
+              '&' + action.getAttribute('data-join-parameter') +
+                '=' + action.getAttribute('data-record-id');
       this.recordHrefs[recordId].continueHref =
         '/FieloCMS__Page?pageId=' +
           action.getAttribute('data-continue-redirect-page') +
-            '&' + action.getAttribute('data-continue-parameter') +
-              '=' + action.getAttribute('data-record-id');
+            categorySearch +
+              '&' + action.getAttribute('data-continue-parameter') +
+                '=' + action.getAttribute('data-record-id');
     }, this);
   };
 

@@ -20,6 +20,7 @@
  		<members>FieloELR__Course__c.FieloCMSELR_ContentCategory__c</members>
  		<members>FieloELR__Course__c.FieloCMSELR_Category__c</members>
  		<members>FieloELR__Module__c.FieloCMSELR_ContentCategory__c</members>
+ 		<members>FieloCMS__TagItem__c.FieloCMSELR_Course__c</members>
  		<name>CustomField</name>
  	</types>
  	<types>

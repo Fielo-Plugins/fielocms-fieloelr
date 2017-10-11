@@ -496,10 +496,21 @@
       this.detailParameter ?
       this.detailParameter :
       'id';
+    if (this.dataStructure) {
+      var categoryId =
+        this.dataStructure.module.FieloCMSELR_ContentCategory__c;
+      this.categorySearch =
+        categoryId === '' || categoryId === undefined || categoryId === null ?
+          '' :
+          '&categoryId=' + categoryId;
+    } else {
+      this.categorySearch = '';
+    }
     this.redirectURL =
       '/FieloCMS__Page?pageId=' +
         this.element_.getAttribute('data-redirect-page') +
-          '&' + this.detailParameter + '=' + this.moduleResponseId;
+            this.categorySearch +
+            '&' + this.detailParameter + '=' + this.moduleResponseId;
   };
 
   /**
@@ -508,11 +519,11 @@
   FieloQuiz.prototype.init = function() {
     if (this.element_) {
       this.getModuleResponseId();
-      this.getElements();
       if (this.moduleResponseId !== '' &&
         this.moduleResponseId !== undefined &&
         this.moduleResponseId !== null) {
         this.getData(this.moduleResponseId);
+        this.getElements();
         if (this.dataStructure) {
           if (this.dataStructure.questions) {
             if (this.dataStructure.questions.length > 0) {
