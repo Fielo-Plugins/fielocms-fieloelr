@@ -12,16 +12,26 @@ global class FieloCMSELR_CourseAPI implements FieloCMS.DataInterface{
                 FieloPLT__Member__c member = [SELECT Id, FieloPLT__Program__c FROM FieloPLT__Member__c WHERE Id =: memberId];
 
                 List<FieloCMSPLT_FilterService.FilterWrapper> dynamicFilters = new List<FieloCMSPLT_FilterService.FilterWrapper>();
+                if(c.FieloCMS__Category__c != null){
+                    dynamicFilters.add(new FieloCMSPLT_FilterService.FilterWrapper(null,null,'FieloCMSELR_Category__c', 'equals', c.FieloCMS__Category__c, null));
+                }
+                if(c.FieloCMS__Tag__c != null){
+                    FieloCMSPLT_FilterService.SubQueryFilter sqf = new FieloCMSPLT_FilterService.SubQueryFilter('FieloCMSELR_Course__c','FieloCMS__TagItem__c',new List<FieloCMSPLT_FilterService.FilterWrapper>{new FieloCMSPLT_FilterService.FilterWrapper(null,null,'FieloCMS__Tag__c','equals',c.FieloCMS__Tag__c,null)});
+                    dynamicFilters.add(new FieloCMSPLT_FilterService.FilterWrapper('and',null,'Id',sqf,null));
+                }
+
                 FieloCMSPLT_FilterService.FilterWrapper filter = new FieloCMSPLT_FilterService.FilterWrapper(
-                    'in',
-                    '',
+                    'and',
+                    null,
                     'Id',
-                    new SubQueryFilter(
+                    new FieloCMSPLT_FilterService.SubQueryFilter(
                         'FieloELR__Course__c',
                         'FieloELR__CourseStatus__c',
-                        new List<FilterWrapper>{
-                            new FieloCMSPLT_FilterService.FilterWrapper('FieloELR__Member__c',memberId)
-                        })
+                        new List<FieloCMSPLT_FilterService.FilterWrapper>{
+                            new FieloCMSPLT_FilterService.FilterWrapper(null, null, 'FieloELR__Member__c', 'equals', memberId, null)
+
+                        }),
+                    null
                 );
                 dynamicFilters.add(filter);
 
@@ -133,6 +143,7 @@ global class FieloCMSELR_CourseAPI implements FieloCMS.DataInterface{
         //Calculate the offset from the Page Number
         Integer offset = Integer.valueOf(component.FieloCMS__Limit__c * (pageNumber - 1));
 
+        Id memberId = FieloCMSPLT_MemberService.getCurrentMemberId();
         if (component.FieloCMS__ComponentLibrary__r.Name == 'Courses') {
             List<FieloELR__Course__c> courses = FieloELR.CourseService.getCourses(
                 FieloCMSPLT_OrganizationUtil.getFieldSet(component.FieloCMS__FieldSet__c),
@@ -140,7 +151,7 @@ global class FieloCMSELR_CourseAPI implements FieloCMS.DataInterface{
                 null,
                 null,
                 program.Id,
-                FieloCMSPLT_MemberService.getCurrentMemberId(),
+                memberId,
                 component.FieloCMSELR_FilterByDependency__c,
                 component.FieloCMSELR_FilterBySegment__c,
                 component.FieloCMSELR_FilterByNotTaken__c,
@@ -150,6 +161,36 @@ global class FieloCMSELR_CourseAPI implements FieloCMS.DataInterface{
                 filtersList.isEmpty() ? null : JSON.serialize(filtersList)
             );
             return (List<sObject>) courses;
+        }else if(component.FieloCMS__ComponentLibrary__r.Name == 'My Courses'){
+            FieloCMSPLT_FilterService.FilterWrapper filter = new FieloCMSPLT_FilterService.FilterWrapper(
+                'and',
+                null,
+                'Id',
+                new FieloCMSPLT_FilterService.SubQueryFilter(
+                    'FieloELR__Course__c',
+                    'FieloELR__CourseStatus__c',
+                    new List<FieloCMSPLT_FilterService.FilterWrapper>{
+                        new FieloCMSPLT_FilterService.FilterWrapper(null, null, 'FieloELR__Member__c', 'equals', memberId, null)
+                    }),
+                null
+            );
+            filtersList.add(filter);
+
+            List<FieloELR__Course__c> courses = FieloELR.CourseService.getCourses(
+                FieloCMSPLT_OrganizationUtil.getFieldSet(component.FieloCMS__FieldSet__c),
+                null,
+                null,
+                null,
+                program.Id,
+                memberId,
+                false,
+                false,
+                false,
+                Integer.valueof(component.FieloCMS__Limit__c),
+                0,
+                'LastModifiedDate',
+                filtersList.isEmpty() ? null : JSON.serialize(filtersList)
+            );
         }
         
         return null;
