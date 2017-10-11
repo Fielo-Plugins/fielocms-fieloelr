@@ -500,7 +500,7 @@
       var categoryId =
         this.dataStructure.module.FieloCMSELR_ContentCategory__c;
       this.categorySearch =
-        categoryId === '' ?
+        categoryId === '' || categoryId === undefined || categoryId === null ?
           '' :
           '&categoryId=' + categoryId;
     } else {
