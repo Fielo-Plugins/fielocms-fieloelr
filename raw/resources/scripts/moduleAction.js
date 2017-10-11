@@ -186,21 +186,25 @@
 
   FieloModuleAction.prototype.getURLs = function() {
     var action;
+    var categorySearch;
     this.recordHrefs = {};
     [].forEach.call(Object.keys(this.records), function(recordId) {
       action = this.records[recordId]
         .querySelector('.' + this.CssClasses_.ACTION);
+      categorySearch = action.getAttribute('data-category-search') ?
+        action.getAttribute('data-category-search') :
+        '';
       this.recordHrefs[recordId] = {};
       this.recordHrefs[recordId].takeHref =
         '/FieloCMS__Page?pageId=' +
           action.getAttribute('data-take-redirect-page') +
-            action.getAttribute('data-category-search') +
+            categorySearch +
               '&' + action.getAttribute('data-take-parameter') +
                 '=' + action.getAttribute('data-record-id');
       this.recordHrefs[recordId].viewHref =
         '/FieloCMS__Page?pageId=' +
           action.getAttribute('data-view-redirect-page') +
-            action.getAttribute('data-category-search') +
+            categorySearch +
               '&' + action.getAttribute('data-view-parameter') +
                 '=';
     }, this);
