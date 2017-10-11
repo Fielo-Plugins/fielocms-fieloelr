@@ -1,6 +1,6 @@
 global with sharing class FieloCMSELR_ModuleAPI implements FieloCMS.DataInterface{
-    
-    public Map<Id, Object> getBulkData(List<FieloCMS__Component__c> components){
+	
+	public Map<Id, Object> getBulkData(List<FieloCMS__Component__c> components){
         Map<Id,Object> newMapData = new Map<Id,Object>();
         Id memberId = FieloCMSPLT_MemberService.getCurrentMemberId();
         //Prepare all the queries
@@ -16,7 +16,7 @@ global with sharing class FieloCMSELR_ModuleAPI implements FieloCMS.DataInterfac
                 List<FieloELR__Course__c> courses = FieloELR.CourseService.getCourses(
                     new Set<String>{'Id','Name'},
                     null,
-                    FieloCMSPLT_OrganizationUtil.getFieldSet(c.FieloCMS__FieldSet__c),
+                    fields,
                     new Set<Id>{recordId},
                     member.FieloPLT__Program__c,
                     member.Id,

@@ -48,7 +48,6 @@ global class FieloCMSELR_CourseActionCtlr implements FieloCMS.ViewSubComponentIn
         }
 
         Map<String,Object> courseActionMap = new Map<String,Object>();
-        String redirectPage;
         FieloELR__Course__c course;
         Boolean allowedForDependency;
         for(FieloELR.CourseService.CourseWrapper cw: coursesWrapper) {
@@ -58,21 +57,39 @@ global class FieloCMSELR_CourseActionCtlr implements FieloCMS.ViewSubComponentIn
             allowedForDependency = allowedForDependency != null ?
                 allowedForDependency :
                 true;
-            redirectPage = '/FieloCMS__Page?pageId=' + component.FieloCMSPLT_RedirectPage__c + 
-                '&' + component.FieloCMSELR_CustomDetailParameter__c + '=' + course.Id;
             if (!joinedCourses.containsKey(course.Id)) {
+<<<<<<< HEAD
                 courseActionMap.put(course.Id,
                     (Object) new Map<String,Object>{
                         'Action' => allowedForDependency ? course.FieloELR__SubscriptionMode__c =='Manual' ? 'Join' : 'View' : 'Hide',
                         'Page' => redirectPage
                     }
                 );
+=======
+                if (allowedForDependency) {
+                    courseActionMap.put(course.Id,
+                        (Object) new Map<String,Object>{
+                            'Action' => course.FieloELR__SubscriptionMode__c =='Manual' ? 'Join' : 'View'
+                        }
+                    );
+                } else {
+                    courseActionMap.put(course.Id,
+                        (Object) new Map<String,Object>{
+                            'Action' => 'Hide'
+                        }
+                    );
+                }
+>>>>>>> develop
             } else {
                 if(courseStatusMap.get(joinedCourses.get(course.Id)).FieloELR__Progress__c == null) {
                     courseActionMap.put(course.Id,
                         (Object) new Map<String,Object>{
+<<<<<<< HEAD
                             'Action' => allowedForDependency ? 'Continue' : 'Hide',
                             'Page' => redirectPage
+=======
+                            'Action' => 'Continue'
+>>>>>>> develop
                         }
                     );
                 } else {
@@ -81,15 +98,23 @@ global class FieloCMSELR_CourseActionCtlr implements FieloCMS.ViewSubComponentIn
                         course.FieloELR__Status__c == 'Active') {
                         courseActionMap.put(course.Id,
                             (Object) new Map<String,Object>{
+<<<<<<< HEAD
                                 'Action' => allowedForDependency ? 'Continue' : 'Hide',
                                 'Page' => redirectPage
+=======
+                                'Action' => 'Continue'
+>>>>>>> develop
                             }
                         );
                     } else {
                         courseActionMap.put(course.Id,
                             (Object) new Map<String,Object>{
+<<<<<<< HEAD
                                 'Action' => allowedForDependency ? 'View' : 'Hide',
                                 'Page' => redirectPage
+=======
+                                'Action' => 'View'
+>>>>>>> develop
                             }
                         );
                     }
