@@ -9,7 +9,6 @@ global with sharing class FieloCMSELR_ModuleAPI implements FieloCMS.DataInterfac
                 c.FieloCMS__Limit__c = 5;
 
             if(c.FieloCMS__ComponentLibrary__r.Name == 'Modules'){
-                String recordId = ApexPages.CurrentPage().getParameters().get( c.FieloCMSELR_CustomDetailParameter__c );
                 FieloPLT__Member__c member = [SELECT Id, FieloPLT__Program__c FROM FieloPLT__Member__c WHERE Id =: memberId];
                 Set<String> fields = FieloCMSPLT_OrganizationUtil.getFieldSet(c.FieloCMS__FieldSet__c);
                 fields.add('FieloELR__IsActive__c');
@@ -17,7 +16,7 @@ global with sharing class FieloCMSELR_ModuleAPI implements FieloCMS.DataInterfac
                     new Set<String>{'Id','Name'},
                     null,
                     fields,
-                    new Set<Id>{recordId},
+                    new Set<Id>{c.FieloCMSELR_Course__c},
                     member.FieloPLT__Program__c,
                     member.Id,
                     false,

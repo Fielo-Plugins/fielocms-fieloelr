@@ -166,7 +166,7 @@ global class FieloCMSELR_ModuleActionCtlr implements FieloCMS.ViewSubComponentIn
         FieloELR.ModuleService.ModuleWrapper moduleWrapper = FieloELR.ModuleService.takeModule(
             moduleId,
             member.Id,
-            new Set<String> {'Id', 'FieloELR__AttemptsAllowed__c'},
+            new Set<String> {'Id', 'FieloELR__AttemptsAllowed__c','FieloCMSELR_ContentCategory__c'},
             new Set<String> {'FieloELR__QuestionText__c'},
             new Set<String> {'FieloELR__AnswerOptionText__c','FieloELR__MatchingText__c'}
         );

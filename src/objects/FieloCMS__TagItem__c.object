@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fields>
+        <fullName>FieloCMSELR_Course__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Course</label>
+        <referenceTo>FieloELR__Course__c</referenceTo>
+        <relationshipLabel>Tag Items</relationshipLabel>
+        <relationshipName>FieloCMSELR_TagItems</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+</CustomObject>

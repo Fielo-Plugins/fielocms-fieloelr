@@ -38,7 +38,8 @@
   FieloCategoryFilter.prototype.CssClasses_ = {
     CATEGORY_FIELD: 'fielo-field--is-FieloCMSELR_ContentCategory__c',
     LINK_TO_DETAIL: 'fielo-link__to-detail',
-    OUTPUT: 'fielo-output'
+    OUTPUT: 'fielo-output',
+    ACTION: 'cms-elr-record-action'
   };
 
   FieloCategoryFilter.prototype.hideCategoryField = function() {
@@ -46,10 +47,14 @@
       this.element_
         .querySelectorAll('.' + this.CssClasses_.CATEGORY_FIELD);
     this.categoryFields = [];
+    this.categoryFormFields = [];
     [].forEach.call(this.categoryElements, function(element) {
       element.style.display = 'none';
       if (element.tagName === 'TD') {
         this.categoryFields.push(element);
+      }
+      if (element.tagName === 'DIV') {
+        this.categoryFormFields.push(element);
       }
     }, this);
   };
@@ -65,6 +70,7 @@
       if (this.linkToDetailFields.length > 0) {
         var href;
         var categoryId;
+        var actions;
         [].forEach.call(this.linkToDetailFields, function(linkToDetail) {
           href = linkToDetail.href;
           categoryId =
@@ -77,10 +83,39 @@
             categoryId !== '') {
             href += '&categoryId=' + categoryId;
             linkToDetail.href = href;
+            actions = linkToDetail.closest('tr')
+              .querySelectorAll('.' + this.CssClasses_.ACTION);
+            if (actions) {
+              if (actions.length > 0) {
+                [].forEach.call(actions, function(action) {
+                  action.setAttribute('data-category-search',
+                    '&categoryId=' + categoryId);
+                }, this);
+              }
+            }
           }
         }, this);
+      } else {
+        this.updateActions();
       }
+    } else {
+      this.updateActions();
     }
+  };
+
+  FieloCategoryFilter.prototype.updateActions = function() {
+    this.actions =
+      this.element_
+        .querySelectorAll('.' + this.CssClasses_.ACTION);
+    var categoryId;
+    [].forEach.call(this.actions, function(action) {
+      categoryId =
+        this.categoryFormFields[0]
+          .querySelector('.' + this.CssClasses_.OUTPUT)
+            .getAttribute(this.Constant_.DATA_VALUE);
+      action.setAttribute('data-category-search',
+        '&categoryId=' + categoryId);
+    }, this);
   };
 
   /**

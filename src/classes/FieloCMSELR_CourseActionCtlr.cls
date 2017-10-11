@@ -1,5 +1,5 @@
 global class FieloCMSELR_CourseActionCtlr implements FieloCMS.ViewSubComponentInterface{
-	public ApexPages.Component getSubComponent(FieloCMS.Field field, SObject record){
+    public ApexPages.Component getSubComponent(FieloCMS.Field field, SObject record){
         Component.FieloCMSELR_CourseAction action = new Component.FieloCMSELR_CourseAction();
         if(record != null){
             action.record = record;

@@ -13,14 +13,4 @@ public class FieloCMSELR_QuestionResponseListCtlr {
         }
         return moduleResponseResult;
     } set;}
-
-    public String courseId {get{
-        if (moduleResponseResult != null) {
-            return (String) moduleResponseResult.moduleResponse.FieloELR__Module__r.FieloELR__Course__c;
-        } else {
-            return '';
-        }
-    }
-        set;
-    }
 }
