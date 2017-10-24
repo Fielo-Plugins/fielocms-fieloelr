@@ -17,6 +17,7 @@
  		<members>FieloCMS__Component__c.FieloCMSELR_FilterByDependency__c</members>
  		<members>FieloCMS__Component__c.FieloCMSELR_FilterByNotTaken__c</members>
  		<members>FieloCMS__Component__c.FieloCMSELR_FilterBySegment__c</members>
+ 		<members>FieloCMS__Component__c.FieloCMSELR_Course__c</members>
  		<members>FieloELR__Course__c.FieloCMSELR_ContentCategory__c</members>
  		<members>FieloELR__Course__c.FieloCMSELR_Category__c</members>
  		<members>FieloELR__Module__c.FieloCMSELR_ContentCategory__c</members>
