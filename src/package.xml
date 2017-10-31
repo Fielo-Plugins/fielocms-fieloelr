@@ -27,6 +27,7 @@
  	<types>
  		<members>FieloCms_Elr_Components</members>
  		<members>FieloPlugin_ElrPlugin</members>
+ 		<members>FieloCMSELR</members>
  		<name>StaticResource</name>
  	</types>
  	<types>
