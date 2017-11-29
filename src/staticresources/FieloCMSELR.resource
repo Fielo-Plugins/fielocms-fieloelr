@@ -1,8 +1,7 @@
-
 {
   "Libraries" : [ {
     "Name" : "FieloCMSELR",
-    "FieloCMS__Version__c":1.00,
+    "FieloCMS__Version__c":1.01,
     "pageSettings" : [ {
       "Name" : "Module > Related > Post",
       "FieloPLT__Fieldset__c" : "{\"Name\":\"Name\"}",
@@ -47,6 +46,14 @@
       "Name" : "Course > View",
       "FieloPLT__Buttons__c" : "{\"Label\":\"Enable Content\",\"Type\":\"Remote\",\"Action\":\"FieloCMSELR_CourseCategoryButton\",\"Reflection\":true}",
       "FieloPLT__Object__c" : "FieloELR__Course__c",
+      "FieloPLT__Order__c" : 1,
+      "FieloPLT__StandardActions__c" : "Edit;Delete;View;Settings",
+      "FieloPLT__Type__c" : "View",
+      "FieloPLT__Visibility__c" : "[ \r\n{\"field\":\"FieloCMSELR_ContentCategory__c\", \r\n\"operator\":\"equals\", \r\n\"value\":\"\", \r\n\"andOrOperator\":\"\"} \r\n]"
+    }, {
+      "Name" : "Module > View",
+      "FieloPLT__Buttons__c" : "{\"Label\":\"Enable Content\",\"Type\":\"Remote\",\"Action\":\"FieloCMSELR_ModuleCategoryButton\",\"Reflection\":true}",
+      "FieloPLT__Object__c" : "FieloELR__Module__c",
       "FieloPLT__Order__c" : 1,
       "FieloPLT__StandardActions__c" : "Edit;Delete;View;Settings",
       "FieloPLT__Type__c" : "View",
