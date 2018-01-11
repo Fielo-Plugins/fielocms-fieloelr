@@ -228,6 +228,15 @@
   FieloCourseAction.prototype.getURLs = function() {
     var action;
     var categorySearch;
+    this.pathPrefix = '';
+    if (FrontEndJSSettings) { // eslint-disable-line no-undef
+      if (FrontEndJSSettings.SITE) { // eslint-disable-line no-undef
+        if (FrontEndJSSettings.SITE.pathPrefix) { // eslint-disable-line no-undef
+          this.pathPrefix = FrontEndJSSettings.SITE.pathPrefix; // eslint-disable-line no-undef
+        }
+      }
+    }
+
     this.recordHrefs = {};
     [].forEach.call(Object.keys(this.records), function(recordId) {
       action = this.records[recordId]
@@ -237,17 +246,19 @@
         '';
       this.recordHrefs[recordId] = {};
       this.recordHrefs[recordId].joinHref =
-        '/FieloCMS__Page?pageId=' +
-          action.getAttribute('data-join-redirect-page') +
-            categorySearch +
-              '&' + action.getAttribute('data-join-parameter') +
-                '=' + action.getAttribute('data-record-id');
+        this.pathPrefix +
+          '/FieloCMS__Page?pageId=' +
+            action.getAttribute('data-join-redirect-page') +
+              categorySearch +
+                '&' + action.getAttribute('data-join-parameter') +
+                  '=' + action.getAttribute('data-record-id');
       this.recordHrefs[recordId].continueHref =
-        '/FieloCMS__Page?pageId=' +
-          action.getAttribute('data-continue-redirect-page') +
-            categorySearch +
-              '&' + action.getAttribute('data-continue-parameter') +
-                '=' + action.getAttribute('data-record-id');
+        this.pathPrefix +
+          '/FieloCMS__Page?pageId=' +
+            action.getAttribute('data-continue-redirect-page') +
+              categorySearch +
+                '&' + action.getAttribute('data-continue-parameter') +
+                  '=' + action.getAttribute('data-record-id');
     }, this);
   };
 
