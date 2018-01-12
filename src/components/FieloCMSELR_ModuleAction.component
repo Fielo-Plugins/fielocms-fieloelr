@@ -32,7 +32,11 @@
 	if(typeof FrontEndJSSettings.LABELS == 'undefined') {
 	 	FrontEndJSSettings.LABELS = {};
 	}
+	if(typeof FrontEndJSSettings.SITE == 'undefined') {
+	 	FrontEndJSSettings.SITE = {};
+	}
 	FrontEndJSSettings.LABELS.Passed = '{!$Label.FieloCMSELR_Passed}';
 	FrontEndJSSettings.LABELS.NotPassed = '{!$Label.FieloCMSELR_NotPassed}';
+	FrontEndJSSettings.SITE.pathPrefix = '{!pathPrefix}';
 	</script>
 </apex:component>

@@ -204,6 +204,14 @@
     var action;
     var categorySearch;
     this.recordHrefs = {};
+    this.pathPrefix = '';
+    if (FrontEndJSSettings) { // eslint-disable-line no-undef
+      if (FrontEndJSSettings.SITE) { // eslint-disable-line no-undef
+        if (FrontEndJSSettings.SITE.pathPrefix) { // eslint-disable-line no-undef
+          this.pathPrefix = FrontEndJSSettings.SITE.pathPrefix; // eslint-disable-line no-undef
+        }
+      }
+    }
     [].forEach.call(Object.keys(this.records), function(recordId) {
       action = this.records[recordId]
         .querySelector('.' + this.CssClasses_.ACTION);
@@ -212,17 +220,19 @@
         '';
       this.recordHrefs[recordId] = {};
       this.recordHrefs[recordId].takeHref =
-        '/FieloCMS__Page?pageId=' +
-          action.getAttribute('data-take-redirect-page') +
-            categorySearch +
-              '&' + action.getAttribute('data-take-parameter') +
-                '=' + action.getAttribute('data-record-id');
+        this.pathPrefix +
+          '/FieloCMS__Page?pageId=' +
+            action.getAttribute('data-take-redirect-page') +
+              categorySearch +
+                '&' + action.getAttribute('data-take-parameter') +
+                  '=' + action.getAttribute('data-record-id');
       this.recordHrefs[recordId].viewHref =
-        '/FieloCMS__Page?pageId=' +
-          action.getAttribute('data-view-redirect-page') +
-            categorySearch +
-              '&' + action.getAttribute('data-view-parameter') +
-                '=';
+        this.pathPrefix +
+          '/FieloCMS__Page?pageId=' +
+            action.getAttribute('data-view-redirect-page') +
+              categorySearch +
+                '&' + action.getAttribute('data-view-parameter') +
+                  '=';
     }, this);
   };
 
