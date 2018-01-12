@@ -129,12 +129,28 @@ global class FieloCMSELR_CourseActionCtlr implements FieloCMS.ViewSubComponentIn
 
     public String href{get{
         if (href==null) {
-            href = '/FieloCMS__Page?pageId=' +
-                (String)cField.attributes.get('PageId') +
+            href = '/FieloCMS__Page?pageId=';
+            if (!Test.isRunningTest()) {
+                href += Site.getPathPrefix();
+            }
+            href += (String)cField.attributes.get('PageId') +
                 '&id=' +
                 (String)cRecord.get((String)cField.attributes.get('fieldName'));
         }
         return href;
+    }
+        set;
+    }
+
+    public String pathPrefix { get{
+        if (pathPrefix==null) {
+            if (!Test.isRunningTest()) {
+                pathPrefix = Site.getPathPrefix();
+            } else {
+                pathPrefix = '';
+            }
+        }
+        return pathPrefix;
     }
         set;
     }

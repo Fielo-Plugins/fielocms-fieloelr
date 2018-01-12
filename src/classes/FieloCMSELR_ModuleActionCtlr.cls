@@ -172,4 +172,17 @@ global class FieloCMSELR_ModuleActionCtlr implements FieloCMS.ViewSubComponentIn
         );
         return moduleWrapper;
     }
+
+    public String pathPrefix { get{
+        if (pathPrefix==null) {
+            if (!Test.isRunningTest()) {
+                pathPrefix = Site.getPathPrefix();
+            } else {
+                pathPrefix = '';
+            }
+        }
+        return pathPrefix;
+    }
+        set;
+    }
 }

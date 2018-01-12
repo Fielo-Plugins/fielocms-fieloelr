@@ -29,5 +29,13 @@
 	    return el;
 	  };
 	}
+
+	if(typeof FrontEndJSSettings == 'undefined') {
+		var FrontEndJSSettings = {};
+	}
+	if(typeof FrontEndJSSettings.SITE == 'undefined') {
+	 	FrontEndJSSettings.SITE = {};
+	}
+	FrontEndJSSettings.SITE.pathPrefix = '{!pathPrefix}';
 	</script>
 </apex:component>
