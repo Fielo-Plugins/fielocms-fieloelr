@@ -64,13 +64,9 @@
 	if(typeof FrontEndJSSettings.LABELS == 'undefined') {
 	 	FrontEndJSSettings.LABELS = {};
 	}
-	if(typeof FrontEndJSSettings.SITE == 'undefined') {
-	 	FrontEndJSSettings.SITE = {};
-	}
 	FrontEndJSSettings.LABELS.WrongAnswer = '{!$Label.FieloCMSELR_WrongAnswer}';
 	FrontEndJSSettings.LABELS.MaximumAttempts = '{!$Label.FieloCMSELR_MaximumAttempts}';
 	FrontEndJSSettings.LABELS.ModuleFinished = '{!$Label.FieloCMSELR_ModuleFinished}';
 	FrontEndJSSettings.LABELS.SelectAnOption = '{!$Label.FieloPLT__SelectAnOption}';
-	FrontEndJSSettings.SITE.pathPrefix = '{!pathPrefix}';
 	</script>
 </apex:component>

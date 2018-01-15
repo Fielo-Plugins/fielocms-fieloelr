@@ -8,6 +8,11 @@ global class FieloCMSELR_CourseActionCtlr implements FieloCMS.ViewSubComponentIn
         }
         action.expressions.config = '{!config}';
         action.field = field;
+        if (field.attributes.containsKey('joinRedirectPage')) {
+            action.pageField = field.attributes.get('joinRedirectPage') instanceof Id ?
+                'pageId' :
+                'p';
+        }
         return action;
     }
 

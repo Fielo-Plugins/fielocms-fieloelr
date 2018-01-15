@@ -7,6 +7,16 @@ global class FieloCMSELR_ModuleActionCtlr implements FieloCMS.ViewSubComponentIn
             action.expressions.record = '{!record}';
         }
         action.field = field;
+        if (field.attributes.containsKey('takeRedirectPage')) {
+            action.takePageField = field.attributes.get('takeRedirectPage') instanceof Id ?
+                'pageId' :
+                'p';
+        }
+        if (field.attributes.containsKey('viewRedirectPage')) {
+            action.viewPageField = field.attributes.get('viewRedirectPage') instanceof Id ?
+                'pageId' :
+                'p';
+        }
         return action;
     }
 

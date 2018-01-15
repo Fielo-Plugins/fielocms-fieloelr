@@ -4,6 +4,7 @@
     <apex:attribute name="config" type="SObject" description="" assignTo="{!cConfig}"/>
     <apex:attribute name="useFieldAsSource" type="Boolean" description="" default="false"/>
     <apex:attribute name="calculateAction" type="Boolean" description="" default="false"/>
+    <apex:attribute name="pageField" type="String" description="" default="false"/>
 
 	<a class="{!config['FieloCMS__ComponentLibrary__r']['FieloCMS__CSSClasses__c']} {!config['FieloCMS__CSSClasses__c']} fielo-button cms-elr-record-action" 
 	data-remoteobject="{!config['FieloCMS__ComponentLibrary__r']['FieloCMS__sobject__c']}"
@@ -12,6 +13,7 @@
 	type="button" 
 	data-record-id="{!record['Id']}"
 	href="{!IF(useFieldAsSource, href, '')}"
+	data-page-field="{!pageField}"
 	data-join-redirect-page="{!field.attributes['joinRedirectPage']}"
 	data-join-parameter="{!field.attributes['joinParameter']}">{!IF(calculateAction, action, 'Loading...')}</a>
 	<script>

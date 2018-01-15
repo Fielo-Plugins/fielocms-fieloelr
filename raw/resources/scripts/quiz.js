@@ -507,10 +507,10 @@
       this.categorySearch = '';
     }
     this.redirectURL =
-      '/FieloCMS__Page?pageId=' +
-        this.element_.getAttribute('data-redirect-page') +
+        '/FieloCMS__Page?pageId=' +
+          this.element_.getAttribute('data-redirect-page') +
             this.categorySearch +
-            '&' + this.detailParameter + '=' + this.moduleResponseId;
+              '&' + this.detailParameter + '=' + this.moduleResponseId;
   };
 
   /**
