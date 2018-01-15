@@ -221,18 +221,20 @@
       this.recordHrefs[recordId] = {};
       this.recordHrefs[recordId].takeHref =
         this.pathPrefix +
-          '/FieloCMS__Page?pageId=' +
-            action.getAttribute('data-take-redirect-page') +
-              categorySearch +
-                '&' + action.getAttribute('data-take-parameter') +
-                  '=' + action.getAttribute('data-record-id');
+          '/FieloCMS__Page?' +
+            action.getAttribute('data-take-redirect-page-field') + '=' +
+              action.getAttribute('data-take-redirect-page') +
+                categorySearch +
+                  '&' + action.getAttribute('data-take-parameter') +
+                    '=' + action.getAttribute('data-record-id');
       this.recordHrefs[recordId].viewHref =
         this.pathPrefix +
-          '/FieloCMS__Page?pageId=' +
-            action.getAttribute('data-view-redirect-page') +
-              categorySearch +
-                '&' + action.getAttribute('data-view-parameter') +
-                  '=';
+          '/FieloCMS__Page?' +
+            action.getAttribute('data-view-redirect-page-field') + '=' +
+              action.getAttribute('data-view-redirect-page') +
+                categorySearch +
+                  '&' + action.getAttribute('data-view-parameter') +
+                    '=';
     }, this);
   };
 

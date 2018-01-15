@@ -2,12 +2,18 @@
 	<apex:attribute name="record" type="SObject" description="" />
     <apex:attribute name="field" type="FieloCMS.Field" description="" />
     <apex:attribute name="config" type="SObject" description="" />
+    <apex:attribute name="redirectPageField" type="String" description="" />
+    <apex:attribute name="takePageField" type="String" description="" />
+    <apex:attribute name="viewPageField" type="String" description="" />
 	<a class="fielo-button cms-elr-record-action"
 	type="button"
 	data-record-id="{!record.Id}"
+	data-redirect-page-field="{!redirectPageField}"
 	data-redirect-page="{!config['RedirectPage__c']}"
+	data-take-redirect-page-field="{!takePageField}"
 	data-take-redirect-page="{!field.attributes['takeRedirectPage']}"
 	data-take-parameter="{!field.attributes['takeParameter']}"
+	data-view-redirect-page-field="{!viewPageField}"
 	data-view-redirect-page="{!field.attributes['viewRedirectPage']}"
 	data-view-parameter="{!field.attributes['viewParameter']}">Loading...</a>
 	<script>
