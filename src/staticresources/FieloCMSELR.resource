@@ -19,7 +19,7 @@
         "value" : "FieloCMSELR"
       }, {
         "apiName" : "fieloplt__version__c",
-        "value" : "1.002"
+        "value" : "1.003"
       }, {
         "apiName" : "fieloplt__externalid__c",
         "value" : "FieloCMSELR4"
@@ -284,7 +284,7 @@
             "value" : "00D1I0000002lrq-a0L1I0000010YBk"
           }, {
             "apiName" : "fieloplt__iscustom__c",
-            "value" : "true"
+            "value" : "false"
           } ],
           "relatedList" : [ {
             "objectAPIName" : "fieloplt__programassignment__c",
