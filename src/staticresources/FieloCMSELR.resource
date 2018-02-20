@@ -19,7 +19,7 @@
         "value" : "FieloCMSELR"
       }, {
         "apiName" : "fieloplt__version__c",
-        "value" : "1.001"
+        "value" : "1.002"
       }, {
         "apiName" : "fieloplt__externalid__c",
         "value" : "FieloCMSELR4"
@@ -248,6 +248,43 @@
           }, {
             "apiName" : "fieloplt__iscustom__c",
             "value" : "false"
+          } ],
+          "relatedList" : [ {
+            "objectAPIName" : "fieloplt__programassignment__c",
+            "records" : [ ]
+          } ]
+        }, {
+          "fieldsValues" : [ {
+            "apiName" : "name",
+            "value" : "Module > View"
+          }, {
+            "apiName" : "fieloplt__buttons__c",
+            "value" : "{\"Label\":\"Enable Content\",\"Type\":\"Remote\",\"Action\":\"FieloCMSELR_ModuleCategoryButton\",\"Reflection\":true}"
+          }, {
+            "apiName" : "fieloplt__library__c.fieloplt__externalid__c",
+            "value" : "FieloCMSELR4",
+            "refObject" : "fieloplt__library__c"
+          }, {
+            "apiName" : "fieloplt__object__c",
+            "value" : "FieloELR__Module__c"
+          }, {
+            "apiName" : "fieloplt__order__c",
+            "value" : "1"
+          }, {
+            "apiName" : "fieloplt__standardactions__c",
+            "value" : "Edit;Delete;View;Settings"
+          }, {
+            "apiName" : "fieloplt__type__c",
+            "value" : "View"
+          }, {
+            "apiName" : "fieloplt__visibility__c",
+            "value" : "[ \r\n{\"field\":\"FieloCMSELR_ContentCategory__c\", \r\n\"operator\":\"equals\", \r\n\"value\":\"\", \r\n\"andOrOperator\":\"\"} \r\n]"
+          }, {
+            "apiName" : "fieloplt__externalid__c",
+            "value" : "00D1I0000002lrq-a0L1I0000010YBk"
+          }, {
+            "apiName" : "fieloplt__iscustom__c",
+            "value" : "true"
           } ],
           "relatedList" : [ {
             "objectAPIName" : "fieloplt__programassignment__c",
