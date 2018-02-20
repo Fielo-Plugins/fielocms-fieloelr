@@ -1,63 +1,298 @@
+
 {
-  "Libraries" : [ {
-    "Name" : "FieloCMSELR",
-    "FieloCMS__Version__c":1.01,
-    "pageSettings" : [ {
-      "Name" : "Module > Related > Post",
-      "FieloPLT__Fieldset__c" : "{\"Name\":\"Name\"}",
-      "FieloPLT__Object__c" : "FieloELR__Module__c",
-      "FieloPLT__Order__c" : 1,
-      "FieloPLT__StandardActions__c" : "Delete;New",
-      "FieloPLT__TargetObject__c" : "FieloCMS__Post__c",
-      "FieloPLT__Type__c" : "Related",
-      "FieloPLT__DataFilters__c" : "{\"FieloCMS__Category__c\":\"{!record.FieloCMSELR_ContentCategory__c}\"}",
-      "FieloPLT__Visibility__c" : "[ \r\n{\"field\":\"FieloCMSELR_ContentCategory__c\", \r\n\"operator\":\"not equals\", \r\n\"value\":\"\", \r\n\"andOrOperator\":\"\"} \r\n]"
-    }, {
-      "Name" : "Module > Related > Media",
-      "FieloPLT__Fieldset__c" : "{\"Name\":\"Name\"}",
-      "FieloPLT__Object__c" : "FieloELR__Module__c",
-      "FieloPLT__Order__c" : 1,
-      "FieloPLT__StandardActions__c" : "Delete;New",
-      "FieloPLT__TargetObject__c" : "FieloCMS__Media__c",
-      "FieloPLT__Type__c" : "Related",
-      "FieloPLT__DataFilters__c" : "{\"FieloCMS__Category__c\":\"{!record.FieloCMSELR_ContentCategory__c}\"}",
-      "FieloPLT__Visibility__c" : "[ \r\n{\"field\":\"FieloCMSELR_ContentCategory__c\", \r\n\"operator\":\"not equals\", \r\n\"value\":\"\", \r\n\"andOrOperator\":\"\"} \r\n]"
-    }, {
-      "Name" : "Course > Related > Media",
-      "FieloPLT__Fieldset__c" : "{\"Name\":\"Name\"}",
-      "FieloPLT__Object__c" : "FieloELR__Course__c",
-      "FieloPLT__Order__c" : 1,
-      "FieloPLT__StandardActions__c" : "Delete;New",
-      "FieloPLT__TargetObject__c" : "FieloCMS__Media__c",
-      "FieloPLT__Type__c" : "Related",
-      "FieloPLT__DataFilters__c" : "{\"FieloCMS__Category__c\":\"{!record.FieloCMSELR_ContentCategory__c}\"}",
-      "FieloPLT__Visibility__c" : "[ \r\n{\"field\":\"FieloCMSELR_ContentCategory__c\", \r\n\"operator\":\"not equals\", \r\n\"value\":\"\", \r\n\"andOrOperator\":\"\"} \r\n]"
-    }, {
-      "Name" : "Course > Related > Post",
-      "FieloPLT__Fieldset__c" : "{\"Name\":\"Name\"}",
-      "FieloPLT__Object__c" : "FieloELR__Course__c",
-      "FieloPLT__Order__c" : 1,
-      "FieloPLT__StandardActions__c" : "Delete;New",
-      "FieloPLT__TargetObject__c" : "FieloCMS__Post__c",
-      "FieloPLT__Type__c" : "Related",
-      "FieloPLT__DataFilters__c" : "{\"FieloCMS__Category__c\":\"{!record.FieloCMSELR_ContentCategory__c}\"}",
-      "FieloPLT__Visibility__c" : "[ \r\n{\"field\":\"FieloCMSELR_ContentCategory__c\", \r\n\"operator\":\"not equals\", \r\n\"value\":\"\"} \r\n]"
-    }, {
-      "Name" : "Course > View",
-      "FieloPLT__Buttons__c" : "{\"Label\":\"Enable Content\",\"Type\":\"Remote\",\"Action\":\"FieloCMSELR_CourseCategoryButton\",\"Reflection\":true}",
-      "FieloPLT__Object__c" : "FieloELR__Course__c",
-      "FieloPLT__Order__c" : 1,
-      "FieloPLT__StandardActions__c" : "Edit;Delete;View;Settings",
-      "FieloPLT__Type__c" : "View",
-      "FieloPLT__Visibility__c" : "[ \r\n{\"field\":\"FieloCMSELR_ContentCategory__c\", \r\n\"operator\":\"equals\", \r\n\"value\":\"\", \r\n\"andOrOperator\":\"\"} \r\n]"
-    }, {
-      "Name" : "Module > View",
-      "FieloPLT__Buttons__c" : "{\"Label\":\"Enable Content\",\"Type\":\"Remote\",\"Action\":\"FieloCMSELR_ModuleCategoryButton\",\"Reflection\":true}",
-      "FieloPLT__Object__c" : "FieloELR__Module__c",
-      "FieloPLT__Order__c" : 1,
-      "FieloPLT__StandardActions__c" : "Edit;Delete;View;Settings",
-      "FieloPLT__Type__c" : "View",
-      "FieloPLT__Visibility__c" : "[ \r\n{\"field\":\"FieloCMSELR_ContentCategory__c\", \r\n\"operator\":\"equals\", \r\n\"value\":\"\", \r\n\"andOrOperator\":\"\"} \r\n]"
+  "exportType" : "update",
+  "configObjects" : [ {
+    "apiName" : "fieloplt__library__c",
+    "fieldsToExclude" : "fieloplt__resourceid__c"
+  }, {
+    "apiName" : "fieloplt__ruletrigger__c",
+    "fieldsToExclude" : "fieloplt__prefix__c"
+  }, {
+    "apiName" : "fieloplt__action__c",
+    "fieldsToExclude" : "fieloplt__rulesquantity__c,fieloplt__missionsquantity__c,fieloplt__criteriafields__c"
+  } ],
+  "migrationRecords" : [ {
+    "objectAPIName" : "fieloplt__library__c",
+    "records" : [ {
+      "fieldsValues" : [ {
+        "apiName" : "name",
+        "value" : "FieloCMSELR"
+      }, {
+        "apiName" : "fieloplt__version__c",
+        "value" : "1.003"
+      }, {
+        "apiName" : "fieloplt__externalid__c",
+        "value" : "FieloCMSELR4"
+      } ],
+      "relatedList" : [ {
+        "objectAPIName" : "fieloplt__ruletrigger__c",
+        "records" : [ ]
+      }, {
+        "objectAPIName" : "fieloplt__model__c",
+        "records" : [ ]
+      }, {
+        "objectAPIName" : "fieloplt__pagesettings__c",
+        "records" : [ {
+          "fieldsValues" : [ {
+            "apiName" : "name",
+            "value" : "Course > Related > Media"
+          }, {
+            "apiName" : "fieloplt__actions__c",
+            "value" : "{\"Label\":\"Delete\",\"Type\":\"Remote\",\"Action\":\"FieloELR.RelatedListController.deleteRecord\",\"CssClass\":\"slds-button--destructive\",\"Confirm\":true}"
+          }, {
+            "apiName" : "fieloplt__fieldset__c",
+            "value" : "{\"Name\":\"Name\"}"
+          }, {
+            "apiName" : "fieloplt__library__c.fieloplt__externalid__c",
+            "value" : "FieloCMSELR4",
+            "refObject" : "fieloplt__library__c"
+          }, {
+            "apiName" : "fieloplt__object__c",
+            "value" : "FieloELR__Course__c"
+          }, {
+            "apiName" : "fieloplt__order__c",
+            "value" : "1"
+          }, {
+            "apiName" : "fieloplt__standardactions__c",
+            "value" : "New"
+          }, {
+            "apiName" : "fieloplt__targetobject__c",
+            "value" : "FieloCMS__Media__c"
+          }, {
+            "apiName" : "fieloplt__type__c",
+            "value" : "Related"
+          }, {
+            "apiName" : "fieloplt__datafilters__c",
+            "value" : "{\"FieloCMS__Category__c\":\"{!record.FieloCMSELR_ContentCategory__c}\"}"
+          }, {
+            "apiName" : "fieloplt__visibility__c",
+            "value" : "[ \r\n{\"field\":\"FieloCMSELR_ContentCategory__c\", \r\n\"operator\":\"not equals\", \r\n\"value\":\"\", \r\n\"andOrOperator\":\"\"} \r\n]"
+          }, {
+            "apiName" : "fieloplt__externalid__c",
+            "value" : "CourseRelatedMedia40"
+          }, {
+            "apiName" : "fieloplt__iscustom__c",
+            "value" : "false"
+          } ],
+          "relatedList" : [ {
+            "objectAPIName" : "fieloplt__programassignment__c",
+            "records" : [ ]
+          } ]
+        }, {
+          "fieldsValues" : [ {
+            "apiName" : "name",
+            "value" : "Course > Related > Post"
+          }, {
+            "apiName" : "fieloplt__actions__c",
+            "value" : "{\"Label\":\"Delete\",\"Type\":\"Remote\",\"Action\":\"FieloELR.RelatedListController.deleteRecord\",\"CssClass\":\"slds-button--destructive\",\"Confirm\":true}"
+          }, {
+            "apiName" : "fieloplt__fieldset__c",
+            "value" : "{\"Name\":\"Name\"}"
+          }, {
+            "apiName" : "fieloplt__library__c.fieloplt__externalid__c",
+            "value" : "FieloCMSELR4",
+            "refObject" : "fieloplt__library__c"
+          }, {
+            "apiName" : "fieloplt__object__c",
+            "value" : "FieloELR__Course__c"
+          }, {
+            "apiName" : "fieloplt__order__c",
+            "value" : "1"
+          }, {
+            "apiName" : "fieloplt__standardactions__c",
+            "value" : "New"
+          }, {
+            "apiName" : "fieloplt__targetobject__c",
+            "value" : "FieloCMS__Post__c"
+          }, {
+            "apiName" : "fieloplt__type__c",
+            "value" : "Related"
+          }, {
+            "apiName" : "fieloplt__datafilters__c",
+            "value" : "{\"FieloCMS__Category__c\":\"{!record.FieloCMSELR_ContentCategory__c}\"}"
+          }, {
+            "apiName" : "fieloplt__visibility__c",
+            "value" : "[ \r\n{\"field\":\"FieloCMSELR_ContentCategory__c\", \r\n\"operator\":\"not equals\", \r\n\"value\":\"\"} \r\n]"
+          }, {
+            "apiName" : "fieloplt__externalid__c",
+            "value" : "CourseRelatedPost41"
+          }, {
+            "apiName" : "fieloplt__iscustom__c",
+            "value" : "false"
+          } ],
+          "relatedList" : [ {
+            "objectAPIName" : "fieloplt__programassignment__c",
+            "records" : [ ]
+          } ]
+        }, {
+          "fieldsValues" : [ {
+            "apiName" : "name",
+            "value" : "Course > View"
+          }, {
+            "apiName" : "fieloplt__buttons__c",
+            "value" : "{\"Label\":\"Enable Content\",\"Type\":\"Remote\",\"Action\":\"FieloCMSELR_CourseCategoryButton\",\"Reflection\":true}"
+          }, {
+            "apiName" : "fieloplt__library__c.fieloplt__externalid__c",
+            "value" : "FieloCMSELR4",
+            "refObject" : "fieloplt__library__c"
+          }, {
+            "apiName" : "fieloplt__object__c",
+            "value" : "FieloELR__Course__c"
+          }, {
+            "apiName" : "fieloplt__order__c",
+            "value" : "1"
+          }, {
+            "apiName" : "fieloplt__standardactions__c",
+            "value" : "Edit;Delete;View;Settings"
+          }, {
+            "apiName" : "fieloplt__type__c",
+            "value" : "View"
+          }, {
+            "apiName" : "fieloplt__visibility__c",
+            "value" : "[ \r\n{\"field\":\"FieloCMSELR_ContentCategory__c\", \r\n\"operator\":\"equals\", \r\n\"value\":\"\", \r\n\"andOrOperator\":\"\"} \r\n]"
+          }, {
+            "apiName" : "fieloplt__externalid__c",
+            "value" : "CourseView42"
+          }, {
+            "apiName" : "fieloplt__iscustom__c",
+            "value" : "false"
+          } ],
+          "relatedList" : [ {
+            "objectAPIName" : "fieloplt__programassignment__c",
+            "records" : [ ]
+          } ]
+        }, {
+          "fieldsValues" : [ {
+            "apiName" : "name",
+            "value" : "Module > Related > Media"
+          }, {
+            "apiName" : "fieloplt__actions__c",
+            "value" : "{\"Label\":\"Delete\",\"Type\":\"Remote\",\"Action\":\"FieloELR.RelatedListController.deleteRecord\",\"CssClass\":\"slds-button--destructive\",\"Confirm\":true}"
+          }, {
+            "apiName" : "fieloplt__fieldset__c",
+            "value" : "{\"Name\":\"Name\"}"
+          }, {
+            "apiName" : "fieloplt__library__c.fieloplt__externalid__c",
+            "value" : "FieloCMSELR4",
+            "refObject" : "fieloplt__library__c"
+          }, {
+            "apiName" : "fieloplt__object__c",
+            "value" : "FieloELR__Module__c"
+          }, {
+            "apiName" : "fieloplt__order__c",
+            "value" : "1"
+          }, {
+            "apiName" : "fieloplt__standardactions__c",
+            "value" : "New"
+          }, {
+            "apiName" : "fieloplt__targetobject__c",
+            "value" : "FieloCMS__Media__c"
+          }, {
+            "apiName" : "fieloplt__type__c",
+            "value" : "Related"
+          }, {
+            "apiName" : "fieloplt__datafilters__c",
+            "value" : "{\"FieloCMS__Category__c\":\"{!record.FieloCMSELR_ContentCategory__c}\"}"
+          }, {
+            "apiName" : "fieloplt__visibility__c",
+            "value" : "[ \r\n{\"field\":\"FieloCMSELR_ContentCategory__c\", \r\n\"operator\":\"not equals\", \r\n\"value\":\"\", \r\n\"andOrOperator\":\"\"} \r\n]"
+          }, {
+            "apiName" : "fieloplt__externalid__c",
+            "value" : "ModuleRelatedMedia39"
+          }, {
+            "apiName" : "fieloplt__iscustom__c",
+            "value" : "false"
+          } ],
+          "relatedList" : [ {
+            "objectAPIName" : "fieloplt__programassignment__c",
+            "records" : [ ]
+          } ]
+        }, {
+          "fieldsValues" : [ {
+            "apiName" : "name",
+            "value" : "Module > Related > Post"
+          }, {
+            "apiName" : "fieloplt__actions__c",
+            "value" : "{\"Label\":\"Delete\",\"Type\":\"Remote\",\"Action\":\"FieloELR.RelatedListController.deleteRecord\",\"CssClass\":\"slds-button--destructive\",\"Confirm\":true}"
+          }, {
+            "apiName" : "fieloplt__fieldset__c",
+            "value" : "{\"Name\":\"Name\"}"
+          }, {
+            "apiName" : "fieloplt__library__c.fieloplt__externalid__c",
+            "value" : "FieloCMSELR4",
+            "refObject" : "fieloplt__library__c"
+          }, {
+            "apiName" : "fieloplt__object__c",
+            "value" : "FieloELR__Module__c"
+          }, {
+            "apiName" : "fieloplt__order__c",
+            "value" : "1"
+          }, {
+            "apiName" : "fieloplt__standardactions__c",
+            "value" : "New"
+          }, {
+            "apiName" : "fieloplt__targetobject__c",
+            "value" : "FieloCMS__Post__c"
+          }, {
+            "apiName" : "fieloplt__type__c",
+            "value" : "Related"
+          }, {
+            "apiName" : "fieloplt__datafilters__c",
+            "value" : "{\"FieloCMS__Category__c\":\"{!record.FieloCMSELR_ContentCategory__c}\"}"
+          }, {
+            "apiName" : "fieloplt__visibility__c",
+            "value" : "[ \r\n{\"field\":\"FieloCMSELR_ContentCategory__c\", \r\n\"operator\":\"not equals\", \r\n\"value\":\"\", \r\n\"andOrOperator\":\"\"} \r\n]"
+          }, {
+            "apiName" : "fieloplt__externalid__c",
+            "value" : "ModuleRelatedPost38"
+          }, {
+            "apiName" : "fieloplt__iscustom__c",
+            "value" : "false"
+          } ],
+          "relatedList" : [ {
+            "objectAPIName" : "fieloplt__programassignment__c",
+            "records" : [ ]
+          } ]
+        }, {
+          "fieldsValues" : [ {
+            "apiName" : "name",
+            "value" : "Module > View"
+          }, {
+            "apiName" : "fieloplt__buttons__c",
+            "value" : "{\"Label\":\"Enable Content\",\"Type\":\"Remote\",\"Action\":\"FieloCMSELR_ModuleCategoryButton\",\"Reflection\":true}"
+          }, {
+            "apiName" : "fieloplt__library__c.fieloplt__externalid__c",
+            "value" : "FieloCMSELR4",
+            "refObject" : "fieloplt__library__c"
+          }, {
+            "apiName" : "fieloplt__object__c",
+            "value" : "FieloELR__Module__c"
+          }, {
+            "apiName" : "fieloplt__order__c",
+            "value" : "1"
+          }, {
+            "apiName" : "fieloplt__standardactions__c",
+            "value" : "Edit;Delete;View;Settings"
+          }, {
+            "apiName" : "fieloplt__type__c",
+            "value" : "View"
+          }, {
+            "apiName" : "fieloplt__visibility__c",
+            "value" : "[ \r\n{\"field\":\"FieloCMSELR_ContentCategory__c\", \r\n\"operator\":\"equals\", \r\n\"value\":\"\", \r\n\"andOrOperator\":\"\"} \r\n]"
+          }, {
+            "apiName" : "fieloplt__externalid__c",
+            "value" : "00D1I0000002lrq-a0L1I0000010YBk"
+          }, {
+            "apiName" : "fieloplt__iscustom__c",
+            "value" : "false"
+          } ],
+          "relatedList" : [ {
+            "objectAPIName" : "fieloplt__programassignment__c",
+            "records" : [ ]
+          } ]
+        } ]
+      } ]
     } ]
-  } ]
+  } ],
+  "segmentsCombinations" : [ ]
 }
