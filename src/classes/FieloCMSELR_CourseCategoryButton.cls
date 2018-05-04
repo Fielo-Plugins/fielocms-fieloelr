@@ -9,7 +9,7 @@ global class FieloCMSELR_CourseCategoryButton implements FieloPLT.ButtonActionIn
             result.redirectUrl = 'reload';
         }catch(Exception e){
             Database.rollback(sp);
-            result.addMessage(new FieloPLT.RemoteActionResult.RemoteActionMessage(ApexPages.SEVERITY.Error, e.getMessage()));
+            result.addMessage(new FieloPLT.RemoteActionResult.RemoteActionMessage(ApexPages.SEVERITY.Error, e.getDmlMessage(0)));
         }
 
         return result;
